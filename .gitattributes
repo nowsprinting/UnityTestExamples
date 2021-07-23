@@ -1,0 +1,151 @@
+### Referred as a base: https://hextantstudios.com/unity-gitattributes/
+### Run `make apply_unityyamlmerge` if use unityyamlmerge on macOS
+
+# Macro for Unity YAML-based asset files.
+[attr]unityyaml -text merge=unityyamlmerge diff
+
+# Macro for all binary files that should use Git LFS.
+[attr]lfs -text filter=lfs diff=lfs merge=lfs
+
+# Default to auto-normalized line endings.
+* text=auto encoding=UTF-8 eol=lf
+
+# Code
+*.cs        text diff=csharp
+*.cginc     text
+*.shader    text
+*.sh        text
+*.md        text
+
+# Unity Text Assets
+*.meta unityyaml
+*.unity unityyaml
+*.asset unityyaml
+*.prefab unityyaml
+*.mat unityyaml
+*.anim unityyaml
+*.controller unityyaml
+*.overrideController unityyaml
+*.physicMaterial unityyaml
+*.physicsMaterial2D unityyaml
+*.playable unityyaml
+*.mask unityyaml
+*.brush unityyaml
+*.flare unityyaml
+*.fontsettings unityyaml
+*.guiskin unityyaml
+*.giparams unityyaml
+*.renderTexture unityyaml
+*.spriteatlas unityyaml
+*.terrainlayer unityyaml
+*.mixer unityyaml
+*.shadervariants unityyaml
+*.preset unityyaml
+*.asmdef -text diff
+
+# Generated files
+src/Compilers/CSharp/Portable/Generated/* linguist-generated=true
+src/Compilers/CSharp/Portable/CSharpResources.Designer.cs linguist-generated=true
+src/Compilers/VisualBasic/Portable/Generated/* linguist-generated=true
+src/Compilers/VisualBasic/Portable/VBResources.Designer.vb linguist-generated=true
+*.xlf llinguist-generated=true
+*.meta llinguist-generated=true
+/[Aa]ssets/[Ss]erialized[Uu]don[Pp]rograms/* llinguist-generated=true
+
+# Unity Binary Assets (When using lfs, replace "-text" to "lfs")
+*.cubemap -text
+*.unitypackage -text
+# Note: Unity terrain assets must have "-Terrain" suffix.
+*-[Tt]errain.asset -unityyaml -text
+# Note: Unity navmesh assets must have "-NavMesh" suffix.
+*-[Nn]av[Mm]esh.asset -unityyaml -text
+
+# Image
+*.jpg -text
+*.jpeg -text
+*.png -text
+*.apng -text
+*.atsc -text
+*.gif -text
+*.bmp -text
+*.exr -text
+*.tga -text
+*.tiff -text
+*.tif -text
+*.iff -text
+*.pict -text
+*.dds -text
+*.xcf -text
+*.leo -text
+*.kra -text
+*.kpp -text
+*.clip -text
+*.webm -text
+*.webp -text
+*.svg -text
+*.svgz -text
+*.psd -text
+*.ai -text
+*.afphoto -text
+*.afdesign -text
+*.pdf -text
+*.ttf -text
+
+# Audio
+*.mp3 -text
+*.ogg -text
+*.wav -text
+*.aiff -text
+*.aif -text
+*.mod -text
+*.it -text
+*.s3m -text
+*.xm -text
+
+# Video
+*.mov -text
+*.avi -text
+*.asf -text
+*.mpg -text
+*.mpeg -text
+*.mp4 -text
+*.flv -text
+*.ogv -text
+*.wmv -text
+
+# 3D
+*.fbx -text
+*.obj -text
+*.max -text
+*.blend -text
+*.blender -text
+*.dae -text
+*.mb -text
+*.ma -text
+*.3ds -text
+*.dfx -text
+*.c4d -text
+*.lwo -text
+*.lwo2 -text
+*.abc -text
+*.3dm -text
+*.bin -text
+*.glb -text
+*.spp -text
+*.sbs -text
+
+# Executables
+*.exe -text
+*.dll -text
+*.so -text
+*.pdb -text
+*.mdb -text
+*.a -text
+
+# Packaging
+*.zip -text
+*.7z -text
+*.gz -text
+*.rar -text
+*.tar -text
+
