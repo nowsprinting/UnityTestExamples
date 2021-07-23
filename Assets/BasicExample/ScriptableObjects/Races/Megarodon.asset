@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daec8c9b66f74efd8fa14cae1ff1abdf, type: 3}
+  m_Name: Megarodon
+  m_EditorClassIdentifier: 
+  displayName: "\u30E1\u30AC\u30ED\u30C9\u30F3"
+  status:
+    element: 3
+    maxHitPoint: 500000
+    defense: 50000
+    attack: 20000
+  attackTypes:
+  - {fileID: 11400000, guid: 55ad59998166e4b9ab9d31abcf5d8e39, type: 2}
+  - {fileID: 11400000, guid: 4cfc164a5a4f64ffc99d53b803b7eb32, type: 2}
+  destructionEffects:
+  - {fileID: 11400000, guid: 06ca1995bf8a64e3aaca882c18d8e7e4, type: 2}
+  rewardExp: 8000
+  rewardGold: 10

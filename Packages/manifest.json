@@ -40,8 +40,12 @@
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0",
     "com.cysharp.unitask": "2.2.5",
-    "com.nowsprinting.create-script-folders-with-tests": "1.0.1"
+    "com.nowsprinting.create-script-folders-with-tests": "1.0.1",
+    "com.nowsprinting.local-package-sample": "file:../LocalPackages/com.nowsprinting.local-package-sample"
   },
+  "testables": [
+    "com.nowsprinting.local-package-sample"
+  ],
   "scopedRegistries": [
     {
       "name": "package.openupm.com",

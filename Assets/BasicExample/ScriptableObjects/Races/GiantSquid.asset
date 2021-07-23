@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daec8c9b66f74efd8fa14cae1ff1abdf, type: 3}
+  m_Name: GiantSquid
+  m_EditorClassIdentifier: 
+  displayName: "\u5927\u30A4\u30AB"
+  status:
+    element: 3
+    maxHitPoint: 20000
+    defense: 400
+    attack: 300
+  attackTypes:
+  - {fileID: 11400000, guid: 2b316acaabd06412285be470bc403483, type: 2}
+  - {fileID: 11400000, guid: 8a69932b5716b488fad62c3a7d40aa12, type: 2}
+  destructionEffects:
+  - {fileID: 11400000, guid: e63ee313da67a42c78f65adb6495dec5, type: 2}
+  rewardExp: 300
+  rewardGold: 20

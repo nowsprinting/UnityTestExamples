@@ -1,0 +1,1 @@
+﻿{"allowUnsafeCode":false,"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"],"excludePlatforms":[],"includePlatforms":[],"name":"BasicExample.Tests","noEngineReferences":false,"optionalUnityReferences":[],"overrideReferences":true,"precompiledReferences":["nunit.framework.dll"],"references":["UnityEngine.TestRunner","UnityEditor.TestRunner","BasicExample"]}

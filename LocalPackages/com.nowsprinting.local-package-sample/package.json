@@ -1,0 +1,7 @@
+{
+  "name": "com.nowsprinting.local-package-sample",
+  "version": "1.0.0",
+  "displayName": "Local Package Sample",
+  "description": "",
+  "unity": "2019.4"
+}
