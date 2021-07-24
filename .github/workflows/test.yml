@@ -1,0 +1,81 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    types: [ opened, synchronize, reopened ]  # Same as default
+
+jobs:
+  test:
+    name: Run tests on Unity ${{ matrix.unityVersion }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        targetPlatform:
+          - StandaloneLinux64
+        unityVersion:
+          - 2019.4.28f1
+          - 2020.3.14f1
+          - 2021.1.15f1
+        include:
+          - unityVersion: 2019.4.28f1
+            unityLicense: UNITY_LICENSE_2019
+          - unityVersion: 2020.3.14f1
+            unityLicense: UNITY_LICENSE_2020
+          - unityVersion: 2021.1.15f1
+            unityLicense: UNITY_LICENSE_2021
+
+    steps:
+      # Checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          submodules: false
+          lfs: false
+
+      # Cache
+      - uses: actions/cache@v2
+        with:
+          path: Library
+          key: Library-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          restore-keys: |
+            Library-${{ matrix.targetPlatform }}-
+            Library-
+
+      # Test
+      - name: Run tests
+        uses: game-ci/unity-test-runner@v2
+        with:
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          unityVersion: ${{ matrix.unityVersion }}  # 通常は未指定（`auto`）でok
+          artifactsPath: Logs
+          customParameters: -testCategory "!IgnoreCI" -burst-disable-compilation -debugCodeOptimization -enableCodeCoverage -coverageResultsPath Logs -coverageOptions 'generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests'
+          # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
+          # HtmlReportは二度生成されるが、Edit + Play Modeを含んだものが上書きされて残るのでヨシ
+        env:
+          UNITY_LICENSE: ${{ secrets[matrix.unityLicense] }}
+      - name: Upload test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: TestResults-Unity${{ matrix.unityVersion }}
+          path: Logs
+        if: always()
+
+      # Notification
+      - name: Slack notification
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: all
+          mention: here
+          if_mention: failure
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
+        if: failure()
