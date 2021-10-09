@@ -11,7 +11,6 @@ on:
 
 jobs:
   test:
-    name: Run tests on Unity ${{ matrix.unityVersion }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -64,15 +63,14 @@ jobs:
         if: always()
 
       # Notification
-      - name: Slack notification
-        uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v3
         with:
+          job_name: test (${{ matrix.targetPlatform }}, ${{ matrix.unityVersion }})
           status: ${{ job.status }}
-          fields: all
+          fields: repo,message,job,took,eventName,workflow
           mention: here
           if_mention: failure
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-        if: failure()
+        if: always()
