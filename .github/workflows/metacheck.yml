@@ -4,15 +4,13 @@ on:
   push:
     branches:
       - master
-    paths-ignore:
-      - '**.md'
   pull_request:
     types: [ opened, synchronize, reopened ]  # Same as default
 
 jobs:
   meta-check:
-    name: Meta file check
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
         with:
@@ -20,15 +18,13 @@ jobs:
           lfs: false
 
       # Meta file check
-      - name: Meta file check
-        uses: DeNA/unity-meta-check@master
+      - uses: DeNA/unity-meta-check@master
 
       # Notification
-      - name: Slack notification
-        uses: 8398a7/action-slack@v3
+      - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: all
+          fields: repo,message,job,took,eventName,workflow
           mention: here
           if_mention: failure
         env:
