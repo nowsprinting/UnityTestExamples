@@ -24,7 +24,7 @@ jobs:
       - uses: 8398a7/action-slack@v3
         with:
           status: ${{ job.status }}
-          fields: repo,message,job,took,eventName,workflow
+          fields: repo,message,job,took,eventName,ref
           mention: here
           if_mention: failure
         env:

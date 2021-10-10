@@ -67,7 +67,7 @@ jobs:
         with:
           job_name: test (${{ matrix.targetPlatform }}, ${{ matrix.unityVersion }})
           status: ${{ job.status }}
-          fields: repo,message,job,took,eventName,workflow
+          fields: repo,message,job,took,eventName,ref
           mention: here
           if_mention: failure
         env:
