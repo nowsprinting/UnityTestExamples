@@ -8,6 +8,8 @@ on:
       - '**.md'
   pull_request:
     types: [ opened, synchronize, reopened ]  # Same as default
+    paths-ignore:
+      - '**.md'
 
 jobs:
   test:
@@ -18,13 +20,9 @@ jobs:
         targetPlatform:
           - StandaloneLinux64
         unityVersion:
-          - 2020.3.14f1
-          - 2021.1.15f1
-        include:
-          - unityVersion: 2020.3.14f1
-            unityLicense: UNITY_LICENSE_2020
-          - unityVersion: 2021.1.15f1
-            unityLicense: UNITY_LICENSE_2021
+          - 2020.3.17f1
+          - 2021.1.25f1
+          - 2021.2.0b16
 
     steps:
       # Checkout
@@ -44,6 +42,9 @@ jobs:
             Library-
 
       # Test
+      - name: Create license secret key
+        id: license
+        run: echo "::set-output name=secret_key::UNITY_LICENSE_$(echo matrix.unityVersion | cut -c 1-4)"
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
         with:
@@ -54,7 +55,7 @@ jobs:
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
           # HtmlReportは二度生成されるが、Edit + Play Modeを含んだものが上書きされて残るのでヨシ
         env:
-          UNITY_LICENSE: ${{ secrets[matrix.unityLicense] }}
+          UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
       - name: Upload test results
         uses: actions/upload-artifact@v2
         with:
@@ -65,7 +66,6 @@ jobs:
       # Notification
       - uses: 8398a7/action-slack@v3
         with:
-          job_name: test (${{ matrix.targetPlatform }}, ${{ matrix.unityVersion }})
           status: ${{ job.status }}
           fields: repo,message,job,took,eventName,ref
           mention: here
