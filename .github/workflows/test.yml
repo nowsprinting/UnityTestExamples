@@ -19,10 +19,9 @@ jobs:
       matrix:
         targetPlatform:
           - StandaloneLinux64
-        unityVersion:
-          - 2020.3.17f1
-          - 2021.1.25f1
-          - 2021.2.0b16
+        unityVersion: # Available versions see: https://game.ci/docs/docker/versions
+          - 2020.3.30f1
+          - 2021.1.26f1
 
     steps:
       # Checkout
@@ -44,7 +43,9 @@ jobs:
       # Test
       - name: Create license secret key
         id: license
-        run: echo "::set-output name=secret_key::UNITY_LICENSE_$(echo matrix.unityVersion | cut -c 1-4)"
+        run: |
+          echo "::set-output name=secret_key::UNITY_LICENSE_$(echo matrix.unityVersion | cut -c 1-4)"
+          echo "steps.license.outputs.secret_key"
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
         with:
@@ -72,5 +73,6 @@ jobs:
           if_mention: failure
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          MATRIX_CONTEXT: ${{ toJson(matrix) }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: always()
