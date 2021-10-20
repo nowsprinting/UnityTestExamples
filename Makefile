@@ -80,7 +80,8 @@ endef
 
 .PHONY: usage
 usage:
-	@echo Tasks:
+	@echo "Tasks:"
+	@echo "  open_editor: Open this project in Unity editor."
 	@echo "  apply_unityyamlmerge: Apply UnityYAMLMerge as mergetool in .git/config."
 	@echo "  clean: Clean /Build and /Logs directories."
 	@echo "  test_editmode: Run Edit Mode tests."
@@ -90,6 +91,10 @@ usage:
 	@echo "  test_standalone_player: Run Play Mode tests on standalone player."
 	@echo "  test_android: Run Play Mode tests on Android device."
 	@echo "  test_ios: Run Play Mode tests on iOS device."
+
+.PHONY: open_editor
+open_editor:
+	$(UNITY) -projectPath $(PROJECT_HOME) -logFile $(LOG_DIR)/editor.log &
 
 # Apply UnityYAMLMerge as mergetool in .git/config
 .PHONY: apply_unityyamlmerge
