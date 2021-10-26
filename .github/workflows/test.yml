@@ -22,6 +22,7 @@ jobs:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 2020.3.20f1
           - 2021.1.26f1
+          - 2021.2.0f1
 
     steps:
       # Checkout
