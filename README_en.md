@@ -3,29 +3,38 @@
 [![meta-check](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml)
 [![test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml)
 
-Click [English](./README_en.md) for English page if you need.
+Click [日本語](./README.md) for the Japanese page if you need.
 
 
 
-## このリポジトリについて
+## About this repository
 
-このリポジトリは、同人誌『Unity Test Framework完全攻略ガイド』のサンプルコードです。
+This repository is a sample project for the "Unity Test Framework Perfect Guidebook".
 
-電子版 (pdf) は次のWebサイトから購入できます。
+Books can be purchased from the following websites, but they are written in Japanese.
 
 #### BOOTH
 [Unity Test Framework完全攻略ガイド【電子版】 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
 
-#### 技術書典マーケット
+#### Tech Book Fest Market
 [Unity Test Framework完全攻略ガイド：いか小屋](https://techbookfest.org/product/5936401533108224)
 
 
 
-## サンプルプロジェクトの構造
+## About English support
+
+Test method names and comments in the sample code are written in Japanese. 
+
+We are planning to add the comments in English little by little.
+For test method names, English comments will be added by the `Description` attribute.
+
+
+
+## Structure of sample project
 
 ### Basic Example
 
-第2章 Unity Test Framework の基本
+Chapter 2 Unity Test Framework Basics
 
 ```
 Assets
@@ -39,7 +48,7 @@ Assets
 │   │   │   └── (snip)
 │   │   └── Runtime
 │   │       ├── Entities
-│   │       │   ├── CharacterStatus.cs          // 2.4 テストコードの書きかた のSUT
+│   │       │   ├── CharacterStatus.cs          // SUT of "2.4 How to write test code"
 │   │       │   └── (snip)
 │   │       └── Level
 │   │           └── (snip)
@@ -50,7 +59,7 @@ Assets
 │       │       └── RaceValidator.cs
 │       └── Runtime
 │           └── Entities
-│               ├── CharacterStatueTest.cs      // 2.4 テストコードの書きかた のテストコード
+│               ├── CharacterStatueTest.cs      // Test of "2.4 How to write test code"
 │               ├── Enums
 │               │   └── ElementTest.cs
 │               └── Settings
@@ -59,7 +68,7 @@ Assets
 
 ### API Examples
 
-Unity Test FrameworkおよびNUnit3のAPIカタログ
+API catalog of Unity Test Framework and NUnit3
 
 ```
 Assets
@@ -69,18 +78,18 @@ Assets
     └── Tests
         ├── Editor
         │   └── UnityTestFramework
-        │       ├── EditModeTestYieldInstructionExample.cs  // 3.3 Edit Modeテスト固有のyield instructions
-        │       └── UnityTestAttributeExampleInEditor.cs    // 第5章 非同期処理のテスト
+        │       ├── EditModeTestYieldInstructionExample.cs  // 3.3 yield instructions via Edit Mode Tests
+        │       └── UnityTestAttributeExampleInEditor.cs    // Chapter 5 Test asynchronous processing
         └── Runtime
             ├── NUnit
-            │   └── 第6章 アサーション, 第8章 パラメタライズドテスト, 第9章 Unity Test Framework Tips
+            │   └── Chapter 6 Assertion, Chapter 8 Parameterized Tests, Chapter 9 Unity Test Framework Tips
             └── UnityTestFramework
-                └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
+                └── Chapter 5 Test asynchronous processing, Chapter 9 Unity Test Framework Tips
 ```
 
 ### TestDoubleExample
 
-第7章 テストダブル
+Chapter 7 Test Doubles
 
 ```
 Assets
@@ -89,7 +98,7 @@ Assets
 
 ### InternalsVisibleToExample
 
-9.10 internalメソッドのテストを書きたい
+9.10 Testing internal method
 
 ```
 Assets
@@ -98,7 +107,7 @@ Assets
 
 ### SceneExample
 
-第10章 Sceneを使用するテスト
+Chapter 10 Testing using Scene
 
 ```
 Assets
@@ -107,16 +116,16 @@ Assets
 
 ### Packages
 
-第11章 UPM パッケージのテスト
+Chapter 11 Testing UPM packages
 
-#### 組み込みパッケージ
+#### Embedded package
 
 ```
 Packages
 └── com.nowsprinting.embedded-package-sample
 ```
 
-#### ローカルパッケージ
+#### Local package
 
 ```
 LocalPackages
