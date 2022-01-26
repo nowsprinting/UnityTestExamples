@@ -134,5 +134,18 @@ namespace APIExamples.NUnit
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
+        [Test]
+        [Description("Can skip specified combination with ParameterizedIgnoreAttribute (Required UTF v2.0+)")]
+        [ParameterizedIgnore(Element.Fire, Element.Metal)]
+        [ParameterizedIgnore(Element.Water, Element.Earth)]
+        public void GetDamageMultiplier_ParameterizedIgnore属性で指定した組み合わせはskipされる(
+            [ValueSource(nameof(s_defs1x))] Element def,
+            [ValueSource(nameof(s_atks1x))] Element atk)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+
+            Assert.That(actual, Is.EqualTo(1.0f));
+        }
     }
 }
