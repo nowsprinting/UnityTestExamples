@@ -8,9 +8,17 @@ using UnityEngine;
 
 namespace APIExamples.UnityTestFramework
 {
-    public class AsyncExample
+    /// <summary>
+    /// 非同期テストの実装例
+    /// Async tests example
+    /// </summary>
+    /// <remarks>
+    /// Required: Unity Test Framework v2.0 or later
+    /// </remarks>
+    public class AsyncTestsExample
     {
         [Test]
+        [Description("Can await Task")]
         public async Task 非同期テストの例_Taskをawaitできる()
         {
             await Foo(1);
@@ -34,6 +42,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
+        [Description("Can await UniTask")]
         public async Task 非同期テストの例_UniTaskをawaitできる()
         {
             await UniTaskFoo(1);
