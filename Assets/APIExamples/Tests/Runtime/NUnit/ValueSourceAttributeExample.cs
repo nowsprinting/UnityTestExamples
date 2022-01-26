@@ -96,5 +96,17 @@ namespace APIExamples.NUnit
             var actual = def.GetDamageMultiplier(atk);
             Assert.That(actual, Is.EqualTo(1.0f));
         }
+
+        [Test]
+        [ParameterizedIgnore(Element.Fire, Element.Metal)]
+        [ParameterizedIgnore(Element.Water, Element.Earth)]
+        public void GetDamageMultiplier_ParameterizedIgnoreの使用例_指定した組み合わせはskipされる(
+            [ValueSource(nameof(s_defs1x))] Element def,
+            [ValueSource(nameof(s_atks1x))] Element atk)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+
+            Assert.That(actual, Is.EqualTo(1.0f));
+        }
     }
 }

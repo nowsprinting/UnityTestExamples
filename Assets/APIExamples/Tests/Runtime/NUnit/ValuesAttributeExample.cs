@@ -89,5 +89,19 @@ namespace APIExamples.NUnit
 
             Assert.That(actual, Is.EqualTo(1.0f));
         }
+
+        [Test]
+        [ParameterizedIgnore(Element.Fire, Element.Metal)]
+        [ParameterizedIgnore(Element.Water, Element.Earth)]
+        public void GetDamageMultiplier_ParameterizedIgnoreの使用例_指定した組み合わせはskipされる(
+            [Values(Element.Wood, Element.Fire, Element.Water)]
+            Element def,
+            [Values(Element.None, Element.Earth, Element.Metal)]
+            Element atk)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+
+            Assert.That(actual, Is.EqualTo(1.0f));
+        }
     }
 }
