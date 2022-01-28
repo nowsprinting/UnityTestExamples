@@ -23,41 +23,41 @@ Click [English](./README_en.md) for English page if you need.
 
 ## サンプルプロジェクトの構造
 
-### Basic Example
+### BasicExample
 
 第2章 Unity Test Framework の基本
 
 ```
 Assets
-├── BasicExample
-│   ├── Scenes
-│   │   └── (snip)
-│   ├── ScriptableObjects
-│   │   └── (snip)
-│   ├── Scripts
-│   │   ├── Editor
-│   │   │   └── (snip)
-│   │   └── Runtime
-│   │       ├── Entities
-│   │       │   ├── CharacterStatus.cs          // 2.4 テストコードの書きかた のSUT
-│   │       │   └── (snip)
-│   │       └── Level
-│   │           └── (snip)
-│   └── Tests
-│       ├── Editor
-│       │   └── AssetValidators
-│       │       ├── LevelValidator.cs
-│       │       └── RaceValidator.cs
-│       └── Runtime
-│           └── Entities
-│               ├── CharacterStatueTest.cs      // 2.4 テストコードの書きかた のテストコード
-│               ├── Enums
-│               │   └── ElementTest.cs
-│               └── Settings
-│                   └── HitPointGaugeSettingTest.cs
+└── BasicExample
+    ├── Scenes
+    │   └── (snip)
+    ├── ScriptableObjects
+    │   └── (snip)
+    ├── Scripts
+    │   ├── Editor
+    │   │   └── (snip)
+    │   └── Runtime
+    │       ├── Entities
+    │       │   ├── CharacterStatus.cs          // 「2.4 テストコードの書きかた」のSUT
+    │       │   └── (snip)
+    │       └── Level
+    │           └── (snip)
+    └── Tests
+        ├── Editor
+        │   └── AssetValidators
+        │       ├── LevelValidator.cs
+        │       └── RaceValidator.cs
+        └── Runtime
+            └── Entities
+                ├── CharacterStatueTest.cs      // 「2.4 テストコードの書きかた」のテストコード
+                ├── Enums
+                │   └── ElementTest.cs
+                └── Settings
+                    └── HitPointGaugeSettingTest.cs
 ```
 
-### API Examples
+### APIExamples
 
 Unity Test FrameworkおよびNUnit3のAPIカタログ
 
@@ -69,8 +69,7 @@ Assets
     └── Tests
         ├── Editor
         │   └── UnityTestFramework
-        │       ├── EditModeTestYieldInstructionExample.cs  // 3.3 Edit Modeテスト固有のyield instructions
-        │       └── UnityTestAttributeExampleInEditor.cs    // 第5章 非同期処理のテスト
+        │       └── 第3章 Edit Modeテスト, 第5章 非同期処理のテスト
         └── Runtime
             ├── NUnit
             │   └── 第6章 アサーション, 第8章 パラメタライズドテスト, 第9章 Unity Test Framework Tips

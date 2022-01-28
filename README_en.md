@@ -32,41 +32,41 @@ For test method names, English comments will be added by the `Description` attri
 
 ## Structure of sample project
 
-### Basic Example
+### BasicExample
 
 Chapter 2 Unity Test Framework Basics
 
 ```
 Assets
-├── BasicExample
-│   ├── Scenes
-│   │   └── (snip)
-│   ├── ScriptableObjects
-│   │   └── (snip)
-│   ├── Scripts
-│   │   ├── Editor
-│   │   │   └── (snip)
-│   │   └── Runtime
-│   │       ├── Entities
-│   │       │   ├── CharacterStatus.cs          // SUT of "2.4 How to write test code"
-│   │       │   └── (snip)
-│   │       └── Level
-│   │           └── (snip)
-│   └── Tests
-│       ├── Editor
-│       │   └── AssetValidators
-│       │       ├── LevelValidator.cs
-│       │       └── RaceValidator.cs
-│       └── Runtime
-│           └── Entities
-│               ├── CharacterStatueTest.cs      // Test of "2.4 How to write test code"
-│               ├── Enums
-│               │   └── ElementTest.cs
-│               └── Settings
-│                   └── HitPointGaugeSettingTest.cs
+└── BasicExample
+    ├── Scenes
+    │   └── (snip)
+    ├── ScriptableObjects
+    │   └── (snip)
+    ├── Scripts
+    │   ├── Editor
+    │   │   └── (snip)
+    │   └── Runtime
+    │       ├── Entities
+    │       │   ├── CharacterStatus.cs          // SUT of "2.4 How to write test code"
+    │       │   └── (snip)
+    │       └── Level
+    │           └── (snip)
+    └── Tests
+        ├── Editor
+        │   └── AssetValidators
+        │       ├── LevelValidator.cs
+        │       └── RaceValidator.cs
+        └── Runtime
+            └── Entities
+                ├── CharacterStatueTest.cs      // Test code of "2.4 How to write test code"
+                ├── Enums
+                │   └── ElementTest.cs
+                └── Settings
+                    └── HitPointGaugeSettingTest.cs
 ```
 
-### API Examples
+### APIExamples
 
 API catalog of Unity Test Framework and NUnit3
 
@@ -78,8 +78,7 @@ Assets
     └── Tests
         ├── Editor
         │   └── UnityTestFramework
-        │       ├── EditModeTestYieldInstructionExample.cs  // 3.3 yield instructions via Edit Mode Tests
-        │       └── UnityTestAttributeExampleInEditor.cs    // Chapter 5 Test asynchronous processing
+        │       └── Chapter 3 Edit Mode tests, Chapter 5 Test asynchronous processing
         └── Runtime
             ├── NUnit
             │   └── Chapter 6 Assertion, Chapter 8 Parameterized Tests, Chapter 9 Unity Test Framework Tips
