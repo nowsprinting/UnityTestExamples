@@ -1,6 +1,8 @@
 ﻿// Copyright (c) 2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System;
+using System.Collections;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
@@ -63,6 +65,30 @@ namespace APIExamples.Editor.UnityTestFramework
             await UniTask.Delay(200);
             Debug.Log($"Exit UniTaskBar({id})");
             return id + 1;
+        }
+
+        [Test]
+        [Description("Can await Coroutine")]
+        [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
+        public async Task 非同期テストの例_コルーチンをawaitできる()
+        {
+            var actual = 0;
+            await FooMonoBehaviour.BarCoroutine(i =>
+            {
+                actual = i;
+            });
+
+            Assert.That(actual, Is.EqualTo(1));
+        }
+
+        // テスト対象コルーチンを含むMonoBehaviour
+        private class FooMonoBehaviour : MonoBehaviour
+        {
+            public static IEnumerator BarCoroutine(Action<int> onSuccess)
+            {
+                yield return null;
+                onSuccess(1);
+            }
         }
     }
 }
