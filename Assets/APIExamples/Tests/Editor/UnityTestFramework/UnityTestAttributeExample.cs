@@ -18,7 +18,7 @@ namespace APIExamples.Editor.UnityTestFramework
     /// Runtime/UnityTestFramework/UnityTestAttributeExampleをベースに、Edit Modeで動くもの
     /// </remarks>
     [TestFixture]
-    public class UnityTestAttributeExampleInEditor
+    public class UnityTestAttributeExample
     {
         [UnityTest]
         public IEnumerator YieldReturnNullでフレームを送る例()

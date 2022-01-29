@@ -25,7 +25,7 @@ Click [English](./README_en.md) for English page if you need.
 
 ### BasicExample
 
-第2章 Unity Test Framework の基本
+第2章 Unity Test Frameworkの基本
 
 ```
 Assets
