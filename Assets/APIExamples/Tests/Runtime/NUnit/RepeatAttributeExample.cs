@@ -32,7 +32,7 @@ namespace APIExamples.NUnit
             Assert.That(true);
         }
 
-        [UnityTest]
+        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Repeat(2)]
         public IEnumerator 繰り返し実行する非同期テスト()
         {

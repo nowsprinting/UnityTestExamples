@@ -13,7 +13,7 @@ namespace APIExamples.UnityTestFramework
     /// </summary>
     public class MonoBehaviourTestExample
     {
-        [UnityTest]
+        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         public IEnumerator MonoBehaviourTestの使用例()
         {
             yield return new MonoBehaviourTest<MyMonoBehaviourTest>();

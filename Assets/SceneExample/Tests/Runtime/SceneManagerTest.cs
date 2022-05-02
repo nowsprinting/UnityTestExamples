@@ -11,6 +11,7 @@ using UnityEngine.TestTools;
 namespace SceneExample
 {
     [TestFixture]
+    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     public class SceneManagerTest
     {
         [UnityTest]

@@ -12,7 +12,7 @@ namespace EmbeddedPackageSample
     [TestFixture]
     public class SceneManagerTest
     {
-        [UnityTest]
+        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         public IEnumerator LoadSceneAsync_ScenesInBuildに含まれていないSceneをロードする例()
         {
             yield return TestSceneLoader.LoadSceneAsync("Packages/com.nowsprinting.embedded-package-sample/Scenes/SceneInPackage.unity");

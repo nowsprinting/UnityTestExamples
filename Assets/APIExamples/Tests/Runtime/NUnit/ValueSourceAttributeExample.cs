@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -86,7 +87,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [UnityTest]
+        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         public IEnumerator UnityTestでもValueSource属性は使用可能(
             [ValueSource(nameof(s_defs1x))] Element def,
             [ValueSource(nameof(s_atks1x))] Element atk)

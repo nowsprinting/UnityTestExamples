@@ -839,7 +839,7 @@ namespace APIExamples.NUnit
                 //  But was:  0.33228299f
             }
 
-            [UnityTest]
+            [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
             [Explicit("UnityTest属性のテストでも期待通り動作しないので除外")]
             public IEnumerator DelayedConstraint_非同期テストでも無効()
             {

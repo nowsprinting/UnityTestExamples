@@ -25,6 +25,7 @@ namespace APIExamples.UnityTestFramework
         {
             Object.Destroy(_cube);
             yield return null;
+            // Note: WebGLでも動作しているか確認するためにここで`Assert.Fail()`したらfailしたので動いている模様
         }
 
         [Test]
@@ -35,7 +36,7 @@ namespace APIExamples.UnityTestFramework
             Assert.That((bool)_cube, Is.True);
         }
 
-        [UnityTest]
+        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         public IEnumerator 非同期テストメソッド()
         {
             _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
