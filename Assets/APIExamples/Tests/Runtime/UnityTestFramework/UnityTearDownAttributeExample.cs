@@ -11,7 +11,12 @@ namespace APIExamples.UnityTestFramework
     /// <summary>
     /// <see cref="UnityTearDownAttribute"/>の使用例
     /// </summary>
+    /// <remarks>
+    /// WebGLPlayerでUnityTearDown属性がエラーを吐くため、テストクラスごと除外
+    /// なお、UTF v1.1.31では動作していたが、v2.0.1-pre.18では実行時エラーになった
+    /// </remarks>
     [TestFixture]
+    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     public class UnityTearDownAttributeExample
     {
         private Object _cube;
@@ -25,7 +30,6 @@ namespace APIExamples.UnityTestFramework
         {
             Object.Destroy(_cube);
             yield return null;
-            // Note: WebGLでも動作しているか確認するためにここで`Assert.Fail()`したらfailしたので動いている模様
         }
 
         [Test]
