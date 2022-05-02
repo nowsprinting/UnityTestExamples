@@ -30,6 +30,7 @@ namespace APIExamples.UnityTestFramework
         public void RequiresPlayMode属性にfalseを付与_PLayModeテストアセンブリ内にあってもEditModeテストとして実行される()
         {
             Assert.That(EditorApplication.isPlaying, Is.False);
+            // Note: Run Location: On Playerのとき、コンパイルエラーになる
         }
     }
 }
