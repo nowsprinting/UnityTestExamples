@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace APIExamples.UnityTestFramework
 {
@@ -17,6 +18,7 @@ namespace APIExamples.UnityTestFramework
     /// <remarks>
     /// Required: Unity Test Framework v2.0 or later
     /// </remarks>
+    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     public class AsyncTestsExample
     {
         [Test]
