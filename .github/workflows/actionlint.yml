@@ -23,3 +23,14 @@ jobs:
         run: |
           bash <(curl -LsS --retry 2 https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
           ./actionlint -color
+
+      - uses: 8398a7/action-slack@v3
+        with:
+          status: ${{ job.status }}
+          fields: repo,message,job,took,eventName,ref,pullRequest
+          mention: here
+          if_mention: failure
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: failure() && github.repository_owner == 'nowsprinting' # Skip public fork, because can not read secrets.

@@ -45,6 +45,7 @@ jobs:
       - name: Create license secret key
         id: license
         run: echo "::set-output name=secret_key::UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)"
+
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
         with:
@@ -56,6 +57,7 @@ jobs:
           # HtmlReportは二度生成されるが、Edit + Play Modeを含んだものが上書きされて残るのでヨシ
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
+
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
