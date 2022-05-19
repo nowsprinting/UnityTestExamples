@@ -27,13 +27,13 @@ jobs:
     steps:
       # Checkout
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           submodules: false
           lfs: false
 
       # Cache
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: Library
           key: Library-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
@@ -57,21 +57,19 @@ jobs:
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
       - name: Upload test results
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: TestResults-Unity${{ matrix.unityVersion }}
           path: Logs
         if: always()
 
-      # Notification
-      - uses: 8398a7/action-slack@v3
+  notification:
+    needs: test
+    if: always()
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: Gamesight/slack-workflow-status@v1.1.0
         with:
-          status: ${{ job.status }}
-          fields: repo,message,job,took,eventName,ref,pullRequest
-          mention: here
-          if_mention: failure
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          MATRIX_CONTEXT: ${{ toJson(matrix) }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: always()
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
