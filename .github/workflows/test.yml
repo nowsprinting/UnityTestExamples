@@ -65,7 +65,7 @@ jobs:
           path: Logs
         if: always()
 
-  notification:
+  notify:
     needs: test
     if: always()
     runs-on: ubuntu-latest
