@@ -16,6 +16,17 @@ namespace APIExamples.Editor.UnityTestFramework
     /// </summary>
     public class EditModeTestYieldInstructionExample
     {
+        private const string CsPath = "Assets/CreateFileExample.cs";
+        private const string DLLSrcPath = "TestData/NativePluginExample.dll";
+        private const string DLLDstPath = "Assets/NativePluginExample.dll";
+
+        [TearDown]
+        public void TearDown()
+        {
+            AssetDatabase.DeleteAsset(CsPath);
+            AssetDatabase.DeleteAsset(DLLDstPath);
+        }
+
         [UnityTest]
         public IEnumerator EnterPlayModeの使用例()
         {
@@ -37,7 +48,6 @@ namespace APIExamples.Editor.UnityTestFramework
         [UnityTest]
         public IEnumerator RecompileScriptsの使用例()
         {
-            const string CsPath = "Assets/CreateFileExample.cs";
             Assert.That(Path.GetFullPath(CsPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
 
@@ -53,24 +63,19 @@ namespace APIExamples.Editor.UnityTestFramework
             var assemblyName = new AssemblyName(AssemblyCSharp);
             var assembly = Assembly.Load(assemblyName);
             var fooType = assembly.GetType("Foo");
-            Assert.That(fooType, Is.Not.Null);
-
             dynamic foo = Activator.CreateInstance(fooType);
             bool actual = foo.Bar("Baz");
-            Assert.That(actual);
-
-            AssetDatabase.DeleteAsset(CsPath);
+            Assert.That(actual, Is.True);
         }
 
         [UnityTest]
         public IEnumerator WaitForDomainReloadの使用例()
         {
-            const string DLLSrcPath = "TestData/NativePluginExample.dll";
-            const string DLLDstPath = "Assets/NativePluginExample.dll";
             Assert.That(Path.GetFullPath(DLLDstPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
 
             File.Copy(Path.GetFullPath(DLLSrcPath), Path.GetFullPath(DLLDstPath), true);
+
             AssetDatabase.Refresh();
             yield return new WaitForDomainReload();
 
@@ -78,9 +83,7 @@ namespace APIExamples.Editor.UnityTestFramework
             var fooType = assembly.GetType("NativePluginExample.Foo");
             dynamic foo = Activator.CreateInstance(fooType);
             bool actual = foo.Bar("Baz");
-            Assert.That(actual);
-
-            AssetDatabase.DeleteAsset(DLLDstPath);
+            Assert.That(actual, Is.True);
         }
     }
 }
