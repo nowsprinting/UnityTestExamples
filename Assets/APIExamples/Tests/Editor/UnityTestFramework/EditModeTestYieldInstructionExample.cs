@@ -56,7 +56,7 @@ namespace APIExamples.Editor.UnityTestFramework
                 file.Write("public class Foo { public bool Bar(string msg) { return true; } }");
             }
 
-            AssetDatabase.Refresh();
+            // ここでAssetDatabase.Refresh()は不要
             yield return new RecompileScripts();
 
             const string AssemblyCSharp = "Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
@@ -76,7 +76,7 @@ namespace APIExamples.Editor.UnityTestFramework
 
             File.Copy(Path.GetFullPath(DLLSrcPath), Path.GetFullPath(DLLDstPath), true);
 
-            AssetDatabase.Refresh();
+            // ここでAssetDatabase.Refresh()は不要
             yield return new WaitForDomainReload();
 
             var assembly = Assembly.LoadFrom(Path.GetFullPath(DLLDstPath));
