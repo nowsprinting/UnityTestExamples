@@ -57,9 +57,9 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # 通常は未指定（`auto`）でok
           artifactsPath: Logs
-          customParameters: -testCategory "!IgnoreCI" -burst-disable-compilation -debugCodeOptimization -enableCodeCoverage -coverageResultsPath Logs -coverageOptions 'generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests'
+          customParameters: -testCategory "!IgnoreCI"
+          coverageOptions: generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
-          # HtmlReportは二度生成されるが、Edit + Play Modeを含んだものが上書きされて残るのでヨシ
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
 
@@ -68,6 +68,13 @@ jobs:
         with:
           name: TestResults-Unity${{ matrix.unityVersion }}
           path: Logs
+        if: always()
+
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: CoverageResults-Unity${{ matrix.unityVersion }}
+          path: ${{ steps.test.outputs.coveragePath }}
         if: always()
 
   notify:
