@@ -68,14 +68,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: TestResults-Unity${{ matrix.unityVersion }}
-          path: Logs
-        if: always()
-
-      - name: Upload coverage results
-        uses: actions/upload-artifact@v3
-        with:
-          name: CoverageResults-Unity${{ matrix.unityVersion }}
-          path: ${{ steps.test.outputs.coveragePath }}
+          path: |
+            Logs
+            ${{ steps.test.outputs.coveragePath }}
         if: always()
 
   notify:
