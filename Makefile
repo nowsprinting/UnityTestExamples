@@ -31,7 +31,7 @@ endif
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
-COVERAGE_ASSEMBLY_FILTERS?=+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
+COVERAGE_ASSEMBLY_FILTERS?=+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*.Tests
 
 define test_arguments
   -projectPath $(PROJECT_HOME) \

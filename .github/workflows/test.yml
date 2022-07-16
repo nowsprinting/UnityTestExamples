@@ -58,7 +58,7 @@ jobs:
           unityVersion: ${{ matrix.unityVersion }}  # 通常は未指定（`auto`）でok
           artifactsPath: Logs
           customParameters: -testCategory "!IgnoreCI"
-          coverageOptions: generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
+          coverageOptions: generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*.Tests
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
