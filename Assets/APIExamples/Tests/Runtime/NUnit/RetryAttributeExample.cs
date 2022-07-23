@@ -35,7 +35,7 @@ namespace APIExamples.NUnit
 
         [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Retry(2)] // リトライ回数ではなく総試行回数を指定
-        public IEnumerator 最初は失敗するが2回目で成功する非同期テスト()
+        public IEnumerator 最初は失敗するが2回目で成功するテスト_UnityTest属性()
         {
             yield return null;
 

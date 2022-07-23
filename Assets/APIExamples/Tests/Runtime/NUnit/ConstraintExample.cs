@@ -829,7 +829,7 @@ namespace APIExamples.NUnit
         {
             [Test]
             [Explicit("Test属性のテストでは期待通り動作しないので除外")]
-            public void DelayedConstraint_同期テストでは無効()
+            public void DelayedConstraint_Test属性のテストでは無効()
             {
                 var start = Time.time; // The time at the beginning of this frame
 
@@ -841,7 +841,7 @@ namespace APIExamples.NUnit
 
             [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
             [Explicit("UnityTest属性のテストでも期待通り動作しないので除外")]
-            public IEnumerator DelayedConstraint_非同期テストでも無効()
+            public IEnumerator DelayedConstraint_UnityTest属性のテストでも無効()
             {
                 var start = Time.time; // The time at the beginning of this frame
 

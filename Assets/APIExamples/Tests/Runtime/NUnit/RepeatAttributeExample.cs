@@ -34,7 +34,7 @@ namespace APIExamples.NUnit
 
         [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Repeat(2)]
-        public IEnumerator 繰り返し実行する非同期テスト()
+        public IEnumerator 繰り返し実行するテスト_UnityTest属性()
         {
             yield return null;
 

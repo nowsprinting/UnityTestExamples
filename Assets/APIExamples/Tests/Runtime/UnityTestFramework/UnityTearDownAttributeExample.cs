@@ -29,7 +29,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
-        public void 同期テストメソッド()
+        public void Test属性のテストメソッド()
         {
             _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
@@ -37,7 +37,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-        public IEnumerator 非同期テストメソッド()
+        public IEnumerator UnityTest属性のテストメソッド()
         {
             _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
             yield return null;

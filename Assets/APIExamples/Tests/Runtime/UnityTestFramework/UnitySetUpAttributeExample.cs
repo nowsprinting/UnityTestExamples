@@ -30,7 +30,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
-        public void 同期テストメソッド()
+        public void Test属性テストメソッド()
         {
             var cube = GameObject.Find("Cube");
             Object.DestroyImmediate(cube);
@@ -39,7 +39,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-        public IEnumerator 非同期テストメソッド()
+        public IEnumerator UnityTest属性テストメソッド()
         {
             var cube = GameObject.Find("Cube");
             Object.Destroy(cube);
