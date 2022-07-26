@@ -1,1 +1,23 @@
-{"allowUnsafeCode":false,"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"],"excludePlatforms":[],"includePlatforms":[],"name":"InternalsVisibleToExample.Tests","noEngineReferences":false,"optionalUnityReferences":[],"overrideReferences":true,"precompiledReferences":["nunit.framework.dll"],"references":["UnityEngine.TestRunner","UnityEditor.TestRunner","InternalsVisibleToExample"]}
+{
+    "name": "InternalsVisibleToExample.Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner",
+        "InternalsVisibleToExample"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [
+        "WebGL"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

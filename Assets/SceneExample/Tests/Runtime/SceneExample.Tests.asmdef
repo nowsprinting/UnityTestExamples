@@ -1,12 +1,13 @@
 {
     "name": "SceneExample.Tests",
-    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [],
+    "excludePlatforms": [
+        "WebGL"
+    ],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
