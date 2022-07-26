@@ -12,11 +12,7 @@ namespace APIExamples.UnityTestFramework
     /// <summary>
     /// <see cref="UnitySetUpAttribute"/>の使用例
     /// </summary>
-    /// <remarks>
-    /// WebGLPlayerでUnitySetUp属性がエラーを吐くため、テストクラスごと除外
-    /// </remarks>
     [TestFixture]
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     public class UnitySetUpAttributeExample
     {
         /// <summary>
@@ -38,7 +34,7 @@ namespace APIExamples.UnityTestFramework
             Assert.That((bool)cube, Is.False);
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         public IEnumerator UnityTest属性テストメソッド()
         {
             var cube = GameObject.Find("Cube");

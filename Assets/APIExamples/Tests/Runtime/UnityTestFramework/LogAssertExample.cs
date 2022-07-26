@@ -65,7 +65,7 @@ namespace APIExamples.UnityTestFramework
             Debug.LogError("expect message"); // 通常、テストは失敗する
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         public IEnumerator Expect_期待するメッセージであればLogErrorで出力されてもテストは失敗しない_Expectは後から呼んでも同フレームであれば有効()
         {
             Debug.LogError("expect message"); // 通常、テストは失敗する

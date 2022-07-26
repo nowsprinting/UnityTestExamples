@@ -4,7 +4,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -23,10 +22,14 @@ namespace APIExamples.NUnit
     {
         private static object[] s_testCases =
         {
-            new object[] { Element.Wood, Element.Fire, 2.0f }, new object[] { Element.Wood, Element.Water, 0.5f },
-            new object[] { Element.Wood, Element.None, 1.0f }, new object[] { Element.Fire, Element.Water, 2.0f },
-            new object[] { Element.Fire, Element.Wood, 0.5f }, new object[] { Element.Fire, Element.None, 1.0f },
-            new object[] { Element.Water, Element.Wood, 2.0f }, new object[] { Element.Water, Element.Fire, 0.5f },
+            new object[] { Element.Wood, Element.Fire, 2.0f },
+            new object[] { Element.Wood, Element.Water, 0.5f },
+            new object[] { Element.Wood, Element.None, 1.0f },
+            new object[] { Element.Fire, Element.Water, 2.0f },
+            new object[] { Element.Fire, Element.Wood, 0.5f },
+            new object[] { Element.Fire, Element.None, 1.0f },
+            new object[] { Element.Water, Element.Wood, 2.0f },
+            new object[] { Element.Water, Element.Fire, 0.5f },
             new object[] { Element.Water, Element.None, 1.0f },
         };
 
@@ -70,7 +73,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [TestCaseSource(nameof(s_testCases))]
         [Explicit("実行すると次のメッセージを伴って失敗します: Method has non-valid return value, but no result is expected")]
         public IEnumerator UnityTestとTestCaseSource属性は組み合わせて使用できない(Element def, Element atk, float expected)

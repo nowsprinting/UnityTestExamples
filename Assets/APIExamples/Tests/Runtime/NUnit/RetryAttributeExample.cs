@@ -3,7 +3,6 @@
 
 using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -33,7 +32,7 @@ namespace APIExamples.NUnit
             Assert.That(++_testCount, Is.EqualTo(2));
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [Retry(2)] // リトライ回数ではなく総試行回数を指定
         public IEnumerator 最初は失敗するが2回目で成功するテスト_UnityTest属性()
         {

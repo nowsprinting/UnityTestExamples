@@ -3,7 +3,6 @@
 
 using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -47,7 +46,7 @@ namespace APIExamples.NUnit
             return actual;
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [TestCase(Element.None, Element.None, 1.0f)]
         [Explicit("実行すると次のメッセージを伴って失敗します: Method has non-valid return value, but no result is expected")]
         public IEnumerator UnityTestとTestCase属性は組み合わせて使用できない(Element def, Element atk, float expected)

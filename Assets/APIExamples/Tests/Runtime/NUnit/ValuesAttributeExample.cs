@@ -3,7 +3,6 @@
 
 using System.Collections;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -77,7 +76,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         public IEnumerator UnityTestでもValues属性は使用可能(
             [Values(Element.Wood, Element.Fire, Element.Water)]
             Element def,

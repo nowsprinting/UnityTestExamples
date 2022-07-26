@@ -12,7 +12,7 @@ namespace LocalPackageSample
     [TestFixture]
     public class SceneManagerTest
     {
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         public IEnumerator LoadSceneAsync_ScenesInBuildに含まれていないSceneをロードする例()
         {
             yield return TestSceneLoader.LoadSceneAsync("Packages/com.nowsprinting.local-package-sample/Scenes/SceneInPackage.unity");

@@ -22,7 +22,7 @@ namespace APIExamples.NUnit
             Time.timeScale = 1f;
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [Explicit("時間がかかるのでExplicit")]
         public IEnumerator タイムアウトのデフォルトは3分()
         {
@@ -35,7 +35,7 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [Timeout(1000)]
         public IEnumerator タイムアウトを1秒に設定()
         {
@@ -48,7 +48,7 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         [Timeout(1000)]
         public IEnumerator タイムアウト値はTimeScaleに影響されない()
         {

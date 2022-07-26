@@ -16,7 +16,6 @@ namespace APIExamples.UnityTestFramework
     /// <see href="https://github.com/Cysharp/UniTask">UniTask</see>の使用例を含みます
     /// </summary>
     [TestFixture]
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     public class UnityTestAttributeExample
     {
         [UnityTest]

@@ -36,7 +36,7 @@ namespace APIExamples.UnityTestFramework
             Assert.That((bool)_cube, Is.True);
         }
 
-        [UnityTest, UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        [UnityTest]
         public IEnumerator UnityTest属性のテストメソッド()
         {
             _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
