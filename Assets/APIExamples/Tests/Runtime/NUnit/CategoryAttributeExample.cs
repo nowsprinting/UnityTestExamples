@@ -1,9 +1,7 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
-
-[assembly: Category("APIExamples")]
 
 namespace APIExamples.NUnit
 {
@@ -15,8 +13,15 @@ namespace APIExamples.NUnit
     public class CategoryAttributeExample
     {
         [Test]
-        [Category("IgnoreCI")]
+        [Category("IntegrationTests")]
         public void CategorizedMethodExample()
+        {
+        }
+
+        [Test]
+        [Category("IntegrationTests")]
+        [Category("IgnoreCI")]
+        public void MultiCategorizedMethodExample()
         {
         }
     }
