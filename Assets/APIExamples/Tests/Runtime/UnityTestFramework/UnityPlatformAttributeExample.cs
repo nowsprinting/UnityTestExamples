@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
@@ -16,7 +16,7 @@ namespace APIExamples.UnityTestFramework
         /// Unityエディターでのみ実行されるテスト
         /// </summary>
         [Test]
-        [UnityPlatform(RuntimePlatform.LinuxEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor)]
+        [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
         public void RunOnEditor()
         {
             var platform = Application.platform;
@@ -28,7 +28,7 @@ namespace APIExamples.UnityTestFramework
         /// PC, Mac & Linuxスタンドアロンプレイヤーでのみ実行されるテスト
         /// </summary>
         [Test]
-        [UnityPlatform(RuntimePlatform.LinuxPlayer, RuntimePlatform.WindowsPlayer, RuntimePlatform.OSXPlayer)]
+        [UnityPlatform(RuntimePlatform.OSXPlayer, RuntimePlatform.WindowsPlayer, RuntimePlatform.LinuxPlayer)]
         public void RunOnStandalonePC()
         {
             var platform = Application.platform;
@@ -56,6 +56,17 @@ namespace APIExamples.UnityTestFramework
         {
             var platform = Application.platform;
             Assert.That(platform, Is.EqualTo(RuntimePlatform.Android));
+        }
+
+        /// <summary>
+        /// WebGLプレイヤー以外で実行されるテスト（excludeの例）
+        /// </summary>
+        [Test]
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        public void RunOnOtherThanWebGLPlayer()
+        {
+            var platform = Application.platform;
+            Assert.That(platform, Is.Not.EqualTo(RuntimePlatform.WebGLPlayer));
         }
     }
 }
