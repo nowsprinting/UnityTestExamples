@@ -14,9 +14,7 @@ namespace APIExamples.NUnit
     /// <remarks>
     /// Unity Test Frameworkの<see href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html#known-limitations">Known limitations</see>に
     ///     The UnityTest attribute does not support the NUnit Repeat attribute.
-    /// とありますが、v1.1.27時点では使用できるようになっています。
-    /// <seealso href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/changelog/CHANGELOG.html">Changelog</seealso>
-    /// も参照してください
+    /// とありますが、v1.1.27で修正されました。
     /// </remarks>
     public class RepeatAttributeExample
     {
