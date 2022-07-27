@@ -5,6 +5,7 @@ using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
+using UnityEngine.TestTools.Utils;
 
 namespace APIExamples.UnityTestFramework
 {
@@ -31,7 +32,7 @@ namespace APIExamples.UnityTestFramework
         [Test]
         public void Test属性のテストメソッド()
         {
-            _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            _cube = Utils.CreatePrimitive(PrimitiveType.Cube);
 
             Assert.That((bool)_cube, Is.True);
         }
@@ -39,7 +40,7 @@ namespace APIExamples.UnityTestFramework
         [UnityTest]
         public IEnumerator UnityTest属性のテストメソッド()
         {
-            _cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            _cube = Utils.CreatePrimitive(PrimitiveType.Cube);
             yield return null;
 
             Assert.That((bool)_cube, Is.True);
