@@ -7,6 +7,8 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+#pragma warning disable CS0162
+
 namespace APIExamples.NUnit
 {
     /// <summary>
