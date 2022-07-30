@@ -1,23 +1,23 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
 
-namespace TestDoubleExample.Dices
+namespace TestDoubleExample.Janken
 {
     /// <summary>
     /// テストダブルによるテストの例
     /// </summary>
-    public class DiceTest
+    public class JankenTest
     {
         [Test]
-        public void Roll_テストスタブを注入して間接入力を与えることによる決定的なテスト()
+        public void Pon_テストスタブを注入して間接入力を与えることによる決定的なテスト()
         {
-            var stub = new StubRandom(1); // 必ず1を返すスタブを生成
-            var sut = new Dice(stub); // テスト対象にスタブをセット
-            var actual = sut.Roll();
+            var stub = new StubRandom(2); // 常に2を返すテストスタブを生成
+            var sut = new Janken(stub); // テスト対象にスタブを注入
+            var actual = sut.Pon();
 
-            Assert.That(actual, Is.EqualTo(1));
+            Assert.That(actual, Is.EqualTo(Hand.Paper));
         }
 
         /// <summary>
@@ -43,14 +43,14 @@ namespace TestDoubleExample.Dices
         }
 
         [Test]
-        public void Roll_テストスパイを注入することによる間接出力のテスト()
+        public void Pon_テストスパイを注入することによる間接出力のテスト()
         {
-            var spy = new SpyRandom();
-            var sut = new Dice(spy);
-            sut.Roll();
+            var spy = new SpyRandom(); // テストスパイを生成
+            var sut = new Janken(spy); // テスト対象にスパイを注入
+            sut.Pon();
 
-            Assert.That(spy._actualMinValue, Is.EqualTo(1));
-            Assert.That(spy._actualMaxValue, Is.EqualTo(7));
+            Assert.That(spy._actualMinValue, Is.EqualTo(0));
+            Assert.That(spy._actualMaxValue, Is.EqualTo(3));
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace TestDoubleExample.Dices
                 this._actualMinValue = minValue;
                 this._actualMaxValue = maxValue;
 
-                return 1; // テスト結果に影響しないのであれば、固定値を返しても、本物の依存オブジェクトを使用してもよい
+                return 1; // テスト結果に影響しないのであれば、スタブのように固定値を返しても、本物の依存オブジェクトに委譲してもよい
             }
         }
     }
