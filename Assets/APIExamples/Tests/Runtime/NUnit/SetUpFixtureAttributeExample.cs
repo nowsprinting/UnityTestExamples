@@ -20,13 +20,13 @@ namespace APIExamples.NUnit
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
-            // Debug.Log($"SetUpFixture.OneTimeSetUp, {Time.time}");
+            Debug.Log("SetUpFixture.OneTimeSetUp");
         }
 
         [OneTimeTearDown]
         public void RunAfterAnyTests()
         {
-            // Debug.Log($"SetUpFixture.OneTimeTearDown, {Time.time}");
+            Debug.Log("SetUpFixture.OneTimeTearDown");
         }
     }
 }
