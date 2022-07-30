@@ -5,6 +5,7 @@ namespace TestDoubleExample.Dices
 {
     /// <summary>
     /// テスト可能なダイス
+    /// 擬似乱数発生器をコンストラクタインジェクションで受け取ります
     /// </summary>
     public class Dice
     {
@@ -13,7 +14,7 @@ namespace TestDoubleExample.Dices
         /// <summary>
         /// コンストラクタ
         /// </summary>
-        /// <param name="random">このクラスで使用する疑似乱数発生器</param>
+        /// <param name="random">このクラスで使用する擬似乱数発生器</param>
         public Dice(IRandom random)
         {
             _random = random;

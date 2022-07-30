@@ -4,7 +4,7 @@
 namespace TestDoubleExample.Dices
 {
     /// <summary>
-    /// 疑似乱数発生器インタフェース
+    /// 擬似乱数発生器インタフェース
     /// </summary>
     public interface IRandom
     {
