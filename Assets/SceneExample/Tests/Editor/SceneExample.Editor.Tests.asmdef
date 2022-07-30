@@ -1,6 +1,6 @@
 {
     "name": "SceneExample.Editor.Tests",
-    "rootNamespace": "",
+    "rootNamespace": "SceneExample.Editor",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

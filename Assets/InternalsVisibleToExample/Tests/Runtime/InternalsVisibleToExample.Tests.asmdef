@@ -1,5 +1,6 @@
 {
     "name": "InternalsVisibleToExample.Tests",
+    "rootNamespace": "InternalsVisibleToExample",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

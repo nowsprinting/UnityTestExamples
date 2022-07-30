@@ -1,1 +1,18 @@
-﻿{"allowUnsafeCode":false,"autoReferenced":true,"defineConstraints":[],"excludePlatforms":[],"includePlatforms":["Editor"],"name":"BasicExample.Editor","noEngineReferences":false,"optionalUnityReferences":[],"overrideReferences":false,"precompiledReferences":[],"references":["BasicExample"]}
+﻿{
+  "allowUnsafeCode": false,
+  "autoReferenced": true,
+  "defineConstraints": [],
+  "excludePlatforms": [],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "name": "BasicExample.Editor",
+  "rootNamespace": "BasicExample.Editor",
+  "noEngineReferences": false,
+  "optionalUnityReferences": [],
+  "overrideReferences": false,
+  "precompiledReferences": [],
+  "references": [
+    "BasicExample"
+  ]
+}

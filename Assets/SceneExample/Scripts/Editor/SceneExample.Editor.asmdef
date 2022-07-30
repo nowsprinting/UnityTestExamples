@@ -1,6 +1,6 @@
 {
     "name": "SceneExample.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "SceneExample.Editor",
     "references": [],
     "includePlatforms": [
         "Editor"

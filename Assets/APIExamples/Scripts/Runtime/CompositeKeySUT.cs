@@ -3,7 +3,7 @@
 
 using System;
 
-namespace APIExamples.NUnit
+namespace APIExamples
 {
     /// <summary>
     /// テストでは Key1 + Key2 でユニークとみなす。<see cref="IEquatable{T}"/>は実装していない

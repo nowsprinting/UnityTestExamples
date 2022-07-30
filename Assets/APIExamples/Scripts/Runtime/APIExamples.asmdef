@@ -1,3 +1,4 @@
 {
-	"name": "APIExamples"
+    "name": "APIExamples",
+    "rootNamespace": "APIExamples"
 }

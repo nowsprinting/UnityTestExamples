@@ -3,7 +3,7 @@
 
 using System;
 
-namespace APIExamples.NUnit
+namespace APIExamples
 {
     /// <summary>
     /// 元素的な属性

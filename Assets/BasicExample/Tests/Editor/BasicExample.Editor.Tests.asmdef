@@ -1,1 +1,25 @@
-﻿{"allowUnsafeCode":false,"autoReferenced":false,"defineConstraints":["UNITY_INCLUDE_TESTS"],"excludePlatforms":[],"includePlatforms":["Editor"],"name":"BasicExample.Editor.Tests","noEngineReferences":false,"optionalUnityReferences":[],"overrideReferences":true,"precompiledReferences":["nunit.framework.dll"],"references":["UnityEngine.TestRunner","UnityEditor.TestRunner","BasicExample.Editor","BasicExample"]}
+﻿{
+  "allowUnsafeCode": false,
+  "autoReferenced": false,
+  "defineConstraints": [
+    "UNITY_INCLUDE_TESTS"
+  ],
+  "excludePlatforms": [],
+  "includePlatforms": [
+    "Editor"
+  ],
+  "name": "BasicExample.Editor.Tests",
+  "rootNamespace": "BasicExample.Editor",
+  "noEngineReferences": false,
+  "optionalUnityReferences": [],
+  "overrideReferences": true,
+  "precompiledReferences": [
+    "nunit.framework.dll"
+  ],
+  "references": [
+    "UnityEngine.TestRunner",
+    "UnityEditor.TestRunner",
+    "BasicExample.Editor",
+    "BasicExample"
+  ]
+}

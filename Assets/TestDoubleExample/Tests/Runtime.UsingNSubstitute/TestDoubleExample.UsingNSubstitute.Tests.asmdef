@@ -1,5 +1,6 @@
 {
     "name": "TestDoubleExample.UsingNSubstitute.Tests",
+    "rootNamespace": "TestDoubleExample.UsingNSubstitute",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

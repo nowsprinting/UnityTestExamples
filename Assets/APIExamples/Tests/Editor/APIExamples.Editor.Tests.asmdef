@@ -1,6 +1,6 @@
 {
     "name": "APIExamples.Editor.Tests",
-    "rootNamespace": "",
+    "rootNamespace": "APIExamples.Editor",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
