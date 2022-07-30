@@ -7,6 +7,7 @@ using System.IO;
 using System.Reflection;
 using NUnit.Framework;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace APIExamples.Editor.UnityTestFramework
@@ -19,6 +20,25 @@ namespace APIExamples.Editor.UnityTestFramework
         private const string CsPath = "Assets/CreateFileExample.cs";
         private const string DLLSrcPath = "TestData/NativePluginExample.dll";
         private const string DLLDstPath = "Assets/NativePluginExample.dll";
+
+        [OneTimeSetUp]
+        public void OneTimeSetUp()
+        {
+            Debug.Log("OneTimeSetUpはドメインリロードで再実行されます");
+        }
+
+        [UnitySetUp]
+        public IEnumerator UnitySetUp()
+        {
+            Debug.Log("UnitySetUpはドメインリロードで再実行されません");
+            yield break;
+        }
+
+        [SetUp]
+        public void SetUp()
+        {
+            Debug.Log("SetUpはドメインリロードで再実行されます");
+        }
 
         [TearDown]
         public void TearDown()
