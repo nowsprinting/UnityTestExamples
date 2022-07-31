@@ -25,7 +25,7 @@ namespace TestDoubleExample.Janken
         /// <returns>ランダムな手（本当にランダムかどうかは_randomに依存）</returns>
         public Hand Pon()
         {
-            return (Hand)_random.Next(0, 3);
+            return (Hand)_random.Range(0, 3);
         }
     }
 }

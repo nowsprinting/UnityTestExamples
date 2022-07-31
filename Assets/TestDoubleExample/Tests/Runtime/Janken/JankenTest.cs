@@ -36,7 +36,7 @@ namespace TestDoubleExample.Janken
             /// 固定値を返すスタブメソッド
             /// </summary>
             /// <returns>常にコンストラクタで指定された固定値を返す</returns>
-            public int Next(int minValue, int maxValue)
+            public int Range(int minValue, int maxValue)
             {
                 return _response;
             }
@@ -59,12 +59,12 @@ namespace TestDoubleExample.Janken
         private class SpyRandom : IRandom
         {
             /// <summary>
-            /// <see cref="Next(int, int)"/>の第一引数をキャプチャ
+            /// <see cref="Range"/>の第一引数をキャプチャ
             /// </summary>
             internal int _actualMinValue;
 
             /// <summary>
-            /// <see cref="Next(int, int)"/>の第二引数をキャプチャ
+            /// <see cref="Range"/>の第二引数をキャプチャ
             /// </summary>
             internal int _actualMaxValue;
 
@@ -72,7 +72,7 @@ namespace TestDoubleExample.Janken
             /// 引数をキャプチャするスパイメソッド
             /// </summary>
             /// <returns>常に1を返す</returns>
-            public int Next(int minValue, int maxValue)
+            public int Range(int minValue, int maxValue)
             {
                 this._actualMinValue = minValue;
                 this._actualMaxValue = maxValue;

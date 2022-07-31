@@ -17,7 +17,7 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接入力を固定してテストする例()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Next(0, 3).Returns(0); // Next(0, 3)に対し、必ず0を返すスタブを設定
+            stub.Range(0, 3).Returns(0); // Range(0, 3)に対し、必ず0を返すスタブを設定
 
             var sut = new Janken(stub); // テスト対象にスタブをセット
             var actual = sut.Pon();
@@ -29,7 +29,7 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接入力を複数指定してテストする例()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Next(0, 3).Returns(0, 1, 2); // 期待値を複数渡すと順に使用されます
+            stub.Range(0, 3).Returns(0, 1, 2); // 期待値を複数渡すと順に使用されます
 
             var sut = new Janken(stub);
 
@@ -42,7 +42,7 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接入力を引数から導出する例()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Next(Arg.Any<int>(), Arg.Any<int>()) // `Arg.Any<int>()`は任意の整数がマッチする
+            stub.Range(Arg.Any<int>(), Arg.Any<int>()) // `Arg.Any<int>()`は任意の整数がマッチする
                 .Returns(x => (int)x[1] - 1); // 第二引数の値-1（つまり最大値）を返すよう指定
 
             var sut = new Janken(stub);
@@ -58,8 +58,8 @@ namespace TestDoubleExample.Janken
             var sut = new Janken(spy);
             sut.Pon();
 
-            spy.Received().Next(0, 3); // 引数(0, 3)で呼ばれたことを検証
-            spy.DidNotReceive().Next(0, 2); // 引数(0, 2)では呼ばれていないことを検証
+            spy.Received().Range(0, 3); // 引数(0, 3)で呼ばれたことを検証
+            spy.DidNotReceive().Range(0, 2); // 引数(0, 2)では呼ばれていないことを検証
             // Note: `Arg.Any<int>()`や`Arg.Is<int>(x => x > 0)`を指定できます
         }
     }

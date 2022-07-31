@@ -14,6 +14,6 @@ namespace TestDoubleExample.Janken
         /// <param name="minValue">下限値</param>
         /// <param name="maxValue">上限値（結果に含まない）</param>
         /// <returns></returns>
-        int Next(int minValue, int maxValue);
+        int Range(int minValue, int maxValue);
     }
 }
