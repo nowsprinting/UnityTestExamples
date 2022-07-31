@@ -19,7 +19,7 @@ namespace TestDoubleExample.Janken
             var stub = Substitute.For<IRandom>();
             stub.Range(0, 3).Returns(0); // Range(0, 3)に対し、常に0を返すスタブを設定
 
-            var sut = new Janken(stub); // テスト対象にスタブをセット
+            var sut = new Janken(stub); // テスト対象にスタブを注入
             var actual = sut.Pon();
 
             Assert.That(actual, Is.EqualTo(Hand.Rock)); // 結果は常に「ぐー」
@@ -55,7 +55,8 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接出力をテストする例()
         {
             var spy = Substitute.For<IRandom>();
-            var sut = new Janken(spy);
+
+            var sut = new Janken(spy); // テスト対象にスパイを注入
             sut.Pon();
 
             spy.Received().Range(0, 3); // 引数(0, 3)で呼ばれたことを検証
