@@ -17,7 +17,7 @@ namespace TestDoubleExample.Janken
             var sut = new Janken(stub); // テスト対象にスタブを注入
             var actual = sut.Pon();
 
-            Assert.That(actual, Is.EqualTo(Hand.Paper));
+            Assert.That(actual, Is.EqualTo(Hand.Paper)); // 結果は常に「ぱー」
         }
 
         /// <summary>
@@ -38,7 +38,7 @@ namespace TestDoubleExample.Janken
             /// <returns>常にコンストラクタで指定された固定値を返す</returns>
             public int Range(int minValue, int maxValue)
             {
-                return _response;
+                return _response; // 常にコンストラクタで指定された固定値を返す
             }
         }
 
@@ -74,8 +74,8 @@ namespace TestDoubleExample.Janken
             /// <returns>常に1を返す</returns>
             public int Range(int minValue, int maxValue)
             {
-                this._actualMinValue = minValue;
-                this._actualMaxValue = maxValue;
+                this._actualMinValue = minValue; // 第一引数をキャプチャ
+                this._actualMaxValue = maxValue; // 第二引数をキャプチャ
 
                 return 1; // テスト結果に影響しないのであれば、スタブのように固定値を返しても、本物の依存オブジェクトに委譲してもよい
             }

@@ -17,12 +17,12 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接入力を固定してテストする例()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Range(0, 3).Returns(0); // Range(0, 3)に対し、必ず0を返すスタブを設定
+            stub.Range(0, 3).Returns(0); // Range(0, 3)に対し、常に0を返すスタブを設定
 
             var sut = new Janken(stub); // テスト対象にスタブをセット
             var actual = sut.Pon();
 
-            Assert.That(actual, Is.EqualTo(Hand.Rock)); // 結果は必ず「ぐー」
+            Assert.That(actual, Is.EqualTo(Hand.Rock)); // 結果は常に「ぐー」
         }
 
         [Test]
@@ -48,7 +48,7 @@ namespace TestDoubleExample.Janken
             var sut = new Janken(stub);
             var actual = sut.Pon();
 
-            Assert.That(actual, Is.EqualTo(Hand.Paper)); // 結果は必ず「ぱー」
+            Assert.That(actual, Is.EqualTo(Hand.Paper)); // 結果は常に「ぱー」
         }
 
         [Test]
@@ -59,8 +59,8 @@ namespace TestDoubleExample.Janken
             sut.Pon();
 
             spy.Received().Range(0, 3); // 引数(0, 3)で呼ばれたことを検証
-            spy.DidNotReceive().Range(0, 2); // 引数(0, 2)では呼ばれていないことを検証
-            // Note: `Arg.Any<int>()`や`Arg.Is<int>(x => x > 0)`を指定できます
+            spy.DidNotReceive().Range(Arg.Is<int>(x => x != 0), Arg.Any<int>()); // 第一引数は0以外では呼ばれていないことを検証
+            spy.DidNotReceive().Range(Arg.Any<int>(), Arg.Is<int>(x => x != 3)); // 第二引数は3以外では呼ばれていないことを検証
         }
     }
 }
