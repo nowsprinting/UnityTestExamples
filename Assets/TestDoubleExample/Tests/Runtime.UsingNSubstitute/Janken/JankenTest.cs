@@ -26,15 +26,28 @@ namespace TestDoubleExample.Janken
         }
 
         [Test]
-        public void Pon_NSubstituteで間接入力を固定してテストする例_引数を指定しない()
+        public void Pon_NSubstituteで間接入力を固定してテストする例_Anyにより引数を限定しない()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Range(default, default).ReturnsForAnyArgs(1); // Range()に対し、常に1を返すスタブを設定
+            stub.Range(Arg.Any<int>(), Arg.Any<int>()).Returns(1); // `Arg.Any<int>()`には任意の整数がマッチする
 
             var sut = new Janken(stub); // テスト対象にスタブを注入
             var actual = sut.Pon();
 
             Assert.That(actual, Is.EqualTo(Hand.Scissors)); // 結果は常に「ちょき」
+        }
+
+        [Test]
+        public void Pon_NSubstituteで間接入力を固定してテストする例_ReturnsForAnyArgsにより引数を限定しない()
+        {
+            var stub = Substitute.For<IRandom>();
+            stub.Range(default, default).ReturnsForAnyArgs(2); // 引数を限定しないで常に2を返す
+            // Note: Range()の引数は無視されますが、わかりやすくなるよう`default`を指定しています
+
+            var sut = new Janken(stub); // テスト対象にスタブを注入
+            var actual = sut.Pon();
+
+            Assert.That(actual, Is.EqualTo(Hand.Paper)); // 結果は常に「ぱー」
         }
 
         [Test]
@@ -54,8 +67,7 @@ namespace TestDoubleExample.Janken
         public void Pon_NSubstituteで間接入力を引数から導出する例()
         {
             var stub = Substitute.For<IRandom>();
-            stub.Range(Arg.Any<int>(), Arg.Any<int>()) // `Arg.Any<int>()`は任意の整数がマッチする
-                .Returns(x => (int)x[1] - 1); // 第二引数の値-1（つまり最大値）を返すよう指定
+            stub.Range(Arg.Any<int>(), Arg.Any<int>()).Returns(x => (int)x[1] - 1); // 第二引数の値-1（つまり最大値）を返す
 
             var sut = new Janken(stub);
             var actual = sut.Pon();
@@ -86,6 +98,8 @@ namespace TestDoubleExample.Janken
             {
                 var stub = Substitute.For<Random>(); // classを指定
                 stub.Range(0, 3).Returns(0); // 実行時にCouldNotSetReturnDueToNoLastCallException発生
+                // Note: アナライザー`NSubstitute.Analyzers.CSharp`をプロジェクトに導入すると、このパターンをコンパイル時警告にできます
+                // アナライザーが動作するUnityバージョンについては https://www.nowsprinting.com/entry/2021/04/18/200619 を参照してください
 
                 var sut = new Janken(stub);
                 var actual = sut.Pon();
