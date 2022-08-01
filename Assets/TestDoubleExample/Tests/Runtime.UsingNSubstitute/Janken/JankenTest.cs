@@ -26,6 +26,18 @@ namespace TestDoubleExample.Janken
         }
 
         [Test]
+        public void Pon_NSubstituteで間接入力を固定してテストする例_引数を指定しない()
+        {
+            var stub = Substitute.For<IRandom>();
+            stub.Range(default, default).ReturnsForAnyArgs(1); // Range()に対し、常に1を返すスタブを設定
+
+            var sut = new Janken(stub); // テスト対象にスタブを注入
+            var actual = sut.Pon();
+
+            Assert.That(actual, Is.EqualTo(Hand.Scissors)); // 結果は常に「ちょき」
+        }
+
+        [Test]
         public void Pon_NSubstituteで間接入力を複数指定してテストする例()
         {
             var stub = Substitute.For<IRandom>();
@@ -60,8 +72,38 @@ namespace TestDoubleExample.Janken
             sut.Pon();
 
             spy.Received().Range(0, 3); // 引数(0, 3)で呼ばれたことを検証
+
             spy.DidNotReceive().Range(Arg.Is<int>(x => x != 0), Arg.Any<int>()); // 第一引数は0以外では呼ばれていないことを検証
             spy.DidNotReceive().Range(Arg.Any<int>(), Arg.Is<int>(x => x != 3)); // 第二引数は3以外では呼ばれていないことを検証
+        }
+
+        [TestFixture]
+        public class ClassMockingExamples
+        {
+            [Test]
+            [Explicit("実行時エラーになるため除外")]
+            public void Pon_classの非virtualメソッドは置き換えできない()
+            {
+                var stub = Substitute.For<Random>(); // classを指定
+                stub.Range(0, 3).Returns(0); // 実行時にCouldNotSetReturnDueToNoLastCallException発生
+
+                var sut = new Janken(stub);
+                var actual = sut.Pon();
+
+                Assert.That(actual, Is.EqualTo(Hand.Rock));
+            }
+
+            [Test]
+            public void Pon_classでもvirtualメソッドは置き換えできる()
+            {
+                var stub = Substitute.For<VRandom>(); // classを指定
+                stub.Range(0, 3).Returns(1); // classでもvirtualメソッドは置き換えできる
+
+                var sut = new Janken(stub);
+                var actual = sut.Pon();
+
+                Assert.That(actual, Is.EqualTo(Hand.Scissors));
+            }
         }
     }
 }
