@@ -3,7 +3,10 @@
 
 namespace TestDoubleExample.Janken
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// <see cref="IRandom"/>の実装
+    /// <see cref="Range"/>はvirtualメソッド
+    /// </summary>
     public class VRandom : IRandom
     {
         /// <inheritdoc/>

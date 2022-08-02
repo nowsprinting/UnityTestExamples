@@ -3,7 +3,10 @@
 
 namespace TestDoubleExample.Janken
 {
-    /// <inheritdoc/>
+    /// <summary>
+    /// <see cref="IRandom"/>の実装
+    /// <see cref="UnityEngine.Random"/>を使用
+    /// </summary>
     public class Random : IRandom
     {
         /// <inheritdoc/>

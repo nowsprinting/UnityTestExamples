@@ -45,31 +45,31 @@ namespace APIExamples.Editor.UnityTestFramework
         {
             AssetDatabase.DeleteAsset(CsPath);
             AssetDatabase.DeleteAsset(DLLDstPath);
-            // NOTE: ドメインリロードを伴うテストなので、SetUpで初期化は行わない。ドメインリロード後に再度SetUpが呼ばれるため
+            // Note: ドメインリロードを伴うテストなので、SetUpで初期化は行わない。ドメインリロード後に再度SetUpが呼ばれるため
         }
 
         [UnityTest]
         public IEnumerator EnterPlayModeの使用例()
         {
             yield return new EnterPlayMode();
-
             Assert.That(EditorApplication.isPlaying, Is.True);
-            // 特に後処理をしなくてもテスト終了後に編集モードに戻る模様
+            // Note: 特に後処理をしなくてもテスト終了後に編集モードに戻ります
         }
 
         [UnityTest]
         public IEnumerator ExitPlayModeの使用例()
         {
             yield return new EnterPlayMode();
-            yield return new ExitPlayMode();
+            Assume.That(EditorApplication.isPlaying, Is.True);
 
+            yield return new ExitPlayMode();
             Assert.That(EditorApplication.isPlaying, Is.False);
         }
 
         [UnityTest]
         public IEnumerator RecompileScriptsでリコンパイルされたクラスのメソッドを呼び出す例()
         {
-            Assert.That(Path.GetFullPath(CsPath), Does.Not.Exist,
+            Assume.That(Path.GetFullPath(CsPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
 
             using (var file = File.CreateText(Path.GetFullPath(CsPath)))
@@ -81,8 +81,7 @@ namespace APIExamples.Editor.UnityTestFramework
             yield return new RecompileScripts();
 
             // リフレクションでメソッド呼び出し
-            const string AssemblyCSharp = "Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null";
-            var assemblyName = new AssemblyName(AssemblyCSharp);
+            var assemblyName = new AssemblyName("Assembly-CSharp");
             var assembly = Assembly.Load(assemblyName);
             var fooType = assembly.GetType("Foo");
             dynamic foo = Activator.CreateInstance(fooType);
@@ -94,7 +93,7 @@ namespace APIExamples.Editor.UnityTestFramework
         [UnityTest]
         public IEnumerator WaitForDomainReloadで追加されたアセンブリのメソッドを呼び出す例()
         {
-            Assert.That(Path.GetFullPath(DLLDstPath), Does.Not.Exist,
+            Assume.That(Path.GetFullPath(DLLDstPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
 
             File.Copy(Path.GetFullPath(DLLSrcPath), Path.GetFullPath(DLLDstPath), true);
