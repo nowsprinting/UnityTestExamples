@@ -27,6 +27,7 @@ MonoBehaviour:
     - com.cysharp.unitask
     - com.nowsprinting.create-script-folders-with-tests
     - com.openupm
+    - net.tnrd.nsubstitute
     m_IsDefault: 0
   m_UserSelectedRegistryName: 
   m_UserAddingNewScopedRegistry: 0
@@ -40,6 +41,7 @@ MonoBehaviour:
       - com.cysharp.unitask
       - com.nowsprinting.create-script-folders-with-tests
       - com.openupm
+      - net.tnrd.nsubstitute
       m_IsDefault: 0
     m_Modified: 0
     m_Name: package.openupm.com
@@ -48,4 +50,5 @@ MonoBehaviour:
     - com.cysharp.unitask
     - com.nowsprinting.create-script-folders-with-tests
     - com.openupm
+    - net.tnrd.nsubstitute
     m_SelectedScopeIndex: 0
