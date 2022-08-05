@@ -21,7 +21,7 @@
     "autoReferenced": false,
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS",
-        "USE_NUGET_PACKAGES"
+        "UNITY_EDITOR"
     ],
     "versionDefines": [],
     "noEngineReferences": false
