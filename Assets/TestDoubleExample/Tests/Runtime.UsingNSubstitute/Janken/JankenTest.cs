@@ -8,8 +8,6 @@ namespace TestDoubleExample.Janken
 {
     /// <summary>
     /// NSubstituteの使用例
-    /// NSubstituteのインポート前にはコンパイルエラーとなるため、TestDoubleExample.NSubstitute.Tests.asmdefの
-    /// `Define Constraints`に`USE_NUGET_PACKAGES`を設定しています。このサンプルを使用するときはこれを削除してください
     /// </summary>
     public class JankenTest
     {
