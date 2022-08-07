@@ -12,6 +12,9 @@ namespace BasicExample.Entities
     public class HitPointGaugeSetting : ScriptableObject
     {
         [SerializeField]
+        private Color black = Color.black;
+
+        [SerializeField]
         private Color red = Color.red;
 
         [SerializeField]
@@ -29,9 +32,9 @@ namespace BasicExample.Entities
         private float yellowBounds = 0.5f;
 
         /// <summary>
-        /// ヒットポイントの%から、ゲージの表示色を返す
+        /// ヒットポイント残量から、ゲージの表示色を返す
         /// </summary>
-        /// <param name="percentage">残ヒットポイント%</param>
+        /// <param name="percentage">残ヒットポイントの割合</param>
         /// <param name="buff">バフあり</param>
         /// <returns>ゲージの表示色</returns>
         public Color GetHitPointGaugeColor(float percentage, bool buff = false)
@@ -41,7 +44,11 @@ namespace BasicExample.Entities
 
         private Color BaseColor(float percentage)
         {
-            if (percentage < redBounds)
+            if (percentage <= 0)
+            {
+                return black;
+            }
+            else if (percentage < redBounds)
             {
                 return red;
             }

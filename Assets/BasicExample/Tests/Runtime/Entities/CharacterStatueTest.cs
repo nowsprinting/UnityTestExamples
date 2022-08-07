@@ -54,7 +54,7 @@ namespace BasicExample.Entities
         }
 
         [Test]
-        public void GiveAttack_防御力0に対して攻撃力1_HP減少()
+        public void GiveAttack_防御力0に対して攻撃力1_HPが1減少()
         {
             var sut = new CharacterStatus(ele: Element.None, maxHp: 2, def: 0);
             var damage = sut.GiveAttack(1, Element.None);
