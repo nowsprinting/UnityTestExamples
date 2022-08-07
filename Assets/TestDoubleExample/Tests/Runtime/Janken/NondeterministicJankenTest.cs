@@ -1,7 +1,6 @@
 ﻿// Copyright (c) 2021-2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
-using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine.TestTools.Utils;
@@ -29,6 +28,7 @@ namespace TestDoubleExample.Janken
         [TestCase(Hand.Rock, 0.33f)]
         [TestCase(Hand.Scissors, 0.33f)]
         [TestCase(Hand.Paper, 0.33f)]
+        [Retry(2)]
         public void Pon_出力が仕様通り分布していることをテストする例(Hand hand, float expectedRate)
         {
             const int NumOfAttempts = 100;
