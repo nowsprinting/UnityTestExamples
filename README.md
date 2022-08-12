@@ -50,11 +50,12 @@ Assets
         │       └── RaceValidator.cs
         └── Runtime
             └── Entities
-                ├── CharacterStatueTest.cs      // 「2.4 テストコードの書きかた」のテストコード
                 ├── Enums
                 │   └── ElementTest.cs
-                └── Settings
-                    └── HitPointGaugeSettingTest.cs
+                ├── Settings
+                │   └── HitPointGaugeSettingTest.cs // 「14.2 仕様テストにおけるテストケースの考えかた」のテストコード
+                ├── CharacterStatueTest.cs      // 「2.4 テストコードの書きかた」のテストコード
+                └── PassiveEffectTest.cs        // 「14.2.5 状態遷移テスト」のテストコード
 ```
 
 ### APIExamples
@@ -108,7 +109,7 @@ Assets
 
 第11章 UPM パッケージのテスト
 
-#### 組み込みパッケージ
+#### 埋め込みパッケージ
 
 ```
 Packages
@@ -121,6 +122,12 @@ Packages
 LocalPackages
 └── com.nowsprinting.local-package-sample
 ```
+
+
+
+## Unity Test Framework v2.0
+
+Add examples for Unity Test Framework v2.0 [#1](https://github.com/nowsprinting/UnityTestExamples/pull/1)を参照してください
 
 
 

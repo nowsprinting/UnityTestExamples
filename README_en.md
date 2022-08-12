@@ -59,11 +59,12 @@ Assets
         │       └── RaceValidator.cs
         └── Runtime
             └── Entities
-                ├── CharacterStatueTest.cs      // Test code of "2.4 How to write test code"
                 ├── Enums
                 │   └── ElementTest.cs
-                └── Settings
-                    └── HitPointGaugeSettingTest.cs
+                ├── Settings
+                │   └── HitPointGaugeSettingTest.cs // Test code of "14.2 Test cases via specification testing"
+                ├── CharacterStatueTest.cs      // Test code of "2.4 How to write test code"
+                └── PassiveEffectTest.cs        // Test code of "14.2.5 State transition testing"
 ```
 
 ### APIExamples
@@ -130,6 +131,12 @@ Packages
 LocalPackages
 └── com.nowsprinting.local-package-sample
 ```
+
+
+
+## Unity Test Framework v2.0
+
+See: Add examples for Unity Test Framework v2.0 [#1](https://github.com/nowsprinting/UnityTestExamples/pull/1)
 
 
 
