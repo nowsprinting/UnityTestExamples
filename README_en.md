@@ -14,10 +14,10 @@ This repository is a sample project for the "Unity Test Framework Perfect Guideb
 Books can be purchased from the following websites, but they are written in Japanese.
 
 #### BOOTH
-[Unity Test Framework完全攻略ガイド【電子版】 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+[Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
 
 #### Tech Book Fest Market
-[Unity Test Framework完全攻略ガイド：いか小屋](https://techbookfest.org/product/5936401533108224)
+[Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
 
 
 

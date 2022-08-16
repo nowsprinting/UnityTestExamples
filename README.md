@@ -14,10 +14,10 @@ Click [English](./README_en.md) for English page if you need.
 電子版 (pdf) は次のWebサイトから購入できます。
 
 #### BOOTH
-[Unity Test Framework完全攻略ガイド【電子版】 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+[Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
 
 #### 技術書典マーケット
-[Unity Test Framework完全攻略ガイド：いか小屋](https://techbookfest.org/product/5936401533108224)
+[Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
 
 
 
