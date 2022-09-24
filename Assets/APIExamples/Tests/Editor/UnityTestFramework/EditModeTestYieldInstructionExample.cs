@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2022 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -24,6 +24,9 @@ namespace APIExamples.Editor.UnityTestFramework
         [OneTimeSetUp]
         public void OneTimeSetUp()
         {
+            Assume.That(EditorSettings.enterPlayModeOptionsEnabled, Is.False, "Enter Play Mode Options enabled");
+            // Note: Edit | Project Settings... | Editor | Enter Play Mode Settings が変更されていないことが前提
+
             Debug.Log("OneTimeSetUpはドメインリロードで再実行されます");
         }
 
