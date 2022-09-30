@@ -723,6 +723,29 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            public void ThrowsConstraint_期待するメッセージを持つ例外がスローされる()
+            {
+                void GetThrowWithMessage() => throw new ArgumentException("Semper Paratus!");
+
+                Assert.That(() => GetThrowWithMessage(),
+                    Throws.TypeOf<ArgumentException>().And.Message.EqualTo("Semper Paratus!"));
+                // 失敗時メッセージ例:
+                //  Expected: <System.ArgumentException> and property Message equal to "Semper Paratus!"
+                //  But was:  "sember paratus!"
+            }
+
+            [Test]
+            public void ThrowsConstraint_UnityEngineのAssert失敗を期待する()
+            {
+                void GetAssert() => UnityEngine.Assertions.Assert.IsTrue(false);
+
+                Assert.That(() => GetAssert(), Throws.TypeOf<UnityEngine.Assertions.AssertionException>());
+                // 失敗時メッセージ例:
+                //  Expected: <NUnit.Framework.AssertionException>
+                //  But was:  <UnityEngine.Assertions.AssertionException>
+            }
+
+            [Test]
             public void ThrowsNothingConstraint_例外がスローされないことを期待する()
             {
                 void GetNotThrow() { }
