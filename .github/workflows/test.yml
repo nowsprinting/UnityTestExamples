@@ -53,7 +53,7 @@ jobs:
       # Test
       - name: Create license secret key
         id: license
-        run: echo "::set-output name=secret_key::UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)"
+        run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_OUTPUT"
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
