@@ -1,4 +1,4 @@
-# Copyright (c) 2021 Koji Hasegawa.
+# Copyright (c) 2021-2022 Koji Hasegawa.
 # This software is released under the MIT License.
 
 PROJECT_HOME?=$(PWD)
@@ -30,7 +30,7 @@ endif
 endif
 
 # Code Coverage report filter (comma separated)
-# see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
+# see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
 COVERAGE_ASSEMBLY_FILTERS?=+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
 
 define test_arguments
