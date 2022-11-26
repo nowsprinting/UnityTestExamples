@@ -67,6 +67,13 @@ jobs:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
         id: test
 
+      - name: Set coverage path for octocov
+        run: sed -i -r 's/\.\/Logs/${{ steps.test.outputs.coveragePath }}/' .octocov.yml
+
+      - name: Run octocov
+        uses: k1LoW/octocov-action@v0
+        if: ${{ startsWith(matrix.unityVersion, '2022') }}
+
       - name: Upload test results
         uses: actions/upload-artifact@v3
         with:
