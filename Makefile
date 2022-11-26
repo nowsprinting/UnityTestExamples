@@ -31,7 +31,7 @@ endif
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.1/manual/CoverageBatchmode.html
-COVERAGE_ASSEMBLY_FILTERS?=+<user>,+EmbeddedPackageSample*,+LocalPackageSample*,-*.Tests
+COVERAGE_ASSEMBLY_FILTERS?=+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
 
 define test_arguments
   -projectPath $(PROJECT_HOME) \
@@ -64,7 +64,7 @@ define cover
     -debugCodeOptimization \
     -enableCodeCoverage \
     -coverageResultsPath $(LOG_DIR) \
-    -coverageOptions 'generateAdditionalMetrics;assemblyFilters:$(COVERAGE_ASSEMBLY_FILTERS)'
+    -coverageOptions 'generateAdditionalMetrics;generateTestReferences;dontClear;assemblyFilters:$(COVERAGE_ASSEMBLY_FILTERS)'
 endef
 
 define cover_report
@@ -75,7 +75,7 @@ define cover_report
     -quit \
     -enableCodeCoverage \
     -coverageResultsPath $(LOG_DIR) \
-    -coverageOptions 'generateAdditionalMetrics;generateHtmlReport;assemblyFilters:+<project>'
+    -coverageOptions 'generateHtmlReport;generateAdditionalMetrics;generateAdditionalReports;assemblyFilters:$(COVERAGE_ASSEMBLY_FILTERS)'
 endef
 
 .PHONY: usage
