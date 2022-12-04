@@ -61,7 +61,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # 通常は未指定（`auto`）でok
           customParameters: -testCategory "!IgnoreCI"
-          coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;assemblyFilters:+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
+          coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
