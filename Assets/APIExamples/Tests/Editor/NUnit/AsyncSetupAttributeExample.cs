@@ -6,12 +6,12 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace APIExamples.NUnit
+namespace APIExamples.Editor.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="SetUpAttribute"/>, <see cref="TearDownAttribute"/>の例
+    /// 非同期の<see cref="SetUpAttribute"/>, <see cref="TearDownAttribute"/>の例（Edit Modeテスト）
     /// <see cref="OneTimeSetUpAttribute"/>, <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.3時点）
-    /// Async SetUp and TearDown attribute example
+    /// Async SetUp and TearDown attribute example (in Edit Mode tests)
     /// Async OneTimeSetUp and OneTimeTearDown attribute is not yet supported in UTF v1.3
     /// </summary>
     /// <remarks>
