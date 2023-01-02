@@ -1,9 +1,10 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -89,6 +90,13 @@ namespace APIExamples.NUnit
             {
                 yield return null; // Timeout時間を超えてもテストは中断されない。指定時間を超過していれば失敗と判定はされる
             }
+        }
+
+        [Test]
+        [Timeout(2000)]
+        public async Task タイムアウトはasyncテストでは有効でない_中断されず失敗にもならない()
+        {
+            await Task.Delay(3000); // Timeout時間を超えてもテストは中断されず、失敗にもならない（UTF v1.3時点）
         }
     }
 }
