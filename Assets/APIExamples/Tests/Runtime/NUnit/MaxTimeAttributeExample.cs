@@ -1,8 +1,9 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -15,7 +16,6 @@ namespace APIExamples.NUnit
     /// <see cref="MaxTimeAttribute"/>の使用例
     /// </summary>
     [TestFixture]
-    [Explicit("Unity Test Framework v1.1.33時点ではMaxTime属性はUnityTest属性のテストに使用できない")]
     public class MaxTimeAttributeExample
     {
         private readonly Stopwatch _stopwatch = new Stopwatch();
@@ -34,6 +34,7 @@ namespace APIExamples.NUnit
             Time.timeScale = 1f;
         }
 
+        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3時点）")]
         [UnityTest]
         [MaxTime(2000)]
         public IEnumerator MaxTimeを1秒に設定()
@@ -47,6 +48,7 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
+        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3時点）")]
         [UnityTest]
         [MaxTime(2000)]
         public IEnumerator MaxTime値はTimeScaleに影響されない()
@@ -59,6 +61,14 @@ namespace APIExamples.NUnit
 
             Time.timeScale = 5f;
             yield return new WaitForSecondsRealtime(waitSeconds);
+        }
+
+        [Explicit("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3時点）")]
+        [Test]
+        [MaxTime(2000)]
+        public async Task MaxTime属性はasyncテストに使用できない()
+        {
+            await Task.Delay(3000);
         }
     }
 }
