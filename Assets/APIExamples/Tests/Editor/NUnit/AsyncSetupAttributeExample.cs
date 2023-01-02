@@ -27,7 +27,7 @@ namespace APIExamples.Editor.NUnit
         public async Task SetUp()
         {
             Debug.Log($"SetUp, {Time.time}");
-            await Task.Delay(200);
+            await Task.Delay(200); // Note: Edit Modeテストでは実際はDelayはされない
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace APIExamples.Editor.NUnit
         public async Task TearDown()
         {
             Debug.Log($"TearDown, {Time.time}");
-            await Task.Delay(200);
+            await Task.Delay(200); // Note: Edit Modeテストでは実際はDelayはされない
         }
 
         [Test]
