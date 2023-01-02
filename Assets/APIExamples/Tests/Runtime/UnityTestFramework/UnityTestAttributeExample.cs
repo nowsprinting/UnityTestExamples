@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -79,7 +79,7 @@ namespace APIExamples.UnityTestFramework
         public IEnumerator コルーチンを起動してコールバックを受け取る例()
         {
             var actual = 0;
-            yield return FooMonoBehaviour.BarCoroutine(i =>
+            yield return BarCoroutine(i =>
             {
                 actual = i;
             });
@@ -91,7 +91,7 @@ namespace APIExamples.UnityTestFramework
         public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例() => UniTask.ToCoroutine(async () =>
         {
             var actual = 0;
-            await FooMonoBehaviour.BarCoroutine(i =>
+            await BarCoroutine(i =>
             {
                 actual = i;
             }).ToUniTask();
@@ -99,14 +99,10 @@ namespace APIExamples.UnityTestFramework
             Assert.That(actual, Is.EqualTo(1));
         });
 
-        // テスト対象コルーチンを含むMonoBehaviour
-        private class FooMonoBehaviour : MonoBehaviour
+        private static IEnumerator BarCoroutine(Action<int> onSuccess)
         {
-            public static IEnumerator BarCoroutine(Action<int> onSuccess)
-            {
-                yield return null;
-                onSuccess(1);
-            }
+            yield return null;
+            onSuccess(1);
         }
     }
 }

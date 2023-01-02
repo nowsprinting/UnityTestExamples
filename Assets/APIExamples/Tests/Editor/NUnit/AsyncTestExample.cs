@@ -70,10 +70,10 @@ namespace APIExamples.Editor.NUnit
         [Test]
         [Description("Can await Coroutine")]
         [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
-        public async Task 非同期テストの例_コルーチンをawaitできる()
+        public async Task 非同期テストの例_コルーチンをawait_EditModeテストでは動作しない()
         {
             var actual = 0;
-            await FooMonoBehaviour.BarCoroutine(i =>
+            await BarCoroutine(i =>
             {
                 actual = i;
             });
@@ -81,14 +81,10 @@ namespace APIExamples.Editor.NUnit
             Assert.That(actual, Is.EqualTo(1));
         }
 
-        // テスト対象コルーチンを含むMonoBehaviour
-        private class FooMonoBehaviour : MonoBehaviour
+        private static IEnumerator BarCoroutine(Action<int> onSuccess)
         {
-            public static IEnumerator BarCoroutine(Action<int> onSuccess)
-            {
-                yield return null;
-                onSuccess(1);
-            }
+            yield return null;
+            onSuccess(1);
         }
     }
 }
