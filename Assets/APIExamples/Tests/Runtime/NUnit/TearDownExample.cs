@@ -7,27 +7,27 @@ using UnityEngine;
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// <see cref="SetUpAttribute"/>, <see cref="OneTimeSetUpAttribute"/>の例
+    /// <see cref="TearDownAttribute"/>, <see cref="OneTimeTearDownAttribute"/>の例
     /// </summary>
     [TestFixture]
-    public class SetupAttributeExample
+    public class TearDownExample
     {
         /// <summary>
-        /// クラス内の最初のテストの実行前に一度だけ実行されます
+        /// クラス内の最後のテストの実行後に一度だけ実行されます
         /// </summary>
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
         {
-            Debug.Log($"OneTimeSetUp, {Time.time}");
+            Debug.Log($"OneTimeTearDown, {Time.time}");
         }
 
         /// <summary>
-        /// 各テストメソッドの前に実行されます
+        /// 各テストメソッドの後に実行されます
         /// </summary>
-        [SetUp]
-        public void SetUp()
+        [TearDown]
+        public void TearDown()
         {
-            Debug.Log($"SetUp, {Time.time}");
+            Debug.Log($"TearDown, {Time.time}");
         }
 
         [Test]
