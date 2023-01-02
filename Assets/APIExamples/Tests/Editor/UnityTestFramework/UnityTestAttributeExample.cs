@@ -92,7 +92,7 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
-        [Explicit("Edit Modeテストではフリーズするため実行対象から除外")]
+        [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
         public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例() => UniTask.ToCoroutine(async () =>
         {
             var actual = 0;
