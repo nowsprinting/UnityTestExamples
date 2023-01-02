@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022 Koji Hasegawa.
+﻿// Copyright (c) 2022-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
-namespace APIExamples.NUnit
+namespace APIExamples.Editor.NUnit
 {
     /// <summary>
-    /// 非同期テストの実装例
-    /// Async tests example
+    /// 非同期テストの実装例（Edit Modeテスト）
+    /// Async test example (in Edit Mode tests)
     /// </summary>
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-    public class AsyncTestsExample
+    public class AsyncTestExample
     {
         [Test]
         [Description("Can await Task")]
@@ -71,6 +69,7 @@ namespace APIExamples.NUnit
 
         [Test]
         [Description("Can await Coroutine")]
+        [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
         public async Task 非同期テストの例_コルーチンをawaitできる()
         {
             var actual = 0;
