@@ -1,7 +1,8 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
@@ -46,12 +47,25 @@ namespace APIExamples.NUnit
             return actual;
         }
 
-        [UnityTest]
-        [TestCase(Element.None, Element.None, 1.0f)]
         [Explicit("実行すると次のメッセージを伴って失敗します: Method has non-valid return value, but no result is expected")]
-        public IEnumerator UnityTestとTestCase属性は組み合わせて使用できない(Element def, Element atk, float expected)
+        [UnityTest]
+        [TestCase(Element.Wood, Element.Fire, 2.0f)]
+        [TestCase(Element.Wood, Element.Water, 0.5f)]
+        [TestCase(Element.Wood, Element.None, 1.0f)]
+        public IEnumerator UnityTestでTestCase属性は使用できない(Element def, Element atk, float expected)
         {
             yield return null;
+            var actual = def.GetDamageMultiplier(atk);
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [TestCase(Element.Fire, Element.Water, 2.0f)]
+        [TestCase(Element.Fire, Element.Wood, 0.5f)]
+        [TestCase(Element.Fire, Element.None, 1.0f)]
+        public async Task 非同期テストではTestCase属性を使用できる(Element def, Element atk, float expected)
+        {
+            await Task.Delay(1);
             var actual = def.GetDamageMultiplier(atk);
 
             Assert.That(actual, Is.EqualTo(expected));
