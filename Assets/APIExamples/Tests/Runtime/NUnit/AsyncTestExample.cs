@@ -90,10 +90,10 @@ namespace APIExamples.NUnit
             onSuccess(1);
         }
 
+#pragma warning disable CS1998
         private static async Task ThrowArgumentException()
         {
             throw new ArgumentException("message!");
-            await Task.Delay(1);
         }
 
         [Explicit("非同期メソッドの例外捕捉に制約モデルを使用しようとすると無限ループします（Unity Test Framework v1.3時点）")]
@@ -108,6 +108,7 @@ namespace APIExamples.NUnit
         {
             Assert.ThrowsAsync<ArgumentException>(async () => await ThrowArgumentException());
         }
+#pragma warning restore CS1998
 
         [Test]
         public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
