@@ -1,8 +1,9 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
@@ -59,7 +60,7 @@ namespace APIExamples.NUnit
 
         [Test]
         [Pairwise] // Note: UnityTest属性と使用すると正しい組み合わせが得られません（むしろ増える）
-        public void GetDamageMultiplier_Pairwise属性で組み合わせの絞り込みが可能(
+        public void Pairwise属性で組み合わせの絞り込みが可能( // 全網羅では3*3*3*2=54通りのところ、ペアワイズ法によって10通りになる例
             [ValueSource(nameof(s_defs1x))] Element def,
             [ValueSource(nameof(s_atks1x))] Element atk,
             [ValueSource(nameof(s_third))] int thirdArgument,
@@ -76,7 +77,7 @@ namespace APIExamples.NUnit
 
         [Test]
         [Sequential] // Note: UnityTest属性と使用すると正しい組み合わせが得られません（むしろ増える）
-        public void GetDamageMultiplier_Sequential属性で組み合わせの固定が可能(
+        public void Sequential属性で組み合わせの固定が可能( // 全網羅では4*4*4=64通りのところ、4通りになる例
             [ValueSource(nameof(s_defsSeq))] Element def,
             [ValueSource(nameof(s_atksSeq))] Element atk,
             [ValueSource(nameof(s_expected))] float expected)
@@ -91,9 +92,48 @@ namespace APIExamples.NUnit
             [ValueSource(nameof(s_defs1x))] Element def,
             [ValueSource(nameof(s_atks1x))] Element atk)
         {
-            yield return null;
             var actual = def.GetDamageMultiplier(atk);
+            yield return null;
+
             Assert.That(actual, Is.EqualTo(1.0f));
+        }
+
+        [Test]
+        public async Task 非同期テストでもValueSource属性は使用可能(
+            [ValueSource(nameof(s_defs1x))] Element def,
+            [ValueSource(nameof(s_atks1x))] Element atk)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(1);
+
+            Assert.That(actual, Is.EqualTo(1.0f));
+        }
+
+        [Test]
+        [Pairwise]
+        public async Task 非同期テストでもPairwise属性で組み合わせの絞り込みが可能( // 全網羅では3*3*3*2=54通りのところ、ペアワイズ法によって10通りになる例
+            [ValueSource(nameof(s_defs1x))] Element def,
+            [ValueSource(nameof(s_atks1x))] Element atk,
+            [ValueSource(nameof(s_third))] int thirdArgument,
+            [ValueSource(nameof(s_fourth))] bool fourthArgument)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(1);
+
+            Assert.That(actual, Is.GreaterThanOrEqualTo(0.5f).And.LessThanOrEqualTo(2.0f));
+        }
+
+        [Test]
+        [Sequential]
+        public async Task 非同期テストでもSequential属性で組み合わせの固定が可能( // 全網羅では4*4*4=64通りのところ、4通りになる例
+            [ValueSource(nameof(s_defsSeq))] Element def,
+            [ValueSource(nameof(s_atksSeq))] Element atk,
+            [ValueSource(nameof(s_expected))] float expected)
+        {
+            var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(1);
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 }
