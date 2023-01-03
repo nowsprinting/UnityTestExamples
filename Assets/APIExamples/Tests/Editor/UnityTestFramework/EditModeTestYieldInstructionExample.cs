@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
@@ -41,6 +42,13 @@ namespace APIExamples.Editor.UnityTestFramework
         public void SetUp()
         {
             Debug.Log("SetUpはドメインリロードで再実行されます");
+        }
+
+        [SetUp]
+        public async Task SetUpAsync()
+        {
+            Debug.Log("SetUpAsyncはドメインリロードで再実行されます");
+            await Task.Delay(1);
         }
 
         [TearDown]
