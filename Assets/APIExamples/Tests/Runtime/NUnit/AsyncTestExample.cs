@@ -27,6 +27,7 @@ namespace APIExamples.NUnit
         {
             await Foo(1);
             var actual = await Bar(2);
+
             Assert.That(actual, Is.EqualTo(3));
         }
 
@@ -51,6 +52,7 @@ namespace APIExamples.NUnit
         {
             await UniTaskFoo(1);
             var actual = await UniTaskBar(2);
+
             Assert.That(actual, Is.EqualTo(3));
         }
 
@@ -86,6 +88,39 @@ namespace APIExamples.NUnit
         {
             yield return null;
             onSuccess(1);
+        }
+
+        private static async Task ThrowArgumentException()
+        {
+            throw new ArgumentException("message!");
+            await Task.Delay(1);
+        }
+
+        [Explicit("非同期メソッドの例外捕捉に制約モデルを使用しようとすると無限ループします（Unity Test Framework v1.3時点）")]
+        [Test]
+        public async Task 非同期メソッドの例外捕捉に制約モデルは使用できない()
+        {
+            Assert.That(async () => await ThrowArgumentException(), Throws.TypeOf<ArgumentException>());
+        }
+
+        [Test]
+        public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
+        {
+            Assert.ThrowsAsync<ArgumentException>(async () => await ThrowArgumentException());
+        }
+
+        [Test]
+        public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
+        {
+            try
+            {
+                await ThrowArgumentException();
+                Assert.Fail("例外が出なかった");
+            }
+            catch (ArgumentException expectedException)
+            {
+                Assert.That(expectedException.Message, Is.EqualTo("message!"));
+            }
         }
     }
 }

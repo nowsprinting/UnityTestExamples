@@ -25,6 +25,7 @@ namespace APIExamples.Editor.NUnit
         {
             await Foo(1);
             var actual = await Bar(2);
+
             Assert.That(actual, Is.EqualTo(3));
         }
 
@@ -49,6 +50,7 @@ namespace APIExamples.Editor.NUnit
         {
             await UniTaskFoo(1);
             var actual = await UniTaskBar(2);
+
             Assert.That(actual, Is.EqualTo(3));
         }
 
