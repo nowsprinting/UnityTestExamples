@@ -34,10 +34,27 @@ namespace APIExamples.NUnit
             Time.timeScale = 1f;
         }
 
+        [Test]
+        [MaxTime(10)]
+        public void MaxTimeを10ミリ秒に設定()
+        {
+            var loopCount = 1;
+            if (Fail)
+            {
+                loopCount = 10000000;
+            }
+
+            var sum = 0f;
+            for (var i = 0; i < loopCount; i++)
+            {
+                sum += Random.value;
+            }
+        }
+
         [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3時点）")]
         [UnityTest]
         [MaxTime(2000)]
-        public IEnumerator MaxTimeを1秒に設定()
+        public IEnumerator MaxTime属性はUnityTest属性のテストに使用できない_実行するとエラー()
         {
             var waitSeconds = 1f;
             if (Fail)
@@ -48,25 +65,10 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
-        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3時点）")]
-        [UnityTest]
-        [MaxTime(2000)]
-        public IEnumerator MaxTime値はTimeScaleに影響されない()
-        {
-            var waitSeconds = 1f;
-            if (Fail)
-            {
-                waitSeconds = 10f;
-            }
-
-            Time.timeScale = 5f;
-            yield return new WaitForSecondsRealtime(waitSeconds);
-        }
-
         [Explicit("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3時点）")]
         [Test]
         [MaxTime(2000)]
-        public async Task MaxTime属性はasyncテストに使用できない()
+        public async Task MaxTime属性は非同期テストに使用できない_実行すると無限ループ()
         {
             await Task.Delay(3000);
         }
