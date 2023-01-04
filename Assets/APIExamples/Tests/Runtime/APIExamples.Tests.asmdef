@@ -8,9 +8,7 @@
         "UniTask"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "WebGL"
-    ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [

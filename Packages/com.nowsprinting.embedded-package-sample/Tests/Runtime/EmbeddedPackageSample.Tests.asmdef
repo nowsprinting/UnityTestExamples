@@ -1,13 +1,12 @@
 {
     "name": "EmbeddedPackageSample.Tests",
+    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
     "includePlatforms": [],
-    "excludePlatforms": [
-        "WebGL"
-    ],
+    "excludePlatforms": [],
     "allowUnsafeCode": false,
     "overrideReferences": true,
     "precompiledReferences": [
