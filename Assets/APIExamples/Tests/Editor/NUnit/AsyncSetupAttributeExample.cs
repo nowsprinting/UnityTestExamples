@@ -4,7 +4,6 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
 
 namespace APIExamples.Editor.NUnit
 {
@@ -17,7 +16,7 @@ namespace APIExamples.Editor.NUnit
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+    [TestFixture]
     public class AsyncSetupAttributeExample
     {
         /// <summary>

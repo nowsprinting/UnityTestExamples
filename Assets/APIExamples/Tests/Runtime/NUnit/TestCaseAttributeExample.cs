@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -60,6 +61,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [TestCase(Element.Fire, Element.Water, 2.0f)]
         [TestCase(Element.Fire, Element.Wood, 0.5f)]
         [TestCase(Element.Fire, Element.None, 1.0f)]

@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -98,6 +99,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(1.0f));
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Test]
         public async Task 非同期テストでもValueSource属性は使用可能(
             [ValueSource(nameof(s_defs1x))] Element def,
@@ -109,6 +111,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(1.0f));
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Test]
         [Pairwise]
         public async Task 非同期テストでもPairwise属性で組み合わせの絞り込みが可能( // 全網羅では3*3*3*2=54通りのところ、ペアワイズ法によって10通りになる例
@@ -123,6 +126,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.GreaterThanOrEqualTo(0.5f).And.LessThanOrEqualTo(2.0f));
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Test]
         [Sequential]
         public async Task 非同期テストでもSequential属性で組み合わせの固定が可能( // 全網羅では4*4*4=64通りのところ、4通りになる例

@@ -92,6 +92,7 @@ namespace APIExamples.NUnit
             }
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [Test]
         [Timeout(2000)]
         public async Task タイムアウトはasyncテストでは有効でない_中断されず失敗にもならない()

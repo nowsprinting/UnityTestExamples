@@ -19,6 +19,7 @@ namespace APIExamples.NUnit
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
     [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+    [TestFixture]
     public class AsyncTestExample
     {
         [Test]

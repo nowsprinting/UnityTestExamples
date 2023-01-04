@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -81,6 +82,7 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [TestCaseSource(nameof(s_testCases))]
         public async Task 非同期テストではTestCaseSource属性を使用できる(Element def, Element atk, float expected)
         {
