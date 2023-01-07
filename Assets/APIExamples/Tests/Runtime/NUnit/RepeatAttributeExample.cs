@@ -1,7 +1,8 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -20,13 +21,14 @@ namespace APIExamples.NUnit
     {
         private int _testCount;
         private int _unityTestCount;
+        private int _asyncTestCount;
 
         [Test]
         [Repeat(2)]
         public void 繰り返し実行するテスト()
         {
-            _testCount++;
-            // Debug.Log($"Test {_testCount}回目");
+            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト)} {++_testCount}回目");
+
             Assert.That(true);
         }
 
@@ -34,10 +36,20 @@ namespace APIExamples.NUnit
         [Repeat(2)]
         public IEnumerator 繰り返し実行するテスト_UnityTest属性()
         {
+            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト_UnityTest属性)} {++_unityTestCount}回目");
             yield return null;
 
-            _unityTestCount++;
-            // Debug.Log($"UnityTest {_unityTestCount}回目");
+            Assert.That(true);
+        }
+
+        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3時点）")]
+        [Test]
+        [Repeat(2)]
+        public async Task 繰り返し実行するテスト_非同期()
+        {
+            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト_非同期)} {++_asyncTestCount}回目");
+            await Task.Delay(0);
+
             Assert.That(true);
         }
     }

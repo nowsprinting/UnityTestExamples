@@ -1,7 +1,8 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
@@ -22,6 +23,7 @@ namespace APIExamples.NUnit
     {
         private int _testCount;
         private int _unityTestCount;
+        private int _asyncTestCount;
 
         [Test]
         [Retry(2)] // リトライ回数ではなく総試行回数を指定
@@ -37,6 +39,16 @@ namespace APIExamples.NUnit
             yield return null;
 
             Assert.That(++_unityTestCount, Is.EqualTo(2));
+        }
+
+        [Explicit("Retry属性はasyncテストに使用できない（Unity Test Framework v1.3時点）")]
+        [Test]
+        [Retry(2)] // リトライ回数ではなく総試行回数を指定
+        public async Task 最初は失敗するが2回目で成功するテスト_非同期()
+        {
+            await Task.Delay(0);
+
+            Assert.That(++_asyncTestCount, Is.EqualTo(2));
         }
     }
 }
