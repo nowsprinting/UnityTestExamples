@@ -42,7 +42,8 @@ namespace APIExamples.NUnit
             Assert.That(true);
         }
 
-        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3時点）")]
+        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.2時点）")]
+        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
         [Repeat(2)]
         public async Task 繰り返し実行するテスト_非同期()

@@ -93,11 +93,13 @@ namespace APIExamples.NUnit
         }
 
         [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        // WebGLでTask.Delayが終了しない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
         [Test]
         [Timeout(2000)]
         public async Task タイムアウトはasyncテストでは有効でない_中断されず失敗にもならない()
         {
-            await Task.Delay(3000); // Timeout時間を超えてもテストは中断されず、失敗にもならない（UTF v1.3時点）
+            await Task.Delay(3000);
+            // Timeout時間を超えてもテストは中断されず、失敗にもならない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108
         }
     }
 }

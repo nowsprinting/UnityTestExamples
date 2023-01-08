@@ -69,10 +69,10 @@ namespace APIExamples.Editor.NUnit
             return id + 1;
         }
 
+        [Explicit("Edit Modeではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         [Test]
         [Description("Can await Coroutine")]
-        [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
-        public async Task 非同期テストの例_コルーチンをawait_EditModeテストでは動作しない()
+        public async Task 非同期テストの例_コルーチンをawait_EditModeではテストが終了しない()
         {
             var actual = 0;
             await BarCoroutine(i =>
@@ -87,6 +87,40 @@ namespace APIExamples.Editor.NUnit
         {
             yield return null;
             onSuccess(1);
+        }
+
+#pragma warning disable CS1998
+        private static async Task ThrowNewExceptionInMethod()
+        {
+            throw new ArgumentException("message!");
+        }
+
+        [Test]
+        public async Task 非同期メソッドの例外捕捉を制約モデルで行なう例()
+        {
+            Assert.That(async () => await ThrowNewExceptionInMethod(), Throws.TypeOf<ArgumentException>());
+        }
+        // Note: Edit Modeテストでは動作するが、Play Modeテストではテストが終了しない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+
+        [Test]
+        public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
+        {
+            Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
+        }
+#pragma warning restore CS1998
+
+        [Test]
+        public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
+        {
+            try
+            {
+                await ThrowNewExceptionInMethod();
+                Assert.Fail("例外が出ることを期待しているのでテスト失敗とする");
+            }
+            catch (ArgumentException expectedException)
+            {
+                Assert.That(expectedException.Message, Is.EqualTo("message!"));
+            }
         }
     }
 }

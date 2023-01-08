@@ -92,22 +92,23 @@ namespace APIExamples.NUnit
         }
 
 #pragma warning disable CS1998
-        private static async Task ThrowArgumentException()
+        private static async Task ThrowNewExceptionInMethod()
         {
             throw new ArgumentException("message!");
         }
 
-        [Explicit("非同期メソッドの例外捕捉に制約モデルを使用しようとすると無限ループします（Unity Test Framework v1.3時点）")]
+        [Explicit("非同期メソッドの例外捕捉に制約モデルを使用するとテストが終了しない（Unity Test Framework v1.3.2時点）")]
+        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
         public async Task 非同期メソッドの例外捕捉に制約モデルは使用できない()
         {
-            Assert.That(async () => await ThrowArgumentException(), Throws.TypeOf<ArgumentException>());
+            Assert.That(async () => await ThrowNewExceptionInMethod(), Throws.TypeOf<ArgumentException>());
         }
 
         [Test]
         public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
         {
-            Assert.ThrowsAsync<ArgumentException>(async () => await ThrowArgumentException());
+            Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
         }
 #pragma warning restore CS1998
 
@@ -116,8 +117,8 @@ namespace APIExamples.NUnit
         {
             try
             {
-                await ThrowArgumentException();
-                Assert.Fail("例外が出なかった");
+                await ThrowNewExceptionInMethod();
+                Assert.Fail("例外が出ることを期待しているのでテスト失敗とする");
             }
             catch (ArgumentException expectedException)
             {
