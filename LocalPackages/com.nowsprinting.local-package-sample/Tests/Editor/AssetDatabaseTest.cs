@@ -7,7 +7,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace LocalPackageSample
+namespace LocalPackageSample.Editor
 {
     public class AssetDatabaseTest
     {

@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace LocalPackageSample
+namespace LocalPackageSample.Editor
 {
     [TestFixture]
     public class EditorSceneManagerTest
