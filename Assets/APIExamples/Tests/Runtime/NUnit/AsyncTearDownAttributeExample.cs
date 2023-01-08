@@ -4,7 +4,8 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+
+#pragma warning disable CS1998
 
 namespace APIExamples.NUnit
 {
@@ -17,7 +18,6 @@ namespace APIExamples.NUnit
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     [TestFixture]
     public class AsyncTearDownAttributeExample
     {
@@ -28,7 +28,6 @@ namespace APIExamples.NUnit
         public async Task TearDown()
         {
             Debug.Log($"TearDown, {Time.time}");
-            await Task.Delay(200);
         }
 
         [Test]

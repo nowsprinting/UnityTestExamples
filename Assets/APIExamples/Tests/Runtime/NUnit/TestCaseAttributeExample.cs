@@ -4,8 +4,9 @@
 using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using UnityEngine;
 using UnityEngine.TestTools;
+
+#pragma warning disable CS1998
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
@@ -61,13 +62,11 @@ namespace APIExamples.NUnit
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
         [TestCase(Element.Fire, Element.Water, 2.0f)]
         [TestCase(Element.Fire, Element.Wood, 0.5f)]
         [TestCase(Element.Fire, Element.None, 1.0f)]
         public async Task 非同期テストではTestCase属性を使用できる(Element def, Element atk, float expected)
         {
-            await Task.Delay(1);
             var actual = def.GetDamageMultiplier(atk);
 
             Assert.That(actual, Is.EqualTo(expected));

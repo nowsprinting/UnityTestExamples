@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 
+#pragma warning disable CS1998
+
 namespace APIExamples.Editor.NUnit
 {
     /// <summary>
@@ -26,7 +28,6 @@ namespace APIExamples.Editor.NUnit
         public async Task SetUp()
         {
             Debug.Log($"SetUp, {Time.time}");
-            await Task.Delay(200); // Note: Edit Modeテストでは実際はDelayはされない
         }
 
         [Test]

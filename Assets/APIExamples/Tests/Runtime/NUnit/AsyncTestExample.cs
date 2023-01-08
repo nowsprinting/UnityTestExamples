@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
+
+#pragma warning disable CS1998
 
 namespace APIExamples.NUnit
 {
@@ -18,7 +19,6 @@ namespace APIExamples.NUnit
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
     [TestFixture]
     public class AsyncTestExample
     {
@@ -34,16 +34,12 @@ namespace APIExamples.NUnit
 
         private static async Task Foo(int id)
         {
-            Debug.Log($"Start Foo({id})");
-            await Task.Delay(200);
-            Debug.Log($"Exit Foo({id})");
+            Debug.Log($"Foo({id})");
         }
 
         private static async Task<int> Bar(int id)
         {
-            Debug.Log($"Start Bar({id})");
-            await Task.Delay(200);
-            Debug.Log($"Exit Bar({id})");
+            Debug.Log($"Bar({id})");
             return id + 1;
         }
 
@@ -59,16 +55,12 @@ namespace APIExamples.NUnit
 
         private static async UniTask UniTaskFoo(int id)
         {
-            Debug.Log($"Start UniTaskFoo({id})");
-            await UniTask.Delay(200);
-            Debug.Log($"Exit UniTaskFoo({id})");
+            Debug.Log($"UniTaskFoo({id})");
         }
 
         private static async UniTask<int> UniTaskBar(int id)
         {
-            Debug.Log($"Start UniTaskBar({id})");
-            await UniTask.Delay(200);
-            Debug.Log($"Exit UniTaskBar({id})");
+            Debug.Log($"UniTaskBar({id})");
             return id + 1;
         }
 
@@ -91,7 +83,6 @@ namespace APIExamples.NUnit
             onSuccess(1);
         }
 
-#pragma warning disable CS1998
         private static async Task ThrowNewExceptionInMethod()
         {
             throw new ArgumentException("message!");
@@ -110,7 +101,6 @@ namespace APIExamples.NUnit
         {
             Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
         }
-#pragma warning restore CS1998
 
         [Test]
         public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
