@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.cysharp.unitask": "2.3.3",
-    "com.nowsprinting.create-script-folders-with-tests": "1.1.0",
+    "com.nowsprinting.create-script-folders-with-tests": "1.1.2",
     "com.nowsprinting.local-package-sample": "file:../LocalPackages/com.nowsprinting.local-package-sample",
     "com.unity.collab-proxy": "1.14.18",
     "com.unity.ide.rider": "3.0.17",
