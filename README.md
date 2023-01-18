@@ -131,6 +131,8 @@ LocalPackages
 
 Fixed in 2020.3.42f1, 2021.3.8f1, 2022.1.12f1, 2022.2.0b3, 2023.1.0a4
 
+これらのUnityバージョン未満では、WebGLプレイヤーでPlay Modeテストを実行しようとするとコンパイルエラーとなります。
+
 
 
 ## Unity Test Framework v2.0

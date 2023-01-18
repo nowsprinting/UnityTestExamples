@@ -140,6 +140,8 @@ The following Unity versions have removed the problem [UUM-1170](https://issuetr
 
 Fixed in 2020.3.42f1, 2021.3.8f1, 2022.1.12f1, 2022.2.0b3, 2023.1.0a4
 
+Under the Unity versions listed above, attempting to run a play mode test with a WebGL player will result in a compilation error.
+
 
 
 ## Unity Test Framework v2.0
