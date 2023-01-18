@@ -98,11 +98,11 @@ Assets
 
 ### InternalsVisibleToExample
 
-9.10 Testing internal method
+Chapter 9 Unity Test Framework Tips
 
 ```
 Assets
-└── InternalsVisibleToExample
+└── InternalsVisibleToExample   // "9.10 Testing internal method"
 ```
 
 ### SceneExample
