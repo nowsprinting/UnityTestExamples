@@ -124,7 +124,7 @@
       }
     },
     "net.tnrd.nsubstitute": {
-      "version": "4.2.2",
+      "version": "4.4.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},
