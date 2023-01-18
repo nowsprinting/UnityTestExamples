@@ -32,6 +32,26 @@ For test method names, English comments will be added by the `Description` attri
 
 ## Structure of sample project
 
+### APIExamples
+
+API catalog of Unity Test Framework and NUnit3
+
+```
+Assets
+└── APIExamples
+    ├── Scripts
+    │   └── (snip)
+    └── Tests
+        ├── Editor
+        │   └── UnityTestFramework
+        │       └── Chapter 3 Edit Mode tests, Chapter 5 Test asynchronous processing
+        └── Runtime
+            ├── NUnit
+            │   └── Chapter 6 Assertion, Chapter 8 Parameterized Tests, Chapter 9 Unity Test Framework Tips
+            └── UnityTestFramework
+                └── Chapter 5 Test asynchronous processing, Chapter 9 Unity Test Framework Tips
+```
+
 ### BasicExample
 
 Chapter 2 Unity Test Framework Basics
@@ -65,26 +85,6 @@ Assets
                 │   └── HitPointGaugeSettingTest.cs // Test code of "14.2 Test cases via specification testing"
                 ├── CharacterStatueTest.cs      // Test code of "2.4 How to write test code"
                 └── PassiveEffectTest.cs        // Test code of "14.2.5 State transition testing"
-```
-
-### APIExamples
-
-API catalog of Unity Test Framework and NUnit3
-
-```
-Assets
-└── APIExamples
-    ├── Scripts
-    │   └── (snip)
-    └── Tests
-        ├── Editor
-        │   └── UnityTestFramework
-        │       └── Chapter 3 Edit Mode tests, Chapter 5 Test asynchronous processing
-        └── Runtime
-            ├── NUnit
-            │   └── Chapter 6 Assertion, Chapter 8 Parameterized Tests, Chapter 9 Unity Test Framework Tips
-            └── UnityTestFramework
-                └── Chapter 5 Test asynchronous processing, Chapter 9 Unity Test Framework Tips
 ```
 
 ### TestDoubleExample

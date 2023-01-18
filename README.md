@@ -23,6 +23,26 @@ Click [English](./README_en.md) for English page if you need.
 
 ## サンプルプロジェクトの構造
 
+### APIExamples
+
+Unity Test FrameworkおよびNUnit3のAPIカタログ
+
+```
+Assets
+└── APIExamples
+    ├── Scripts
+    │   └── (snip)
+    └── Tests
+        ├── Editor
+        │   └── UnityTestFramework
+        │       └── 第3章 Edit Modeテスト, 第5章 非同期処理のテスト
+        └── Runtime
+            ├── NUnit
+            │   └── 第6章 アサーション, 第8章 パラメタライズドテスト, 第9章 Unity Test Framework Tips
+            └── UnityTestFramework
+                └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
+```
+
 ### BasicExample
 
 第2章 Unity Test Frameworkの基本
@@ -56,26 +76,6 @@ Assets
                 │   └── HitPointGaugeSettingTest.cs // 「14.2 仕様テストにおけるテストケースの考えかた」のテストコード
                 ├── CharacterStatueTest.cs      // 「2.4 テストコードの書きかた」のテストコード
                 └── PassiveEffectTest.cs        // 「14.2.5 状態遷移テスト」のテストコード
-```
-
-### APIExamples
-
-Unity Test FrameworkおよびNUnit3のAPIカタログ
-
-```
-Assets
-└── APIExamples
-    ├── Scripts
-    │   └── (snip)
-    └── Tests
-        ├── Editor
-        │   └── UnityTestFramework
-        │       └── 第3章 Edit Modeテスト, 第5章 非同期処理のテスト
-        └── Runtime
-            ├── NUnit
-            │   └── 第6章 アサーション, 第8章 パラメタライズドテスト, 第9章 Unity Test Framework Tips
-            └── UnityTestFramework
-                └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
 ```
 
 ### TestDoubleExample
