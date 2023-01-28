@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-#pragma warning disable CS1998
-
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.NUnit
@@ -15,6 +13,7 @@ namespace APIExamples.NUnit
     /// <summary>
     /// BasicExamplesに含まれる<see cref="Element"/>のパラメタライズドテスト記述例
     /// <see cref="ValuesAttribute"/>は組み合わせテストになるため、期待値が同じになる要素ごとにメソッドを定義するのが一般的です
+    /// 組み合わせを絞り込む<see cref="PairwiseAttribute"/>および<see cref="SequentialAttribute"/>の例も含みます
     /// </summary>
     [TestFixture]
     public class ValuesAttributeExample
@@ -100,6 +99,7 @@ namespace APIExamples.NUnit
             Element atk)
         {
             var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(0);
 
             Assert.That(actual, Is.EqualTo(1.0f));
         }
@@ -113,6 +113,7 @@ namespace APIExamples.NUnit
             [Values] bool fourthArgument)
         {
             var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(0);
 
             Assert.That(actual, Is.GreaterThanOrEqualTo(0.5f).And.LessThanOrEqualTo(2.0f));
         }
@@ -127,8 +128,43 @@ namespace APIExamples.NUnit
             [Values(2.0f, 0.5f, 2.0f, 0.5f)] float expected)
         {
             var actual = def.GetDamageMultiplier(atk);
+            await Task.Delay(0);
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void Range属性で数値型の範囲を指定する例( // 2x2x2x3=24通り
+            [Range(0, 1)] int i,
+            [Range(2L, 5L, 3L)] long l,
+            [Range(0.6f, 0.7f, 0.1f)] float f,
+            [Range(0.08d, 0.09d, 0.005d)] double d)
+        {
+            Assert.That(d + f + l + i, Is.InRange(0, 7));
+        }
+
+        [Test]
+        public async Task Range属性で数値型の範囲を指定する例_AsyncTest( // 2x2x2x3=24通り
+            [Range(0, 1)] int i,
+            [Range(2L, 5L, 3L)] long l,
+            [Range(0.6f, 0.7f, 0.1f)] float f,
+            [Range(0.08d, 0.09d, 0.005d)] double d)
+        {
+            await Task.Delay(0);
+
+            Assert.That(d + f + l + i, Is.InRange(0, 7));
+        }
+
+        [UnityTest]
+        public IEnumerator Range属性で数値型の範囲を指定する例_UnityTest( // 2x2x2x3=24通り
+            [Range(0, 1)] int i,
+            [Range(2L, 5L, 3L)] long l,
+            [Range(0.6f, 0.7f, 0.1f)] float f,
+            [Range(0.08d, 0.09d, 0.005d)] double d)
+        {
+            yield return null;
+
+            Assert.That(d + f + l + i, Is.InRange(0, 7));
         }
     }
 }
