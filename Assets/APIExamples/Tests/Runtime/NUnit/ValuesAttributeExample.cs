@@ -14,6 +14,7 @@ namespace APIExamples.NUnit
     /// BasicExamplesに含まれる<see cref="Element"/>のパラメタライズドテスト記述例
     /// <see cref="ValuesAttribute"/>は組み合わせテストになるため、期待値が同じになる要素ごとにメソッドを定義するのが一般的です
     /// 組み合わせを絞り込む<see cref="PairwiseAttribute"/>および<see cref="SequentialAttribute"/>の例も含みます
+    /// 数値型の値指定を行なう<see cref="RangeAttribute"/>および<see cref="RandomAttribute"/>の例も含みます
     /// </summary>
     [TestFixture]
     public class ValuesAttributeExample
@@ -134,7 +135,7 @@ namespace APIExamples.NUnit
         }
 
         [Test]
-        public void Range属性で数値型の範囲を指定する例( // 2x2x2x3=24通り
+        public void Range属性で数値型に範囲指定する例( // 2x2x2x3=24通り
             [Range(0, 1)] int i,
             [Range(2L, 5L, 3L)] long l,
             [Range(0.6f, 0.7f, 0.1f)] float f,
@@ -144,7 +145,7 @@ namespace APIExamples.NUnit
         }
 
         [Test]
-        public async Task Range属性で数値型の範囲を指定する例_AsyncTest( // 2x2x2x3=24通り
+        public async Task Range属性で数値型に範囲指定する例_AsyncTest( // 2x2x2x3=24通り
             [Range(0, 1)] int i,
             [Range(2L, 5L, 3L)] long l,
             [Range(0.6f, 0.7f, 0.1f)] float f,
@@ -156,7 +157,7 @@ namespace APIExamples.NUnit
         }
 
         [UnityTest]
-        public IEnumerator Range属性で数値型の範囲を指定する例_UnityTest( // 2x2x2x3=24通り
+        public IEnumerator Range属性で数値型に範囲指定する例_UnityTest( // 2x2x2x3=24通り
             [Range(0, 1)] int i,
             [Range(2L, 5L, 3L)] long l,
             [Range(0.6f, 0.7f, 0.1f)] float f,
@@ -165,6 +166,34 @@ namespace APIExamples.NUnit
             yield return null;
 
             Assert.That(d + f + l + i, Is.InRange(0, 7));
+        }
+
+        [Test]
+        public void Random属性ででたらめな値を指定する例( // Test Runnerウィンドウでは実行後再描画で値が変わるため未実行扱いとなる
+            [Random(0, 5, 3)] int i,
+            [Random(5, 10, 3)] int j)
+        {
+            Assert.That(i + j, Is.InRange((0 + 5), (4 + 9)));
+        }
+
+        [Test]
+        public async Task Random属性ででたらめな値を指定する例_AsyncTest( // Test Runnerウィンドウでは実行後再描画で値が変わるため未実行扱いとなる
+            [Random(0, 5, 3)] int i,
+            [Random(5, 10, 3)] int j)
+        {
+            await Task.Delay(0);
+
+            Assert.That(i + j, Is.InRange((0 + 5), (4 + 9)));
+        }
+
+        [UnityTest]
+        public IEnumerator Random属性ででたらめな値を指定する例_UnityTest( // Test Runnerウィンドウでは実行後再描画で値が変わるため未実行扱いとなる
+            [Random(0, 5, 3)] int i,
+            [Random(5, 10, 3)] int j)
+        {
+            yield return null;
+
+            Assert.That(i + j, Is.InRange((0 + 5), (4 + 9)));
         }
     }
 }
