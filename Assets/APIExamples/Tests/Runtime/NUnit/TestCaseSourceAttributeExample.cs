@@ -18,7 +18,7 @@ namespace APIExamples.NUnit
     /// <see cref="TestCaseSourceAttribute"/>は、入力要素と期待値の組み合わせを<see cref="IEnumerable"/>で指定できます
     /// </summary>
     /// <remarks>
-    ///<see cref="UnityTestAttribute"/>と組み合わせては使用できません
+    /// <see cref="UnityTestAttribute"/>と組み合わせては使用できません
     /// </remarks>
     [TestFixture]
     public class TestCaseSourceAttributeExample

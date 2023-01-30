@@ -17,7 +17,7 @@ namespace APIExamples.NUnit
     /// <see cref="TestCaseAttribute"/>は、入力要素と期待値の組み合わせを指定できます
     /// </summary>
     /// <remarks>
-    ///<see cref="UnityTestAttribute"/>と組み合わせては使用できません
+    /// <see cref="UnityTestAttribute"/>と組み合わせては使用できません
     /// </remarks>
     [TestFixture]
     public class TestCaseAttributeExample
