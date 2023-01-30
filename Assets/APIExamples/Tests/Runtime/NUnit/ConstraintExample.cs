@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -558,6 +558,15 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            public void SamePathConstraint_パス文字列が等しいこと_IgnoreCase修飾子も有効()
+            {
+                Assert.That("\\folder1\\.\\junk\\..\\Folder2", Is.SamePath("/Folder1/folder2").IgnoreCase);
+                // 失敗時メッセージ例:
+                //   Expected: Path matching "/Folder1/folder2"
+                //   But was:  "\folder1\.\junk\..\Folder2"
+            }
+
+            [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること()
             {
                 Assert.That("\\folder1\\.\\junk\\..\\folder2", Is.SamePathOrUnder("/folder1/folder2"));
@@ -565,6 +574,15 @@ namespace APIExamples.NUnit
                 // 失敗時メッセージ例:
                 //  Expected: Path under or matching "/folder1/folder2"
                 //  But was:  "\folder1\.\junk\..\folder3\folder2"
+            }
+
+            [Test]
+            public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること_IgnoreCase修飾子も有効()
+            {
+                Assert.That("\\folder1\\.\\junk\\..\\Folder2\\folder3", Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
+                // 失敗時メッセージ例:
+                //   Expected: Path under or matching "/Folder1/folder2"
+                //   But was:  "\folder1\.\junk\..\Folder2\folder3"
             }
 
             [Test]
