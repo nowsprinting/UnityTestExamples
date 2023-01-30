@@ -774,19 +774,6 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            [Explicit("属性のプロパティが取得できないので除外")]
-            public void AttributeConstraint_属性のプロパティは正しい()
-            {
-                var actual = typeof(属性とプロパティ);
-
-                Assert.That(actual, Has.Attribute<DescriptionAttribute>()
-                    .Property("Description").EqualTo("Attribute and Property"));
-                // 失敗する:
-                //  System.ArgumentException : Property Description was not found
-                //  Parameter name: name
-            }
-
-            [Test]
             public void PropertyExistsConstraint_プロパティを持っていること()
             {
                 var actual = new 属性とプロパティ();
