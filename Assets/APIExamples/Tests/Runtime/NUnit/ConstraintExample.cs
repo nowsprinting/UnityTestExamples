@@ -586,13 +586,10 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            [Explicit("SubPathConstraintとは振る舞いが異なるようなので保留")]
-            public void SubPathOf_SubPathConstraintとは振る舞いが異なる模様()
+            public void SubPathConstraint_パス文字列が期待値のサブパスであること()
             {
-                Assert.That("/folder1/./junk/../folder2", Is.SubPathOf("/folder1/folder2"));
-                Assert.That("/folder1/junk/folder2", Is.Not.SubPathOf("/folder1/folder2"));
-                Assert.That(@"C:\folder1\folder2\folder3", Is.SubPathOf(@"C:\Folder1\Folder2/Folder3").IgnoreCase);
-                Assert.That("/folder1/folder2/folder3", Is.Not.SubPathOf("/Folder1/Folder2/Folder3").RespectCase);
+                Assert.That("/folder1/folder2/folder3", Is.SubPathOf("/folder1/folder2"));
+                // Note: 最新のNUnitでは`Is.SubPath()`で、実装も異なっている。NUnitのドキュメントにある例がNUnit 3.5では通らない
             }
         }
 
