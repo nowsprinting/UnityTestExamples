@@ -1,10 +1,14 @@
 # Copyright (c) 2021-2022 Koji Hasegawa.
 # This software is released under the MIT License.
 
-PROJECT_HOME?=$(PWD)
+PROJECT_HOME?=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR?=$(PROJECT_HOME)/Build
 LOG_DIR?=$(PROJECT_HOME)/Logs
 UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/ProjectVersion.txt | grep -o -E '\d{4}\.[1-4]\.\d+[abfp]\d+')
+
+# Code Coverage report filter (comma separated)
+# see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
+COVERAGE_ASSEMBLY_FILTERS?=+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -28,10 +32,6 @@ UNITY_YAML_MERGE?=$(UNITY_HOME)\Data\Tools\UnityYAMLMerge.exe
 STANDALONE_PLAYER=StandaloneWindows64
 endif
 endif
-
-# Code Coverage report filter (comma separated)
-# see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
-COVERAGE_ASSEMBLY_FILTERS?=+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
 
 define test_arguments
   -projectPath $(PROJECT_HOME) \
@@ -120,28 +120,26 @@ test_playmode:
 cover_report:
 	$(call cover_report)
 
-# Run Edit Mode and Play Mode tests with coverage and html-report by code coverage package
-# このターゲットを`-k`オプション付きで実行すれば、もしEdit/ Play Modeテストがfailしても
-# Htmlレポート生成まで実行した上でエラーを示すexit codeが返されます
+# Run Edit Mode and Play Mode tests with coverage and html-report by code coverage package.
+# If you run this target with the `-k` option, if the Edit/Play Mode test fails,
+# it will run through to Html report generation and return an exit code indicating an error.
 .PHONY: test
 test: test_editmode test_playmode cover_report
 
 # Run Play Mode tests on standalone player
-# Code Coverage packageはプレイヤー実行に対応していないのでテストのみ
+# Run test because code coverage package is not support run on standalone player.
 .PHONY: test_standalone_player
 test_standalone_player:
 	$(call test,$(STANDALONE_PLAYER))
 
 # Run Play Mode tests on Android device
-# 端末はUSB接続され、adbコマンドで操作可能であること
-# Code Coverage packageはプレイヤー実行に対応していないのでテストのみ
+# Run test because code coverage package is not support run on standalone player.
 .PHONY: test_android
 test_android:
 	$(call test,Android)
 
 # Run Play Mode tests on iOS device
-# 実行するとXcodeが起動し、USB接続された端末上にインストール・実行されます
-# Code Coverage packageはプレイヤー実行に対応していないのでテストのみ
+# Run test because code coverage package is not support run on standalone player.
 .PHONY: test_ios
 test_ios:
 	$(call test,iOS)
