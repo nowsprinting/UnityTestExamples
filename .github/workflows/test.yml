@@ -1,3 +1,6 @@
+# Copyright (c) 2021-2023 Koji Hasegawa.
+# This software is released under the MIT License.
+
 name: Test
 
 on:
@@ -26,44 +29,48 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        targetPlatform:
-          - StandaloneLinux64
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 2019.4.40f1
           - 2020.3.42f1
           - 2021.3.15f1
-          - 2022.2.1f1
+          - 2022.2.5f1
+        include:
+          - unityVersion: 2022.2.5f1
+            octocov: true
 
     steps:
-      # Checkout
       - name: Checkout repository
         uses: actions/checkout@v3
         with:
           submodules: false
           lfs: false
 
-      # Cache
       - uses: actions/cache@v3
         with:
           path: Library
-          key: Library-${{ matrix.targetPlatform }}-${{ matrix.unityVersion }}
+          key: Library-${{ matrix.unityVersion }}
           restore-keys: |
-            Library-${{ matrix.targetPlatform }}-
             Library-
 
-      # Test
-      - name: Create license secret key
-        id: license
+      - name: Set embedded package assemblies name
+        run: |
+          assemblies=$(find ./Packages -name "*.asmdef" | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//)
+          # shellcheck disable=SC2001,SC2048,SC2086
+          echo "embedded_package_assemblies=$(echo ${assemblies[*]} | sed -e s/\ /,/g)" >> "$GITHUB_OUTPUT"
+        id: names
+
+      - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_OUTPUT"
+        id: license
 
       - name: Run tests
         uses: game-ci/unity-test-runner@v2
         with:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
-          unityVersion: ${{ matrix.unityVersion }}  # 通常は未指定（`auto`）でok
+          unityVersion: ${{ matrix.unityVersion }}  # Default is `auto`
           checkName: test result (${{ matrix.unityVersion }})
           customParameters: -testCategory "!IgnoreCI"
-          coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*.Tests
+          coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:+<assets>,${{ steps.names.outputs.embedded_package_assemblies }},-*.Tests
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
         env:
           UNITY_LICENSE: ${{ secrets[steps.license.outputs.secret_key] }}
@@ -71,10 +78,11 @@ jobs:
 
       - name: Set coverage path for octocov
         run: sed -i -r 's/\.\/Logs/${{ steps.test.outputs.coveragePath }}/' .octocov.yml
+        if: ${{ matrix.octocov }}
 
       - name: Run octocov
         uses: k1LoW/octocov-action@v0
-        if: ${{ startsWith(matrix.unityVersion, '2022') }}
+        if: ${{ matrix.octocov }}
 
       - name: Upload test results
         uses: actions/upload-artifact@v3
@@ -87,8 +95,8 @@ jobs:
 
   notify:
     needs: test
-    if: always()
     runs-on: ubuntu-latest
+    if: always()
 
     steps:
       - uses: Gamesight/slack-workflow-status@v1.2.0

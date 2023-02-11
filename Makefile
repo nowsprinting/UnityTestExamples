@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2022 Koji Hasegawa.
+# Copyright (c) 2021-2023 Koji Hasegawa.
 # This software is released under the MIT License.
 
 PROJECT_HOME?=$(dir $(abspath $(lastword $(MAKEFILE_LIST))))
@@ -8,7 +8,8 @@ UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/P
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
-COVERAGE_ASSEMBLY_FILTERS?=+<assets>,+EmbeddedPackageSample*,+LocalPackageSample*,-*Tests
+EMBEDDED_PACKAGE_ASSEMBLIES?=$(shell echo $(shell find ./Packages -name "*.asmdef" | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//) | sed -e s/\ /,/g)
+COVERAGE_ASSEMBLY_FILTERS?=+<assets>,$(EMBEDDED_PACKAGE_ASSEMBLIES),-*.Tests
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -81,9 +82,9 @@ endef
 .PHONY: usage
 usage:
 	@echo "Tasks:"
+	@echo "  clean: Clean Build and Logs directories in created project."
+	@echo "  setup_unityyamlmerge: Setup UnityYAMLMerge as mergetool in .git/config."
 	@echo "  open_editor: Open this project in Unity editor."
-	@echo "  apply_unityyamlmerge: Apply UnityYAMLMerge as mergetool in .git/config."
-	@echo "  clean: Clean /Build and /Logs directories."
 	@echo "  test_editmode: Run Edit Mode tests."
 	@echo "  test_playmode: Run Play Mode tests."
 	@echo "  cover_report: Create code coverage HTML report."
@@ -92,21 +93,20 @@ usage:
 	@echo "  test_android: Run Play Mode tests on Android device."
 	@echo "  test_ios: Run Play Mode tests on iOS device."
 
-.PHONY: open_editor
-open_editor:
-	$(UNITY) -projectPath $(PROJECT_HOME) -logFile $(LOG_DIR)/editor.log &
-
-# Apply UnityYAMLMerge as mergetool in .git/config
-.PHONY: apply_unityyamlmerge
-apply_unityyamlmerge:
-	git config --local merge.tool "unityyamlmerge"
-	git config --local mergetool.unityyamlmerge.trustExitCode false
-	git config --local mergetool.unityyamlmerge.cmd '$(UNITY_YAML_MERGE) merge -p "$$BASE" "$$REMOTE" "$$LOCAL" "$$MERGED"'
-
 .PHONY: clean
 clean:
 	rm -rf $(BUILD_DIR)
 	rm -rf $(LOG_DIR)
+
+.PHONY: setup_unityyamlmerge
+setup_unityyamlmerge:
+	git config --local merge.tool "unityyamlmerge"
+	git config --local mergetool.unityyamlmerge.trustExitCode false
+	git config --local mergetool.unityyamlmerge.cmd '$(UNITY_YAML_MERGE) merge -p "$$BASE" "$$REMOTE" "$$LOCAL" "$$MERGED"'
+
+.PHONY: open_editor
+open_editor:
+	$(UNITY) -projectPath $(PROJECT_HOME) -logFile $(LOG_DIR)/editor.log &
 
 .PHONY: test_editmode
 test_editmode:
