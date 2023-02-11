@@ -9,7 +9,7 @@ UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/P
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
 EMBEDDED_PACKAGE_ASSEMBLIES?=$(shell echo $(shell find ./Packages -name "*.asmdef" | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//) | sed -e s/\ /,/g)
-COVERAGE_ASSEMBLY_FILTERS?=+<assets>,$(EMBEDDED_PACKAGE_ASSEMBLIES),-*.Tests
+COVERAGE_ASSEMBLY_FILTERS?=+<assets>,$(EMBEDDED_PACKAGE_ASSEMBLIES),+LocalPackageSample*,-*.Tests
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
