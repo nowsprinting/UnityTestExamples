@@ -6,11 +6,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using BasicExample.Entities;
+using BasicExample.Entities.ScriptableObjects;
 using NUnit.Framework;
 using UnityEditor;
 using Object = UnityEngine.Object;
 
-namespace BasicExample.Editor
+namespace BasicExample.Editor.AssetValidators
 {
     /// <summary>
     /// ScriptableObjects/Races/下のすべてのSOに対して、フィールドの設定漏れがないことを検証する

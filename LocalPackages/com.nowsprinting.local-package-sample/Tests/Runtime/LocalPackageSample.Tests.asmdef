@@ -1,6 +1,6 @@
 {
     "name": "LocalPackageSample.Tests",
-    "rootNamespace": "",
+    "rootNamespace": "LocalPackageSample",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

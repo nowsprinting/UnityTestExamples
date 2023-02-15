@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.Settings
 {
     /// <summary>
     /// ヒットポイントゲージの表示色しきい値

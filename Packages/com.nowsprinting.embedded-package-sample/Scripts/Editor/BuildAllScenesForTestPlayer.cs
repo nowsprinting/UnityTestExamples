@@ -9,6 +9,7 @@ using UnityEditor.TestTools;
 
 [assembly: TestPlayerBuildModifier(typeof(BuildAllScenesForTestPlayer))]
 
+// ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
 namespace EmbeddedPackageSample.Editor
 {
     /// <summary>

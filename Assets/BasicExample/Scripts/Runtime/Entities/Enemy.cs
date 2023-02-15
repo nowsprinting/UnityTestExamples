@@ -1,6 +1,8 @@
 ﻿// Copyright (c) 2021 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using BasicExample.Entities.Enums;
+using BasicExample.Entities.ScriptableObjects;
 using UnityEngine;
 
 namespace BasicExample.Entities

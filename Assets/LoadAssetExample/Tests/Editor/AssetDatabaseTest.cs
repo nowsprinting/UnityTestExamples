@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEditor;
 using UnityEngine;
 
-namespace LoadAssetExample
+namespace LoadAssetExample.Editor
 {
     public class AssetDatabaseTest
     {

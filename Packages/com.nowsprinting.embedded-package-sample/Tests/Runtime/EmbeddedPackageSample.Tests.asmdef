@@ -1,5 +1,6 @@
 {
     "name": "EmbeddedPackageSample.Tests",
+    "rootNamespace": "EmbeddedPackageSample",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",

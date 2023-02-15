@@ -9,7 +9,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
-namespace BasicExample.Editor
+namespace BasicExample.Editor.AssetValidators
 {
     /// <summary>
     /// Scenes/Levels/下のすべてのSceneに対して、次のコンポーネントが設置されていることを検証する

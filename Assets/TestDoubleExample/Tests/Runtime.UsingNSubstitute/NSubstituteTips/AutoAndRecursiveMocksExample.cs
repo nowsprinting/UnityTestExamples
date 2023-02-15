@@ -4,7 +4,7 @@
 using NSubstitute;
 using NUnit.Framework;
 
-namespace TestDoubleExample.NSubstituteExample
+namespace TestDoubleExample.NSubstituteTips
 {
     /// <summary>
     /// virtualキーワード付きプロパティには自動的にnullでない値を返すスタブが生成されます

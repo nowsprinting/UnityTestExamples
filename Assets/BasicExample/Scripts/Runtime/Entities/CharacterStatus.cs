@@ -2,6 +2,8 @@
 // This software is released under the MIT License.
 
 using System;
+using BasicExample.Entities.Enums;
+using BasicExample.Entities.Settings;
 using UnityEngine;
 
 namespace BasicExample.Entities

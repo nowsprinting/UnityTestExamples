@@ -3,7 +3,7 @@
 
 using System;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.Enums
 {
     /// <summary>
     /// 元素的な属性

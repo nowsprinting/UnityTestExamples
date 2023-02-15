@@ -5,6 +5,7 @@ using NUnit.Framework;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 
+// ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
 namespace EmbeddedPackageSample.Editor
 {
     [TestFixture]

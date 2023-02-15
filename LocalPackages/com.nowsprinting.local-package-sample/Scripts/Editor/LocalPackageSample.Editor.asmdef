@@ -1,6 +1,6 @@
 {
     "name": "LocalPackageSample.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "LocalPackageSample",
     "references": [],
     "includePlatforms": [
         "Editor"

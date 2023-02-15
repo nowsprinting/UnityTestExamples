@@ -5,6 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+// ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
 namespace LocalPackageSample
 {
     [Description("エディター実行のみ")]

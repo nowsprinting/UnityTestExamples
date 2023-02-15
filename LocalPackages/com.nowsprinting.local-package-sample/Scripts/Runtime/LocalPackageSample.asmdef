@@ -1,5 +1,6 @@
 ﻿{
     "name": "LocalPackageSample",
+    "rootNamespace": "LocalPackageSample",
     "optionalUnityReferences": [
         "TestAssemblies"
     ]

@@ -1,6 +1,6 @@
 {
     "name": "EmbeddedPackageSample.Editor",
-    "rootNamespace": "",
+    "rootNamespace": "EmbeddedPackageSample",
     "references": [],
     "includePlatforms": [
         "Editor"

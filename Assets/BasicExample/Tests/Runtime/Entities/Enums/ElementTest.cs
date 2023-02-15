@@ -3,7 +3,7 @@
 
 using NUnit.Framework;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.Enums
 {
     /// <summary>
     /// Element（元素的な属性）のテスト

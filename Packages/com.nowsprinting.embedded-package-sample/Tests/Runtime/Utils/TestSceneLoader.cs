@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
 namespace EmbeddedPackageSample.Utils
 {
     public static class TestSceneLoader

@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.ScriptableObjects
 {
     /// <summary>
     /// 破壊（死亡）演出

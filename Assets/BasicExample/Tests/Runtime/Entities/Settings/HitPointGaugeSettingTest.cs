@@ -5,7 +5,7 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools.Utils;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.Settings
 {
     [TestFixture]
     public class HitPointGaugeSettingTest

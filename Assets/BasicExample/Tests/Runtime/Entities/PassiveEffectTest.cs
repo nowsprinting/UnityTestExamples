@@ -2,6 +2,7 @@
 // This software is released under the MIT License.
 
 using System.Collections;
+using BasicExample.Entities.Enums;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;

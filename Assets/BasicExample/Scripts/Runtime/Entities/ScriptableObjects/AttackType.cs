@@ -1,9 +1,10 @@
 ﻿// Copyright (c) 2021 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using BasicExample.Entities.Enums;
 using UnityEngine;
 
-namespace BasicExample.Entities
+namespace BasicExample.Entities.ScriptableObjects
 {
     /// <summary>
     /// 敵の攻撃方法
