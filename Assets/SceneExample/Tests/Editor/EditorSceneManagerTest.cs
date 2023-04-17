@@ -1,4 +1,4 @@
-// Copyright (c) 2021 Koji Hasegawa.
+// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
@@ -11,13 +11,40 @@ namespace SceneExample.Editor
     public class EditorSceneManagerTest
     {
         [Test]
-        [Description("Generate a clean Scene by CreateScene method")]
-        public void NewScene_クリーンなSceneを生成してテストを実行する例()
+        [Description("Generate a Scene with Light and Camera by NewScene(DefaultGameObjects) method")]
+        public void NewScene_withDefaultGameObjects_LightとCameraの設置されたSceneが生成される()
         {
-            EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+            Assert.That(scene.rootCount, Is.EqualTo(2));
 
-            var actual = Object.FindObjectsOfType<GameObject>();
-            Assert.That(actual, Is.Empty);
+            var light = Object.FindObjectOfType<Light>();
+            Assert.That(light.name, Is.EqualTo("Directional Light"));
+            Assert.That(light.type, Is.EqualTo(LightType.Directional));
+
+            var camera = Object.FindObjectOfType<Camera>();
+            Assert.That(camera.name, Is.EqualTo("Main Camera"));
+        }
+
+        [Test]
+        [Description("Generate a clean Scene by NewScene(EmptyScene) method")]
+        public void NewScene_withEmptyScene_クリーンなSceneが生成される()
+        {
+            var scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+            Assert.That(scene.rootCount, Is.EqualTo(0));
+        }
+
+        [Test]
+        [Description("Generate Scene after unloading previous one, when executed multiple times.")]
+        public void NewScene_複数回実行_先のものがアンロードされて新しいSceneが生成される()
+        {
+            var scene1 = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
+            var scene2 = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene);
+
+            Assert.That(scene1.isLoaded, Is.False);
+            Assert.That(scene2.isLoaded, Is.True);
+
+            var behaviours = Object.FindObjectsOfType<Behaviour>();
+            Assert.That(behaviours, Is.Empty);
         }
 
         [Test]
