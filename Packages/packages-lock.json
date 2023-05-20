@@ -35,6 +35,13 @@
       },
       "url": "https://package.openupm.com"
     },
+    "com.nowsprinting.test-helper.input": {
+      "version": "0.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.addressables": {
       "version": "1.17.15",
       "depth": 1,
