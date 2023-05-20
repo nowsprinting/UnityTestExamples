@@ -26,6 +26,15 @@
       "source": "local",
       "dependencies": {}
     },
+    "com.nowsprinting.test-helper": {
+      "version": "0.1.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.3.4"
+      },
+      "url": "https://package.openupm.com"
+    },
     "com.unity.addressables": {
       "version": "1.17.15",
       "depth": 1,
