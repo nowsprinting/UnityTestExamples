@@ -42,6 +42,16 @@
       "dependencies": {},
       "url": "https://package.openupm.com"
     },
+    "com.nowsprinting.test-helper.monkey": {
+      "version": "0.2.0",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.cysharp.unitask": "2.3.3",
+        "com.unity.ugui": "1.0.0"
+      },
+      "url": "https://package.openupm.com"
+    },
     "com.unity.addressables": {
       "version": "1.17.15",
       "depth": 1,
