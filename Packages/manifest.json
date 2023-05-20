@@ -55,8 +55,8 @@
       "name": "package.openupm.com",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.cysharp.unitask",
-        "com.nowsprinting.create-script-folders-with-tests",
+        "com.cysharp",
+        "com.nowsprinting",
         "com.openupm",
         "net.tnrd.nsubstitute"
       ]

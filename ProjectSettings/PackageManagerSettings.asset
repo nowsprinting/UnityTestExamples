@@ -24,8 +24,8 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
-    - com.cysharp.unitask
-    - com.nowsprinting.create-script-folders-with-tests
+    - com.cysharp
+    - com.nowsprinting
     - com.openupm
     - net.tnrd.nsubstitute
     m_IsDefault: 0
@@ -38,8 +38,8 @@ MonoBehaviour:
       m_Name: package.openupm.com
       m_Url: https://package.openupm.com
       m_Scopes:
-      - com.cysharp.unitask
-      - com.nowsprinting.create-script-folders-with-tests
+      - com.cysharp
+      - com.nowsprinting
       - com.openupm
       - net.tnrd.nsubstitute
       m_IsDefault: 0
@@ -47,8 +47,8 @@ MonoBehaviour:
     m_Name: package.openupm.com
     m_Url: https://package.openupm.com
     m_Scopes:
-    - com.cysharp.unitask
-    - com.nowsprinting.create-script-folders-with-tests
+    - com.cysharp
+    - com.nowsprinting
     - com.openupm
     - net.tnrd.nsubstitute
     m_SelectedScopeIndex: 0
