@@ -8,4 +8,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/BasicExample/Scenes/HelloTesting.unity
     guid: 6c40ba2f8a021430aa36a5cd247cda1e
+  - enabled: 1
+    path: Assets/UGUIExample/Scenes/Login.unity
+    guid: e961a5fcab8254ba686099f605955a02
+  - enabled: 1
+    path: Assets/UGUIExample/Scenes/MainMenu.unity
+    guid: f1ca3229622c64d6ea55492687472657
+  - enabled: 1
+    path: Assets/UGUIExample/Scenes/Difficulty.unity
+    guid: fe4eee175101b42dcab5313a810a78f7
+  - enabled: 1
+    path: Assets/UGUIExample/Scenes/Help.unity
+    guid: 53f6e2f015bfa450f9543a1f75d377a4
+  - enabled: 1
+    path: Assets/InputSystemExample/Scenes/InputSystemExample.unity
+    guid: 780082c79f65c4193aeff19ec9b21382
   m_configObjects: {}

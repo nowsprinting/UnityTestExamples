@@ -1,0 +1,16 @@
+{
+    "name": "InputExample",
+    "rootNamespace": "",
+    "references": [
+        "TestHelper.Input"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

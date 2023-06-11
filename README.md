@@ -9,15 +9,17 @@ Click [English](./README_en.md) for English page if you need.
 
 ## このリポジトリについて
 
-このリポジトリは、同人誌『Unity Test Framework完全攻略ガイド』のサンプルコードです。
+このリポジトリは、同人誌『Unity Test Framework完全攻略ガイド』および同『統合テスト編』のサンプルコードです。
 
-電子版 (pdf) は次のWebサイトから購入できます。
+電子版 (PDF) は次のWebサイトから購入できます。
 
 #### BOOTH
-[Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+- [Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+- [Unity Test Framework完全攻略ガイド 統合テスト編 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/4807367)
 
 #### 技術書典マーケット
-[Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
+- [Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
+- [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
 
 
@@ -121,6 +123,42 @@ Packages
 ```
 LocalPackages
 └── com.nowsprinting.local-package-sample
+```
+
+### UGUIExample
+
+統合テスト編 第2章 uGUI操作の自動化
+
+```
+Assets
+└── UGUIExample
+```
+
+### InputSystemExample
+
+統合テスト編 第3章 Input Systemによる操作の自動化
+
+```
+Assets
+└── InputSystemExample
+```
+
+### InputExample
+
+統合テスト編 第4章 Input Managerによる操作の自動化
+
+```
+Assets
+└── InputExample
+```
+
+### VisualRegressionExample
+
+統合テスト編 第5章 ビジュアルリグレッションテスト
+
+```
+Assets
+└── VisualRegressionExample
 ```
 
 

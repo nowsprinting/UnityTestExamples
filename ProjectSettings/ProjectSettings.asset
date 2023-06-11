@@ -497,7 +497,9 @@ PlayerSettings:
   switchNetworkInterfaceManagerInitializeEnabled: 1
   switchPlayerConnectionEnabled: 1
   switchUseMicroSleepForYield: 1
+  switchEnableRamDiskSupport: 0
   switchMicroSleepForYieldTime: 25
+  switchRamDiskSpaceSize: 12
   ps4NPAgeRating: 12
   ps4NPTitleSecret: 
   ps4NPTrophyPackPath: 
@@ -592,6 +594,7 @@ PlayerSettings:
   ps5UseAudio3dBackend: 0
   ps5ScriptOptimizationLevel: 2
   ps5Audio3dVirtualSpeakerCount: 14
+  ps5VrrSupport: 0
   ps5UpdateReferencePackage: 
   ps5disableAutoHideSplash: 0
   ps5OperatingSystemCanDisableSplashScreen: 0
@@ -710,6 +713,6 @@ PlayerSettings:
   projectName: 
   organizationId: 
   cloudEnabled: 0
-  enableNativePlatformBackendsForNewInputSystem: 0
+  enableNativePlatformBackendsForNewInputSystem: 1
   disableOldInputManagerSupport: 0
   legacyClampBlendShapeWeights: 0
