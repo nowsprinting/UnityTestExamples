@@ -19,6 +19,9 @@ namespace InputSystemExample
         [SerializeField]
         private float jumpSpeed = 5.0f;
 
+        [SerializeField]
+        private float rotateSpeed = 30.0f;
+
         private const float Gravity = -9.81f;
         private float _yVelocity = 0f;
 
@@ -63,7 +66,7 @@ namespace InputSystemExample
         private void Look()
         {
             var input = _inputActions.Player.Look.ReadValue<Vector2>();
-            transform.Rotate(0f, input.x, 0f);
+            transform.Rotate(0f, input.x * (rotateSpeed * Time.deltaTime), 0f);
         }
 
         private void Fall()
