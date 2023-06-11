@@ -9,15 +9,17 @@ Click [日本語](./README.md) for the Japanese page if you need.
 
 ## About this repository
 
-This repository is a sample project for the "Unity Test Framework Perfect Guidebook".
+This repository is a sample project for the **Unity Test Framework Perfect Guidebook** and **Integration Test volume**.
 
 Books can be purchased from the following websites, but they are written in Japanese.
 
 #### BOOTH
-[Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+- [Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+- [Unity Test Framework完全攻略ガイド 統合テスト編 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/4807367)
 
 #### Tech Book Fest Market
-[Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
+- [Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
+- [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
 
 
@@ -130,6 +132,42 @@ Packages
 ```
 LocalPackages
 └── com.nowsprinting.local-package-sample
+```
+
+### UGUIExample
+
+Integration Test volume, Chapter 2 Automating uGUI operations
+
+```
+Assets
+└── UGUIExample
+```
+
+### InputSystemExample
+
+Integration Test volume, Chapter 3 Automating Input System operations
+
+```
+Assets
+└── InputSystemExample
+```
+
+### InputExample
+
+Integration Test volume, Chapter 4 Automating Input Manager operations
+
+```
+Assets
+└── InputExample
+```
+
+### VisualRegressionExample
+
+Integration Test volume, Chapter 5 Visual Regression Test
+
+```
+Assets
+└── VisualRegressionExample
 ```
 
 
