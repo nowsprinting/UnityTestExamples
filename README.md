@@ -25,6 +25,8 @@ Click [English](./README_en.md) for English page if you need.
 
 ## サンプルプロジェクトの構造
 
+統合テスト編のサンプルには、 **Integration** カテゴリーを設定しています。
+
 ### APIExamples
 
 Unity Test FrameworkおよびNUnit3のAPIカタログ

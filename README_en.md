@@ -34,6 +34,8 @@ For test method names, English comments will be added by the `Description` attri
 
 ## Structure of sample project
 
+The **Integration** category is set in the integration test sample.
+
 ### APIExamples
 
 API catalog of Unity Test Framework and NUnit3
