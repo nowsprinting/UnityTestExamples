@@ -9,13 +9,13 @@ on:
       - master
     paths-ignore:
       - '**.md'
-      - '.github/'
+      - '.github/**'
       - '!.github/workflows/test.yml'
   pull_request:
     types: [ opened, synchronize, reopened ]  # Same as default
     paths-ignore:
       - '**.md'
-      - '.github/'
+      - '.github/**'
       - '!.github/workflows/test.yml'
 
 concurrency:
