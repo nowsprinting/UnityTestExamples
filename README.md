@@ -2,6 +2,7 @@
 
 [![meta-check](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml)
 [![test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml)
+[![Integration Test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test_integration.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test_integration.yml)
 
 Click [English](./README_en.md) for English page if you need.
 
