@@ -2,25 +2,37 @@
 # This software is released under the MIT License.
 
 name: Integration Test
+run-name: ${{ github.workflow }} runs on ${{ github.event.inputs.runner }}
 
 on:
   workflow_dispatch:
+    inputs:
+      runner:
+        type: choice
+        description: Runner
+        options: # see: https://buildjet.com/for-github-actions/docs/runners/hardware
+          - ubuntu-latest
+          - buildjet-2vcpu-ubuntu-2204
+          - buildjet-4vcpu-ubuntu-2204
+          - buildjet-8vcpu-ubuntu-2204
+          - buildjet-16vcpu-ubuntu-2204
+          - buildjet-32vcpu-ubuntu-2204
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.runner }}
   cancel-in-progress: true
 
 permissions: write-all
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ github.event.inputs.runner }}
     strategy:
       fail-fast: false
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
-          - 2022.3.0f1
+          - 2022.3.1f1
         include:
-          - unityVersion: 2022.3.0f1
+          - unityVersion: 2022.3.1f1
             octocov: true
 
     steps:
@@ -30,7 +42,7 @@ jobs:
           submodules: false
           lfs: false
 
-      - uses: actions/cache@v3
+      - uses: buildjet/cache@v3
         with:
           path: Library
           key: Library-${{ matrix.unityVersion }}
