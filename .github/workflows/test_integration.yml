@@ -34,8 +34,8 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
-          - 2022.3.2f1
-          - 2023.1.0f1
+          - 2022.3.4f1
+          - 2023.1.2f1
 
     steps:
       - name: Checkout repository
