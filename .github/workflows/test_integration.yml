@@ -4,6 +4,11 @@
 name: Integration Test
 run-name: ${{ github.workflow }} runs on ${{ github.event.inputs.runner }}
 
+permissions:
+  contents: read
+  actions: read
+  checks: write
+
 on:
   workflow_dispatch:
     inputs:
@@ -22,7 +27,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.runner }}
   cancel-in-progress: true
 
-permissions: write-all
 jobs:
   test:
     runs-on: ${{ github.event.inputs.runner }}
