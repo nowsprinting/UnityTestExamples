@@ -3,11 +3,6 @@
 
 name: Test
 
-permissions:
-  contents: read
-  actions: read
-  checks: write
-
 on:
   push:
     branches:
@@ -30,6 +25,9 @@ concurrency:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: write
     strategy:
       fail-fast: false
       matrix:
@@ -100,6 +98,8 @@ jobs:
   notify:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     if: always()
 
     steps:

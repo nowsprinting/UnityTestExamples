@@ -3,10 +3,6 @@
 
 name: Lint workflow files
 
-permissions:
-  contents: read
-  actions: read
-
 on:
   push:
     branches:
@@ -21,6 +17,9 @@ on:
 jobs:
   actionlint:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
 
     steps:
       - uses: actions/checkout@v3
@@ -40,4 +39,4 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: failure() && github.repository_owner == 'nowsprinting' # Skip public fork, because can not read secrets.
+        if: failure() && github.repository_owner == 'nowsprinting' # Skip on public fork, because can not read secrets.
