@@ -11,9 +11,9 @@ namespace TestDoubleExample.Janken
         private readonly IRandom _random;
 
         /// <summary>
-        /// 擬似乱数発生器をコンストラクタインジェクションで受け取ります
+        /// 擬似乱数生成器をコンストラクタインジェクションで受け取ります
         /// </summary>
-        /// <param name="random">擬似乱数発生器</param>
+        /// <param name="random">擬似乱数生成器</param>
         public Janken(IRandom random)
         {
             _random = random;

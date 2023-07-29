@@ -4,7 +4,7 @@
 namespace TestDoubleExample.Janken
 {
     /// <summary>
-    /// 擬似乱数発生器インタフェース
+    /// 擬似乱数生成器インタフェース
     /// </summary>
     public interface IRandom
     {
