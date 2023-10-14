@@ -50,7 +50,7 @@ namespace APIExamples.NUnit
 
         [UnityTest]
         [Timeout(2000)]
-        public IEnumerator タイムアウトを1秒に設定()
+        public IEnumerator タイムアウトを2秒に設定()
         {
             var waitSeconds = 1f;
             if (Fail)
@@ -90,6 +90,22 @@ namespace APIExamples.NUnit
             {
                 yield return null; // Timeout時間を超えてもテストは中断されない。指定時間を超過していれば失敗と判定はされる
             }
+        }
+
+        [Test]
+        [Timeout(2000)]
+        // Note: Unity Test Framework v1.3.0時点では、Timeout属性はasyncテストでは機能しない
+        //  https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108
+        //  この問題は、Unity Test Framework v1.3.4で修正された
+        public async Task 非同期テストでタイムアウトを2秒に設定()
+        {
+            var waitSeconds = 1f;
+            if (Fail)
+            {
+                waitSeconds = 10f;
+            }
+
+            await Task.Delay(TimeSpan.FromSeconds(waitSeconds));
         }
     }
 }

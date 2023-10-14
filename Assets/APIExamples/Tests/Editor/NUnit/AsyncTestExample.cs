@@ -92,8 +92,8 @@ namespace APIExamples.Editor.NUnit
         public async Task 非同期メソッドの例外捕捉を制約モデルで行なう例()
         {
             Assert.That(async () => await ThrowNewExceptionInMethod(), Throws.TypeOf<ArgumentException>());
+            // Note: Edit Modeテストでは動作するが、Play Modeテストではテストが終了しない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         }
-        // Note: Edit Modeテストでは動作するが、Play Modeテストではテストが終了しない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
 
         [Test]
         public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()

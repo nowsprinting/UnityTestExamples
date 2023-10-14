@@ -866,7 +866,8 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            [Explicit("Asyncテストでも期待通り動作しないので除外")]
+            [Explicit("Asyncテストでも期待通り動作しないので除外（Unity Test Framework v1.3.2時点）")]
+            // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-30529
             public async Task DelayedConstraint_AsyncTestでも無効()
             {
                 var start = Time.time; // The time at the beginning of this frame
