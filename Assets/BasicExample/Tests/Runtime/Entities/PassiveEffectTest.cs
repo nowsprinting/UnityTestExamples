@@ -77,7 +77,7 @@ namespace BasicExample.Entities
 
                     _sut.DeBuff();
                     Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
-                    Assume.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
+                    Assert.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
                 }
 
                 [Test]
@@ -136,7 +136,7 @@ namespace BasicExample.Entities
 
                     _sut.Buff();
                     Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
-                    Assume.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
+                    Assert.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
                 }
 
                 [UnityTest]
