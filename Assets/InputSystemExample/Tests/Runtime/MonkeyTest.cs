@@ -16,7 +16,6 @@ namespace InputSystemExample
 {
     /// <summary>
     /// <c>Unity.InputSystem.TestFramework</c> を使用したモンキーテスト.
-    ///
     /// 一定時間でたらめな操作をします。
     /// テスト失敗と判断されるのは次の2パターン
     /// - ログにエラー（プロダクトコードに仕込んだ <c>UnityEngine.Assertions.Assert</c> を含む）が出力されたとき
@@ -61,7 +60,7 @@ namespace InputSystemExample
                 PressKeys(new RandomWrapper(random.Next()), tokenSource.Token).Forget();
                 MoveMouse(new RandomWrapper(random.Next()), tokenSource.Token).Forget();
 
-                var expireTime = Time.time + 60.0f; // 1分間動作させる
+                var expireTime = Time.time + 10.0f; // 10秒間動作させる（3分以上にする場合はTimeout属性でタイムアウト時間を延長）
                 while (Time.time < expireTime)
                 {
                     var nowLocation = controller.transform.position;
