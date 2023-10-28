@@ -3,24 +3,19 @@
 
 using System;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using InputExample.TestDoubles;
 using NUnit.Framework;
+using TestHelper.Attributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Utils;
-using Object = UnityEngine.Object;
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
 
 // ReSharper disable Unity.InefficientPropertyAccess
+// ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace InputExample
 {
     [TestFixture]
-    [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
     public class FirstPersonControllerLegacyTest
     {
         private const string SandboxScenePath = "Assets/InputExample/Tests/Scenes/InputExampleSandbox.unity";
@@ -28,18 +23,14 @@ namespace InputExample
         private FirstPersonControllerLegacy _controller;
 
         [SetUp]
-        public async Task SetUp()
+        public void SetUp()
         {
-#if UNITY_EDITOR
-            await EditorSceneManager.LoadSceneAsyncInPlayMode(
-                SandboxScenePath,
-                new LoadSceneParameters(LoadSceneMode.Single));
-            // Note: Scenes in Buildに入れていないSceneなので、EditorSceneManagerでロード
-#endif
-            _controller = Object.FindObjectOfType<FirstPersonControllerLegacy>();
+            // Note: LoadScene 属性は SetUp より先に処理されるため、ここで Scene はロード済み
+            _controller = GameObject.FindObjectOfType<FirstPersonControllerLegacy>();
         }
 
         [Test]
+        [LoadScene(SandboxScenePath)]
         public async Task Wキーで前方に移動()
         {
             var beforePosition = _controller.transform.position;
@@ -59,6 +50,7 @@ namespace InputExample
         }
 
         [Test]
+        [LoadScene(SandboxScenePath)]
         public async Task マウス右移動で右方向を向く()
         {
             var beforeRotation = _controller.transform.rotation;
