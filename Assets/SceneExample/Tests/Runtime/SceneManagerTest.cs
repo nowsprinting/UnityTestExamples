@@ -3,7 +3,7 @@
 
 using System.Collections;
 using NUnit.Framework;
-using SceneExample.Utils;
+using TestHelper.Attributes;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
@@ -30,22 +30,24 @@ namespace SceneExample
         public IEnumerator LoadSceneAsync_ScenesInBuildに含まれるSceneをロードする例()
         {
             yield return SceneManager.LoadSceneAsync("HelloTesting");
-            // Scene名称指定でロードできる
-            // Can be load by Scene name.
+            // Scene名称指定でロードできます。エディター実行でもプレイヤー実行でも、同じコードで動作します。
+            // Can be load by Scene name. It works in both in Editor and on Player.
 
             var cube = GameObject.Find("Cube");
             Assert.That(cube, Is.Not.Null);
         }
 
-        [UnityTest]
+        [Test]
+        [LoadScene("Assets/SceneExample/Scenes/NotContainScenesInBuild.unity")]
         [Description("Load scene not included in the \"Scenes in Build\"")]
-        public IEnumerator LoadSceneAsync_ScenesInBuildに含まれていないSceneをロードする例()
+        public void LoadSceneAsync_ScenesInBuildに含まれていないSceneをLoadScene属性を使ってロードする例()
         {
-            yield return TestSceneLoader.LoadSceneAsync("Assets/SceneExample/Scenes/NotContainScenesInBuild.unity");
-            // エディター実行・プレイヤー実行で扱いが異なる（`TestSceneLoader` 参照）
-            // いずれのケースでも、Assets/〜.unityまでのパスで指定が必要
-            // Different handling for editor and player execution. It is handled in the TestSceneLoader.
-            // In both cases, you need to specify the path to Assets/~.unity.
+            // Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる LoadScene 属性は、テスト実行前に指定された Scene をロードします。
+            // エディター実行でもプレイヤー実行でも、同じコードで動作します。
+            // 『Unity Test Framework完全攻略ガイド』10.2.2 および 10.3 で紹介している方法で、エディター実行・プレイヤー実行の差異を吸収しています。
+
+            // LoadScene attribute in Test Helper package (com.nowsprinting.test-helper) loads Scene before test execution.
+            // It works in both in Editor and on Player.
 
             var sphere = GameObject.Find("Sphere");
             Assert.That(sphere, Is.Not.Null);
