@@ -110,6 +110,10 @@ Assets
 └── SceneExample
 ```
 
+> **Note**  
+> 『Unity Test Framework完全攻略ガイド』10.2.2 および 10.3 で紹介している処理を、Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる[LoadScene](https://github.com/nowsprinting/test-helper#loadscene) 属性を使用する形に置き換えました。  
+> 変更差分はコミット 86f8ab9373d9d1c7de0c7cde925adc1a94aaafe0 を参照してください。
+
 ### Packages
 
 第11章 UPM パッケージのテスト
