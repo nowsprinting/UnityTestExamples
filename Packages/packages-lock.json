@@ -27,7 +27,7 @@
       "dependencies": {}
     },
     "com.nowsprinting.test-helper": {
-      "version": "0.1.1",
+      "version": "0.3.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {
