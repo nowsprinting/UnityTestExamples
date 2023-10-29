@@ -9,6 +9,7 @@ using NUnit.Framework;
 using UnityEngine;
 
 #pragma warning disable CS1998
+// ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.NUnit
 {
@@ -100,6 +101,7 @@ namespace APIExamples.NUnit
         public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
         {
             Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
+            // Note: Messageの評価はできない
         }
 
         [Test]

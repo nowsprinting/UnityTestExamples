@@ -12,6 +12,9 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
+// ReSharper disable ExpressionIsAlwaysNull
+// ReSharper disable ConvertClosureToMethodGroup
 
 namespace APIExamples.NUnit
 {
@@ -41,7 +44,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_文字列比較にIgnoreCase修飾子を使用()
+            public void EqualConstraint_文字列比較にIgnoreCase修飾子を使用_大文字小文字を無視して比較()
             {
                 var actual = "semper paratus!";
 
@@ -54,7 +57,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_文字列比較にNoClip修飾子を使用()
+            public void EqualConstraint_文字列比較にNoClip修飾子を使用_失敗時メッセージがクリップされず出力される()
             {
                 var actual = "Spam, spam, spam, spam, spam, spam, spam, spam, lovely spam! Wonderful spam!";
 
@@ -85,7 +88,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_数値比較にWithin修飾子を使用()
+            public void EqualConstraint_数値比較にWithin修飾子を使用_誤差を許容()
             {
                 var actual = 42;
 
@@ -97,7 +100,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_浮動小数点比較にWithin修飾子を使用して丸め誤差を許容()
+            public void EqualConstraint_浮動小数点比較にWithin修飾子を使用_丸め誤差を許容()
             {
                 var actual = 20000000000000004.0d;
 
@@ -108,7 +111,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_日時比較にWithin修飾子を使用()
+            public void EqualConstraint_日時比較にWithin修飾子を使用_誤差を許容()
             {
                 var actual = new DateTime(2021, 7, 25, 0, 0, 0, 0);
 
@@ -579,7 +582,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること_IgnoreCase修飾子も有効()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\Folder2\\folder3", Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
+                Assert.That("\\folder1\\.\\junk\\..\\Folder2\\folder3",
+                    Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
                 // 失敗時メッセージ例:
                 //   Expected: Path under or matching "/Folder1/folder2"
                 //   But was:  "\folder1\.\junk\..\Folder2\folder3"
@@ -667,6 +671,7 @@ namespace APIExamples.NUnit
             {
             }
 
+            // ReSharper disable once ClassNeverInstantiated.Local
             private class Bar : Foo
             {
             }
@@ -818,6 +823,7 @@ namespace APIExamples.NUnit
             [Serializable]
             private class BinarySerializableSample
             {
+                // ReSharper disable once UnusedMember.Local
                 public string S { get; set; } = "Semper Paratus!";
             }
 
