@@ -172,7 +172,7 @@ namespace APIExamples.NUnit
         public class コレクション
         {
             [Test]
-            public void AllItemsConstraint_すべての要素を検証()
+            public void AllItemsConstraint_すべての要素が条件を満たすこと()
             {
                 var actual = new[] { 2, 3, 5, 6 };
 
@@ -285,7 +285,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EmptyCollectionConstraint_要素が空であること()
+            public void EmptyConstraint_要素が空であること()
             {
                 var actual = new int[] { };
 
@@ -293,6 +293,27 @@ namespace APIExamples.NUnit
                 // 失敗時メッセージ例:
                 //  Expected: <empty>
                 //  But was:  < 0 >
+            }
+
+            [Test]
+            public void HasCount_コレクションの個数を検証()
+            {
+                var actual = new List<int> { 2, 3, 5, 6 };
+
+                Assert.That(actual, Has.Count.EqualTo(4));
+                // 失敗時メッセージ例:
+                //  Expected: property Count equal to 4
+                //  But was:  5
+            }
+
+            [Test]
+            public void HasLength_配列の個数を検証()
+            {
+                var actual = new int[] { 2, 3, 5, 6 };
+                Assert.That(actual, Has.Length.EqualTo(4));
+                // 失敗時メッセージ例:
+                //  Expected: property Length equal to 4
+                //  But was:  5
             }
 
             [Test]
