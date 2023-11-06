@@ -63,6 +63,9 @@ namespace SceneExample
                 new LoadSceneParameters(LoadSceneMode.Single));
 #endif
             yield return loadSceneAsync;
+
+            var sphere = GameObject.Find("Sphere");
+            Assert.That(sphere, Is.Not.Null);
         }
 
         [Test]
