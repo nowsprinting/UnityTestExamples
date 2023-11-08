@@ -6,13 +6,10 @@ using System.IO;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using TestHelper.Attributes;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.TestTools.Graphics;
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
 
 namespace VisualRegressionExample
 {
@@ -32,13 +29,9 @@ namespace VisualRegressionExample
         private const string ExpectedImagesPath = "Assets/VisualRegressionExample/Tests/ExpectedImages";
 
         [UnityTest]
+        [LoadScene(SandboxScenePath)]
         public IEnumerator AreEqual_カメラ画像と比較_一致()
         {
-#if UNITY_EDITOR
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
-                SandboxScenePath,
-                new LoadSceneParameters(LoadSceneMode.Single));
-#endif
             // テスト対象の実行
 
             yield return new WaitForEndOfFrame();
@@ -54,13 +47,9 @@ namespace VisualRegressionExample
         }
 
         [UnityTest]
+        [LoadScene(SandboxScenePath)]
         public IEnumerator AreEqual_Texture2Dと比較_一致()
         {
-#if UNITY_EDITOR
-            yield return EditorSceneManager.LoadSceneAsyncInPlayMode(
-                SandboxScenePath,
-                new LoadSceneParameters(LoadSceneMode.Single));
-#endif
             // テスト対象の実行
 
             yield return new WaitForEndOfFrame();
@@ -79,13 +68,9 @@ namespace VisualRegressionExample
         }
 
         [Test]
+        [LoadScene(SandboxScenePath)]
         public async Task AreEqual_Texture2Dと比較_一致Async()
         {
-#if UNITY_EDITOR
-            await EditorSceneManager.LoadSceneAsyncInPlayMode(
-                SandboxScenePath,
-                new LoadSceneParameters(LoadSceneMode.Single));
-#endif
             // テスト対象の実行
 
             var coroutineRunner = new GameObject().AddComponent<CoroutineRunner>();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using TestHelper.Monkey;
-using TestHelper.Monkey.Random;
+using TestHelper.Random;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

@@ -45,7 +45,7 @@ namespace InputSystemExample
         [Test]
         public async Task MonkeyTesting()
         {
-            var random = new RandomWrapper(); // 擬似乱数生成器
+            var random = new RandomImpl(); // 擬似乱数生成器
             Debug.Log($"Random that monkey uses: {random}"); // シード値をログ出力（再現可能にするため）
 
             await SceneManager.LoadSceneAsync("InputSystemExample");
@@ -57,8 +57,8 @@ namespace InputSystemExample
 
             using (var tokenSource = new CancellationTokenSource())
             {
-                PressKeys(new RandomWrapper(random.Next()), tokenSource.Token).Forget();
-                MoveMouse(new RandomWrapper(random.Next()), tokenSource.Token).Forget();
+                PressKeys(new RandomImpl(random.Next()), tokenSource.Token).Forget();
+                MoveMouse(new RandomImpl(random.Next()), tokenSource.Token).Forget();
 
                 var expireTime = Time.time + 10.0f; // 10秒間動作させる（3分以上にする場合はTimeout属性でタイムアウト時間を延長）
                 while (Time.time < expireTime)

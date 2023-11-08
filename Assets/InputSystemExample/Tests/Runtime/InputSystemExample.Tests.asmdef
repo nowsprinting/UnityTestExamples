@@ -1,6 +1,5 @@
 {
     "name": "InputSystemExample.Tests",
-    "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
@@ -8,7 +7,8 @@
         "Unity.InputSystem",
         "Unity.InputSystem.TestFramework",
         "UniTask",
-        "TestHelper"
+        "TestHelper",
+        "TestHelper.Random"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

@@ -1,17 +1,12 @@
 ﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
-using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using TestHelper.Attributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
 using UnityEngine.UI;
-#if UNITY_EDITOR
-using UnityEditor.SceneManagement;
-#endif
 
 namespace UGUIExample
 {
@@ -19,20 +14,14 @@ namespace UGUIExample
     /// Canvas上のUI要素を操作する例
     /// </summary>
     [TestFixture]
-    [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
     public class UIElementTest
     {
         private const string SandboxScenePath = "Assets/UGUIExample/Tests/Scenes/UIElementExample.unity";
 
         [Test]
-        public async Task Buttonをクリック_ReceiveOnClickが呼ばれること()
+        [LoadScene(SandboxScenePath)]
+        public void Buttonをクリック_ReceiveOnClickが呼ばれること()
         {
-#if UNITY_EDITOR
-            // テスト対象が配置されたSceneのロード
-            await EditorSceneManager.LoadSceneAsyncInPlayMode(
-                SandboxScenePath,
-                new LoadSceneParameters(LoadSceneMode.Single));
-#endif
             // 操作対象を検索して取得
             var button = GameObject.Find("Button").GetComponent<Button>();
 

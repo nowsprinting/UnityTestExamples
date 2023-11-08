@@ -1,9 +1,9 @@
 {
     "name": "SceneExample.Tests",
-    "rootNamespace": "SceneExample",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+        "UnityEditor.TestRunner",
+        "TestHelper"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
