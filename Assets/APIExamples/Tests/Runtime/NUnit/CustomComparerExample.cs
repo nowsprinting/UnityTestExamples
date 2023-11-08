@@ -1,67 +1,62 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
+using UnityEngine;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// <see cref="EqualConstraint"/> + Using修飾子と、カスタム<see cref="IComparer{T}"/>の使用例
+    /// Using修飾子と、カスタム<see cref="IComparer{T}"/>の使用例
     /// </summary>
     public class CustomComparerExample
     {
         [Test]
-        public void EqualConstraint_Using修飾子で比較()
+        public void EqualConstraint_Using修飾子でカスタムComparerを指定して比較()
         {
-            var actual = new CompositeKeySUT("Foo", "Bar", 1);
+            var actual = new GameObject("test object");
+            var expected = new GameObject("test object");
 
-            Assert.That(actual, Is.EqualTo(new CompositeKeySUT("Foo", "Bar", 10)).Using(new CompositeKeySUTComparer()));
+            Assert.That(actual, Is.EqualTo(expected).Using(new GameObjectNameComparer()));
             // 失敗時メッセージ例:
-            //  Expected: <APIExamples.NUnit.CompositeKeySUT>
-            //  But was:  <APIExamples.NUnit.CompositeKeySUT>
+            //  Expected: <test object (UnityEngine.GameObject)>
+            //  But was:  <test (UnityEngine.GameObject)>
         }
 
         [Test]
-        public void EqualConstraint_コレクションの要素をUsing修飾子で比較()
+        public void CollectionContainsConstraint_コレクションの要素をUsing修飾子でカスタムComparerを指定して比較()
         {
-            var actual = new[] { new CompositeKeySUT("Foo", "Bar", 1), new CompositeKeySUT("Bar", "Baz", 2) };
+            var actual = new[] { new GameObject("test1"), new GameObject("test2"), new GameObject("test3"), };
+            var expected = new GameObject("test3");
 
-            Assert.That(actual,
-                Is.EqualTo(new[] { new CompositeKeySUT("Foo", "Bar", 10), new CompositeKeySUT("Bar", "Baz", 20) })
-                    .Using(new CompositeKeySUTComparer()));
+            Assert.That(actual, Does.Contain(expected).Using(new GameObjectNameComparer()));
             // 失敗時メッセージ例:
-            //  Expected and actual are both <APIExamples.NUnit.CompositeKeySUT[2]>
-            //  Values differ at index [1]
-            //  Expected: <APIExamples.NUnit.CompositeKeySUT>
-            //  But was:  <APIExamples.NUnit.CompositeKeySUT>
+            //  Expected: collection containing <test4 (UnityEngine.GameObject)>
+            //  But was:  < <test1 (UnityEngine.GameObject)>, <test2 (UnityEngine.GameObject)>, <test3 (UnityEngine.GameObject)> >
         }
     }
 
     /// <summary>
-    /// カスタム<see cref="IComparer{T}"/>の実装例
+    /// カスタム<see cref="IComparer{T}"/>の実装例.
+    /// このコードは、Test Helperパッケージ（com.nowsprinting.test-helper）内のコードに日本語コメントをつけたものです。
     /// </summary>
-    public class CompositeKeySUTComparer : IComparer<CompositeKeySUT>
+    public class GameObjectNameComparer : IComparer<GameObject>
     {
         /// <summary>
-        /// Key1 + Key2 で比較
+        /// <c>GameObject</c> 同士を、参照でなく <c>name</c> プロパティで比較するカスタムComparer
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public int Compare(CompositeKeySUT x, CompositeKeySUT y)
+        [SuppressMessage("ReSharper", "PossibleNullReferenceException")]
+        public int Compare(GameObject x, GameObject y)
         {
-            var key1Comparison = string.Compare(x.Key1, y.Key1, StringComparison.Ordinal);
-            if (key1Comparison != 0)
-            {
-                return key1Comparison;
-            }
-
-            return string.Compare(x.Key2, y.Key2, StringComparison.Ordinal);
+            return string.Compare(x.name, y.name, StringComparison.Ordinal);
         }
     }
 }
