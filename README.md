@@ -48,6 +48,12 @@ Assets
                 └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
 ```
 
+> **Note**  
+> 『Unity Test Framework完全攻略ガイド』6.4 カスタムアサーションの例を、v2.1.0（2023-11-11版）で書き換えました。  
+> 変更差分はコミット &lt;[dc1b643](https://github.com/nowsprinting/UnityTestExamples/commit/dc1b643cd7e1275388881933b5edfcabde0413ba)&gt; を参照してください。
+
+
+
 ### BasicExample
 
 第2章 Unity Test Frameworkの基本
