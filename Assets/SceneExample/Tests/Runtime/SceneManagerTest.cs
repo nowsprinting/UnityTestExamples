@@ -24,6 +24,8 @@ namespace SceneExample
 
             var actual = SceneManager.GetActiveScene().name;
             Assert.That(actual, Is.EqualTo("New Scene"));
+
+            yield return SceneManager.UnloadSceneAsync(scene);
         }
 
         [Test]
