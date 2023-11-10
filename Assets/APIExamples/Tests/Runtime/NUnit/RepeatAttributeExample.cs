@@ -21,36 +21,31 @@ namespace APIExamples.NUnit
     {
         private int _testCount;
         private int _unityTestCount;
-        private int _asyncTestCount;
 
         [Test]
         [Repeat(2)]
-        public void 繰り返し実行するテスト()
+        public void Repeat属性で繰り返し実行するテスト()
         {
-            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト)} {++_testCount}回目");
-
+            Debug.Log($"{nameof(Repeat属性で繰り返し実行するテスト)} {++_testCount}回目");
             Assert.That(true);
         }
 
         [UnityTest]
         [Repeat(2)]
-        public IEnumerator 繰り返し実行するテスト_UnityTest属性()
+        public IEnumerator Repeat属性で繰り返し実行するテスト_UnityTest属性()
         {
-            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト_UnityTest属性)} {++_unityTestCount}回目");
             yield return null;
-
+            Debug.Log($"{nameof(Repeat属性で繰り返し実行するテスト_UnityTest属性)} {++_unityTestCount}回目");
             Assert.That(true);
         }
 
-        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.2時点）")]
-        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
         [Repeat(2)]
-        public async Task 繰り返し実行するテスト_非同期()
+        public async Task Repeat属性はasyncテストに使用できない_テストが終了しない()
         {
-            Debug.Log($"{nameof(RepeatAttributeExample)}.{nameof(繰り返し実行するテスト_非同期)} {++_asyncTestCount}回目");
-            await Task.Delay(0);
-
+            await Task.Delay(200);
             Assert.That(true);
         }
     }

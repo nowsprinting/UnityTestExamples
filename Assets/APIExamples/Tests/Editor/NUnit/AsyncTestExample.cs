@@ -33,11 +33,13 @@ namespace APIExamples.Editor.NUnit
 
         private static async Task Foo(int id)
         {
+            await Task.Delay(200);
             Debug.Log($"Foo({id})");
         }
 
         private static async Task<int> Bar(int id)
         {
+            await Task.Delay(200);
             Debug.Log($"Bar({id})");
             return id + 1;
         }
@@ -54,18 +56,20 @@ namespace APIExamples.Editor.NUnit
 
         private static async UniTask UniTaskFoo(int id)
         {
+            await UniTask.Delay(200);
             Debug.Log($"UniTaskFoo({id})");
         }
 
         private static async UniTask<int> UniTaskBar(int id)
         {
+            await UniTask.Delay(200);
             Debug.Log($"UniTaskBar({id})");
             return id + 1;
         }
 
         [Explicit("Edit Modeではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         [Test]
-        [Description("Can await Coroutine")]
+        [Description("Can not await coroutine in the Edit Mode tests")]
         public async Task 非同期テストの例_コルーチンをawait_EditModeではテストが終了しない()
         {
             var actual = 0;
@@ -79,7 +83,7 @@ namespace APIExamples.Editor.NUnit
 
         private static IEnumerator BarCoroutine(Action<int> onSuccess)
         {
-            yield return null;
+            yield return null; // Edit ModeテストではWaitForSecondsなどは使用できない
             onSuccess(1);
         }
 
@@ -91,14 +95,15 @@ namespace APIExamples.Editor.NUnit
         [Test]
         public async Task 非同期メソッドの例外捕捉を制約モデルで行なう例()
         {
-            Assert.That(async () => await ThrowNewExceptionInMethod(), Throws.TypeOf<ArgumentException>());
-            // Note: Edit Modeテストでは動作するが、Play Modeテストではテストが終了しない https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+            Assert.That(async () => await ThrowNewExceptionInMethod(),
+                Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
         }
 
         [Test]
-        public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
+        public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なう例()
         {
             Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
+            // Note: クラシックモデルではMessage文字列の評価はできない
         }
 
         [Test]

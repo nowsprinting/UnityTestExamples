@@ -27,6 +27,7 @@ namespace APIExamples.Editor.NUnit
         [TearDown]
         public async Task TearDown()
         {
+            await Task.Delay(200);
             Debug.Log($"TearDown, {Time.time}");
         }
 

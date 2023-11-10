@@ -94,9 +94,8 @@ namespace APIExamples.NUnit
 
         [Test]
         [Timeout(2000)]
-        // Note: Unity Test Framework v1.3.0時点では、Timeout属性はasyncテストでは機能しない
-        //  https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108
-        //  この問題は、Unity Test Framework v1.3.4で修正された
+        // Note: 非同期（async）テストでタイムアウト及びTimeout属性が機能しない問題は、Unity Test Framework v1.3.4で修正された
+        //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108
         public async Task 非同期テストでタイムアウトを2秒に設定()
         {
             var waitSeconds = 1f;

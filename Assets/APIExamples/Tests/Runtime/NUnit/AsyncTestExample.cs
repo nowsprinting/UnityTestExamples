@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 #pragma warning disable CS1998
 // ReSharper disable AccessToStaticMemberViaDerivedType
@@ -25,6 +26,8 @@ namespace APIExamples.NUnit
     {
         [Test]
         [Description("Can await Task")]
+        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+        // WebGLではTask.Delayが終了しない（v1.3.9時点） https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
         public async Task 非同期テストの例_Taskをawaitできる()
         {
             await Foo(1);
@@ -35,11 +38,13 @@ namespace APIExamples.NUnit
 
         private static async Task Foo(int id)
         {
+            await Task.Delay(200);
             Debug.Log($"Foo({id})");
         }
 
         private static async Task<int> Bar(int id)
         {
+            await Task.Delay(200);
             Debug.Log($"Bar({id})");
             return id + 1;
         }
@@ -56,11 +61,13 @@ namespace APIExamples.NUnit
 
         private static async UniTask UniTaskFoo(int id)
         {
+            await UniTask.Delay(200);
             Debug.Log($"UniTaskFoo({id})");
         }
 
         private static async UniTask<int> UniTaskBar(int id)
         {
+            await UniTask.Delay(200);
             Debug.Log($"UniTaskBar({id})");
             return id + 1;
         }
@@ -80,7 +87,7 @@ namespace APIExamples.NUnit
 
         private static IEnumerator BarCoroutine(Action<int> onSuccess)
         {
-            yield return null;
+            yield return new WaitForSeconds(0.2f);
             onSuccess(1);
         }
 
@@ -89,19 +96,20 @@ namespace APIExamples.NUnit
             throw new ArgumentException("message!");
         }
 
-        [Explicit("非同期メソッドの例外捕捉に制約モデルを使用するとテストが終了しない（Unity Test Framework v1.3.2時点）")]
-        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
-        public async Task 非同期メソッドの例外捕捉に制約モデルは使用できない()
+        public async Task 非同期メソッドの例外捕捉を制約モデルで行なう例()
         {
-            Assert.That(async () => await ThrowNewExceptionInMethod(), Throws.TypeOf<ArgumentException>());
+            Assert.That(async () => await ThrowNewExceptionInMethod(),
+                Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
+            // Note: 非同期（async）メソッドに対してThrows制約が使用できない問題は、Unity Test Framework v1.3.4で修正された
+            //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         }
 
         [Test]
-        public async Task 非同期メソッドの例外捕捉をThrowsAsyncで行なう例()
+        public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なう例()
         {
             Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
-            // Note: Messageの評価はできない
+            // Note: クラシックモデルではMessage文字列の評価はできない
         }
 
         [Test]

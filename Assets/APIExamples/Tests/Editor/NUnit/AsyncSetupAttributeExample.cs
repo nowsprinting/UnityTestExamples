@@ -27,6 +27,7 @@ namespace APIExamples.Editor.NUnit
         [SetUp]
         public async Task SetUp()
         {
+            await Task.Delay(200);
             Debug.Log($"SetUp, {Time.time}");
         }
 

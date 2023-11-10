@@ -4,6 +4,7 @@
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 #pragma warning disable CS1998
 
@@ -19,6 +20,8 @@ namespace APIExamples.NUnit
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
     [TestFixture]
+    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
+    // WebGLではTask.Delayが終了しない（v1.3.9時点） https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
     public class AsyncSetupAttributeExample
     {
         /// <summary>
@@ -27,6 +30,7 @@ namespace APIExamples.NUnit
         [SetUp]
         public async Task SetUp()
         {
+            await Task.Delay(200);
             Debug.Log($"SetUp, {Time.time}");
         }
 

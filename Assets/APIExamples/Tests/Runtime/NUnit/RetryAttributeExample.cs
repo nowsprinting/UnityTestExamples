@@ -27,28 +27,26 @@ namespace APIExamples.NUnit
 
         [Test]
         [Retry(2)] // リトライ回数ではなく総試行回数を指定
-        public void 最初は失敗するが2回目で成功するテスト()
+        public void Retry属性で最初は失敗するが2回目で成功するテスト()
         {
             Assert.That(++_testCount, Is.EqualTo(2));
         }
 
         [UnityTest]
         [Retry(2)] // リトライ回数ではなく総試行回数を指定
-        public IEnumerator 最初は失敗するが2回目で成功するテスト_UnityTest属性()
+        public IEnumerator Retry属性で最初は失敗するが2回目で成功するテスト_UnityTest属性()
         {
             yield return null;
-
             Assert.That(++_unityTestCount, Is.EqualTo(2));
         }
 
-        [Explicit("Retry属性はasyncテストに使用できない（Unity Test Framework v1.3.2時点）")]
-        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+        [Explicit("Retry属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
-        [Retry(2)] // リトライ回数ではなく総試行回数を指定
-        public async Task 最初は失敗するが2回目で成功するテスト_非同期()
+        [Retry(2)]
+        public async Task Retry属性はasyncテストに使用できない_テストが終了しない()
         {
-            await Task.Delay(0);
-
+            await Task.Delay(200);
             Assert.That(++_asyncTestCount, Is.EqualTo(2));
         }
     }

@@ -51,10 +51,10 @@ namespace APIExamples.NUnit
             }
         }
 
-        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3.2時点）")]
+        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.3.9時点）")]
         [UnityTest]
         [MaxTime(2000)]
-        public IEnumerator MaxTime属性はUnityTest属性のテストに使用できない_実行するとエラー()
+        public IEnumerator MaxTime属性はUnityTest属性のテストに使用できない_実行時エラー()
         {
             var waitSeconds = 1f;
             if (Fail)
@@ -65,13 +65,11 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
-        [Explicit("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3.2時点）")]
-        // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
-        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-        // WebGLではTask.Delayが終了しない（v1.3.2時点） https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
+        [Explicit("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
         [MaxTime(2000)]
-        public async Task MaxTime属性は非同期テストに使用できない_実行すると無限ループ()
+        public async Task MaxTime属性は非同期テストに使用できない_テストが終了しない()
         {
             await Task.Delay(3000);
         }
