@@ -49,7 +49,7 @@ Assets
 ```
 
 > **Note**  
-> 『Unity Test Framework完全攻略ガイド』6.4 カスタムアサーションの例を、v2.1.0（2023-11-11版）で書き換えました。  
+> 『Unity Test Framework完全攻略ガイド』v2.1.0（2023-11-11版）より、6.4 カスタムアサーションの例を Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [GameObjectNameComparer](https://github.com/nowsprinting/test-helper#gameobjectnamecomparer) および [DestroyedConstraint](https://github.com/nowsprinting/test-helper#destroyed) を日本語訳したものに置き換えました。  
 > 変更差分はコミット &lt;[dc1b643](https://github.com/nowsprinting/UnityTestExamples/commit/dc1b643cd7e1275388881933b5edfcabde0413ba)&gt; を参照してください。
 
 
@@ -117,7 +117,7 @@ Assets
 ```
 
 > **Note**  
-> 『Unity Test Framework完全攻略ガイド』10.2.2 および 10.3 で紹介している処理を、Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [LoadScene](https://github.com/nowsprinting/test-helper#loadscene) 属性を使用する形に置き換えました。  
+> 『Unity Test Framework完全攻略ガイド』v2.1.0（2023-11-11版）より、10.2.2 および 10.3 で紹介している Scene のロード処理を、Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [LoadScene](https://github.com/nowsprinting/test-helper#loadscene) 属性を使用する形に置き換えました。  
 > 変更差分はコミット &lt;[86f8ab9](https://github.com/nowsprinting/UnityTestExamples/commit/86f8ab9373d9d1c7de0c7cde925adc1a94aaafe0)&gt; を参照してください。
 
 ### Packages
