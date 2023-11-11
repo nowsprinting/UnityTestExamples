@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.cysharp.unitask": "2.3.3",
+    "com.cysharp.unitask": "2.5.0",
     "com.nowsprinting.create-script-folders-with-tests": "1.1.2",
     "com.nowsprinting.local-package-sample": "file:../LocalPackages/com.nowsprinting.local-package-sample",
     "com.nowsprinting.test-helper": "0.3.0",
