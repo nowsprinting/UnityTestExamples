@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
@@ -67,33 +67,92 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
-        public async Task Expect_非同期テストではYieldを挟まなければ有効_AsyncTest()
+        public void Expect_同期テストでは記述順序は結果に影響しない()
         {
-            Debug.LogError("expected message"); // 通常、テストは失敗する
+            if (!Fail)
+            {
+                LogAssert.Expect(LogType.Error, "expected message"); // 先に記述しても有効
+            }
+
+            Debug.LogError("expected message");
+        }
+
+        [Test]
+        public async Task Expect_非同期テストで先に記述_Yieldを挟んでも同一フレームなら有効_AsyncTest()
+        {
+            LogAssert.Expect(LogType.Error, "expected message");
+
+            await Task.Yield();
+            Debug.LogError("expected message"); // Yieldを挟んでもLogAssert.Expectは有効
 
             if (Fail)
             {
-                await Task.Yield();
+                await Task.Delay(200);
+                Debug.LogError("expected message"); // フレームが進むとLogAssert.Expectは無効
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator Expect_非同期テストで先に記述_Yieldを挟んでも同一フレームなら有効_UnityTest()
+        {
+            LogAssert.Expect(LogType.Error, "expected message");
+
+            yield return null;
+            Debug.LogError("expected message"); // Yieldを挟んでもLogAssert.Expectは有効
+
+            if (Fail)
+            {
+                var expectFrame = Time.frameCount;
+                yield return new WaitWhile(() => expectFrame == Time.frameCount);
+                Debug.LogError("expected message"); // フレームが進むとLogAssert.Expectは無効
+            }
+        }
+
+        [Test]
+        public async Task Expect_非同期テストで後に記述_Yieldを挟まなければ有効_AsyncTest()
+        {
+            Debug.LogError("expected message");
+            if (Fail)
+            {
+                await Task.Yield(); // Yieldを挟むとこの時点で失敗と判定される
             }
 
             LogAssert.Expect(LogType.Error, "expected message");
         }
 
         [UnityTest]
-        public IEnumerator Expect_非同期テストではYieldを挟まなければ有効_UnityTest()
+        public IEnumerator Expect_非同期テストで後に記述_Yieldを挟まなければ有効_UnityTest()
         {
-            Debug.LogError("expected message"); // 通常、テストは失敗する
-
+            Debug.LogError("expected message");
             if (Fail)
             {
-                yield return null;
+                yield return null; // Yieldを挟むとこの時点で失敗と判定される
             }
 
             LogAssert.Expect(LogType.Error, "expected message");
         }
 
         [Test]
-        public void NoUnexpectedReceived_ログメッセージ出力があるとテストを失敗させる()
+        public async Task Expect_非同期テストでもログメッセージは複数フレーム有効_AsyncTest()
+        {
+            Debug.Log("expected message");
+
+            await Task.Delay(200);
+            LogAssert.Expect(LogType.Log, "expected message");
+        }
+
+        [UnityTest]
+        public IEnumerator Expect_非同期テストでもログメッセージは複数フレーム有効_UnityTest()
+        {
+            Debug.Log("expected message");
+
+            var expectFrame = Time.frameCount;
+            yield return new WaitWhile(() => expectFrame == Time.frameCount);
+            LogAssert.Expect(LogType.Log, "expected message");
+        }
+
+        [Test]
+        public void NoUnexpectedReceived_記述より前に何らかのログメッセージ出力があるとテストを失敗させる()
         {
             if (Fail)
             {
@@ -101,6 +160,8 @@ namespace APIExamples.UnityTestFramework
             }
 
             LogAssert.NoUnexpectedReceived();
+
+            Debug.Log("After NoUnexpectedReceived"); // LogAssert.NoUnexpectedReceived()後のログ出力は結果に影響しない
         }
 
         [Test]
