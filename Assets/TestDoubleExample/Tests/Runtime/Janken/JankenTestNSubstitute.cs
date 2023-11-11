@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NSubstitute;
@@ -9,7 +9,7 @@ namespace TestDoubleExample.Janken
     /// <summary>
     /// NSubstituteの使用例
     /// </summary>
-    public class JankenTest
+    public class JankenTestNSubstitute
     {
         [Test]
         public void Pon_NSubstituteで間接入力を固定してテストする例()
