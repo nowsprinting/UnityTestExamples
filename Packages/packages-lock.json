@@ -236,13 +236,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "net.tnrd.nsubstitute": {
-      "version": "4.2.2",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
     "com.unity.modules.ai": {
       "version": "1.0.0",
       "depth": 0,
