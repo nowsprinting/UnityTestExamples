@@ -3,6 +3,7 @@
 
 using System.Collections;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -22,82 +23,93 @@ namespace APIExamples.UnityTestFramework
         private const bool Fail = false; // このフラグをtrueにするとこのクラスのテストはすべて失敗します
 
         [Test]
-        public void Expect_期待するログメッセージが出力されなければ失敗するテストの例()
-        {
-            if (Fail)
-            {
-                LogAssert.Expect(LogType.Log, "expect message");
-            }
-
-            Debug.Log("not expected message"); // 通常、テスト結果に影響はない
-        }
-
-        [Test]
-        public void Expect_期待する警告メッセージが出力されなければ失敗するテストの例()
-        {
-            if (Fail)
-            {
-                LogAssert.Expect(LogType.Warning, "expect message");
-            }
-
-            Debug.LogWarning("not expected message"); // 通常、テスト結果に影響はない
-        }
-
-        [Test]
-        public void Expect_期待するメッセージであればLogErrorで出力されてもテストは失敗しない()
+        public void Expect_期待するログメッセージが出力されること()
         {
             if (!Fail)
             {
-                LogAssert.Expect(LogType.Error, "expect message");
+                Debug.Log("expected message");
             }
 
-            Debug.LogError("expect message"); // 通常、テストは失敗する
+            LogAssert.Expect(LogType.Log, "expected message");
         }
 
         [Test]
-        public void Expect_期待するメッセージであればLogErrorで出力されてもテストは失敗しない_正規表現()
+        public void Expect_期待する警告メッセージが出力されること()
         {
+            if (!Fail)
+            {
+                Debug.LogWarning("expected message");
+            }
+
+            LogAssert.Expect(LogType.Warning, "expected message");
+        }
+
+        [Test]
+        public void Expect_期待するエラーログが出力されること_期待するメッセージであればLogErrorでもテストは失敗しない()
+        {
+            Debug.LogError("expected message"); // 通常、LogError出力があるとテストは失敗する
+
+            if (!Fail)
+            {
+                LogAssert.Expect(LogType.Error, "expected message");
+            }
+        }
+
+        [Test]
+        public void Expect_正規表現でマッチング可能()
+        {
+            Debug.LogError("expected message"); // 通常、LogError出力があるとテストは失敗する
+
             if (!Fail)
             {
                 LogAssert.Expect(LogType.Error, new Regex("ex.+? (message|msg)"));
             }
+        }
 
-            Debug.LogError("expect message"); // 通常、テストは失敗する
+        [Test]
+        public async Task Expect_非同期テストではYieldを挟まなければ有効_AsyncTest()
+        {
+            Debug.LogError("expected message"); // 通常、テストは失敗する
+
+            if (Fail)
+            {
+                await Task.Yield();
+            }
+
+            LogAssert.Expect(LogType.Error, "expected message");
         }
 
         [UnityTest]
-        public IEnumerator Expect_期待するメッセージであればLogErrorで出力されてもテストは失敗しない_Expectは後から呼んでも同フレームであれば有効()
+        public IEnumerator Expect_非同期テストではYieldを挟まなければ有効_UnityTest()
         {
-            Debug.LogError("expect message"); // 通常、テストは失敗する
+            Debug.LogError("expected message"); // 通常、テストは失敗する
 
             if (Fail)
             {
                 yield return null;
             }
 
-            LogAssert.Expect(LogType.Error, "expect message");
-            yield return null;
+            LogAssert.Expect(LogType.Error, "expected message");
         }
 
         [Test]
         public void NoUnexpectedReceived_ログメッセージ出力があるとテストを失敗させる()
         {
-            Debug.Log("log message"); // 通常、テスト結果に影響はない
-
             if (Fail)
             {
-                LogAssert.NoUnexpectedReceived(); // TestMustExpectAllLogs属性でも代用できます
+                Debug.Log("not error message"); // 通常、Log/LogWarningはテスト結果に影響しない
             }
+
+            LogAssert.NoUnexpectedReceived();
         }
 
         [Test]
-        public void NoUnexpectedReceived_警告メッセージ出力があるとテストを失敗させる()
+        [TestMustExpectAllLogs]
+        public void TestMustExpectAllLogs属性_ログメッセージ出力があるとテストを失敗させる()
         {
-            Debug.LogWarning("warning message"); // 通常、テスト結果に影響はない
-
             if (Fail)
             {
-                LogAssert.NoUnexpectedReceived(); // TestMustExpectAllLogs属性でも代用できます
+                Debug.Log("not error message"); // 通常、Log/LogWarningはテスト結果に影響しない
             }
         }
     }
