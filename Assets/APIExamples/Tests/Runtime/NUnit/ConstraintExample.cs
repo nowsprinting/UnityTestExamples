@@ -878,6 +878,20 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
+        public class 破棄されたGameObject
+        {
+            [Test]
+            public void Boolキャストオペレーターで破棄されたGameObjectを検証する例()
+            {
+                var cube = new GameObject("Cube");
+                GameObject.DestroyImmediate(cube);
+
+                Assume.That(cube, Is.Not.Null); // Note: 破棄されていても参照はnullではない
+                Assert.That((bool)cube, Is.False); // Note: GameObjectが破棄されているとき、boolキャストオペレーターはfalseを返す
+            }
+        }
+
+        [TestFixture]
         public class 遅延
         {
             [Test]
