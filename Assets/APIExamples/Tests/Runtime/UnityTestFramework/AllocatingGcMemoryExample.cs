@@ -1,6 +1,7 @@
 ﻿// Copyright (c) 2021 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools.Constraints;
@@ -10,6 +11,7 @@ using Is = UnityEngine.TestTools.Constraints.Is;
 // ReSharper disable ConvertToLocalFunction
 // ReSharper disable InconsistentNaming
 // ReSharper disable AccessToStaticMemberViaDerivedType
+// ReSharper disable MoveLocalFunctionAfterJumpStatement
 
 namespace APIExamples.UnityTestFramework
 {
@@ -22,52 +24,83 @@ namespace APIExamples.UnityTestFramework
         [Test]
         public void プリミティブ型_ヒープアロケーションなし()
         {
-            TestDelegate SUT = () =>
+            void UsePrimitives()
             {
                 var b = true;
                 for (var i = 0; i < 10; i++)
                 {
                     b = !b;
                 }
-            };
+            }
 
-            Assert.That(SUT, Is.Not.AllocatingGCMemory());
+            Assert.That(UsePrimitives, Is.Not.AllocatingGCMemory());
         }
 
         [Test]
         public void String型_ヒープアロケーションあり()
         {
-            TestDelegate SUT = () =>
+            void UseString()
             {
                 var s = "string";
                 s += s;
-            };
+            }
 
-            Assert.That(SUT, Is.AllocatingGCMemory());
+            Assert.That(UseString, Is.AllocatingGCMemory());
         }
 
         [Test]
         public void DebugLogを使用_ヒープアロケーションあり()
         {
-            const string Message = "foo bar";
+            const string Message = "foo bar"; // 文字列はアロケーションを回避
 
-            TestDelegate SUT = () =>
+            void UseLogger()
             {
                 Debug.Log(Message);
-            };
+            }
 
-            Assert.That(SUT, Is.AllocatingGCMemory());
+            Assert.That(UseLogger, Is.AllocatingGCMemory());
         }
 
         [Test]
         public void Color構造体_ヒープアロケーションなし()
         {
-            TestDelegate SUT = () =>
+            void UseColor()
             {
                 var c = new Color(1f, 0f, 0f, 1f);
-            };
+            }
 
-            Assert.That(SUT, Is.Not.AllocatingGCMemory());
+            Assert.That(UseColor, Is.Not.AllocatingGCMemory());
+        }
+
+        [Explicit("Is.Not.AllocatingGCMemory()をasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
+        [Test]
+        public async Task プリミティブ型_ヒープアロケーションなしAsync_テストが終了しない()
+        {
+            async Task UsePrimitives()
+            {
+                await Task.Yield();
+                var b = true;
+                for (var i = 0; i < 10; i++)
+                {
+                    b = !b;
+                }
+            }
+
+            Assert.That(async () => await UsePrimitives(), Is.Not.AllocatingGCMemory());
+        }
+
+        [Explicit("Is.AllocatingGCMemory()をasyncメソッドに使用しても常に成功してしまう（Unity Test Framework v1.3.9時点）")]
+        [Test]
+        public async Task String型_ヒープアロケーションありAsync_常に成功してしまう()
+        {
+            async Task UseString()
+            {
+                await Task.Yield();
+                var s = "string";
+                s += s;
+            }
+
+            Assert.That(async () => await UseString(), Is.AllocatingGCMemory());
         }
     }
 }
