@@ -2,6 +2,7 @@
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
@@ -54,6 +55,9 @@ namespace APIExamples.NUnit
         [TestCase(Element.Wood, Element.Fire, 2.0f)]
         [TestCase(Element.Wood, Element.Water, 0.5f)]
         [TestCase(Element.Wood, Element.None, 1.0f)]
+        [SuppressMessage("ReSharper", "NUnit.TestCaseAttributeRequiresExpectedResult")]
+        [SuppressMessage("Structure",
+            "NUnit1007:The method has non-void return type, but no result is expected in ExpectedResult")]
         public IEnumerator UnityTestでTestCase属性は使用できない(Element def, Element atk, float expected)
         {
             yield return null;
