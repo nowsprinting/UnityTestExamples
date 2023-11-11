@@ -246,6 +246,13 @@
       },
       "url": "https://unitynuget-registry.azurewebsites.net"
     },
+    "org.nuget.idisposableanalyzers": {
+      "version": "4.0.7",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://unitynuget-registry.azurewebsites.net"
+    },
     "org.nuget.nsubstitute": {
       "version": "5.1.0",
       "depth": 0,
