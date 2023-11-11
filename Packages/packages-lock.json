@@ -43,7 +43,7 @@
       "url": "https://package.openupm.com"
     },
     "com.nowsprinting.test-helper.monkey": {
-      "version": "0.5.0",
+      "version": "0.5.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
