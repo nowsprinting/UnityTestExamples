@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -9,6 +9,7 @@ using NUnit.Framework;
 using UnityEngine;
 
 #pragma warning disable CS1998
+// ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.Editor.NUnit
 {
@@ -19,6 +20,7 @@ namespace APIExamples.Editor.NUnit
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
+    [TestFixture]
     public class AsyncTestExample
     {
         [Test]
@@ -97,6 +99,8 @@ namespace APIExamples.Editor.NUnit
         {
             Assert.That(async () => await ThrowNewExceptionInMethod(),
                 Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
+            // Note: 非同期（async）メソッドに対してThrows制約が使用できない問題は、Unity Test Framework v1.3.4で修正された
+            //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         }
 
         [Test]

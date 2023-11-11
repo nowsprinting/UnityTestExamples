@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2022-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Threading.Tasks;
