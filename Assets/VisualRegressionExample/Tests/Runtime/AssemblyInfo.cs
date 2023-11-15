@@ -7,6 +7,6 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 [assembly: Category("Integration")]
-[assembly: GameViewResolution(1920, 1080, "Full HD")]
+[assembly: GameViewResolution(GameViewResolution.VGA)]
 
 [assembly: UnityPlatform(RuntimePlatform.OSXEditor)] // Expected画像がOSXで撮影したもののため

@@ -5,4 +5,4 @@ using NUnit.Framework;
 using TestHelper.Attributes;
 
 [assembly: Category("Integration")]
-[assembly: GameViewResolution(1920, 1080, "Full HD")]
+[assembly: GameViewResolution(GameViewResolution.VGA)]
