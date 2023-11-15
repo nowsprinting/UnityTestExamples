@@ -11,6 +11,8 @@ using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
 // ReSharper disable AccessToStaticMemberViaDerivedType
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
 // ReSharper disable ExpressionIsAlwaysNull
@@ -796,6 +798,55 @@ namespace APIExamples.NUnit
                 // 失敗時メッセージ例:
                 //  Expected: No Exception to be thrown
                 //  But was:  <System.NullReferenceException: Object reference not set to an instance of an object.
+            }
+
+            [Test]
+            public async Task ThrowsConstraint_非同期メソッドの例()
+            {
+                async Task
+                    GetThrowWithMessageAsync()
+                {
+                    await Task.Yield();
+                    throw new ArgumentException("message!");
+                }
+
+                Assert.That(async () => await GetThrowWithMessageAsync(),
+                    Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
+                // Note: 非同期（async）メソッドに対してThrows制約が使用できない問題は、Unity Test Framework v1.3.4で修正された
+                //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+            }
+
+            [Test]
+            public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なう例()
+            {
+                async Task GetThrowWithMessageAsync()
+                {
+                    await Task.Yield();
+                    throw new ArgumentException("message!");
+                }
+
+                Assert.ThrowsAsync<ArgumentException>(async () => await GetThrowWithMessageAsync());
+                // Note: クラシックモデルではMessage文字列の評価はできない
+            }
+
+            [Test]
+            public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
+            {
+                async Task GetThrowWithMessageAsync()
+                {
+                    await Task.Yield();
+                    throw new ArgumentException("message!");
+                }
+
+                try
+                {
+                    await GetThrowWithMessageAsync();
+                    Assert.Fail("例外が出ることを期待しているのでテスト失敗とする");
+                }
+                catch (ArgumentException expectedException)
+                {
+                    Assert.That(expectedException.Message, Is.EqualTo("message!"));
+                }
             }
         }
 

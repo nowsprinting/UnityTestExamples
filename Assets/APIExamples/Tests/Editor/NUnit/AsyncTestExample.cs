@@ -88,40 +88,5 @@ namespace APIExamples.Editor.NUnit
             yield return null; // Edit ModeテストではWaitForSecondsなどは使用できない
             onSuccess(1);
         }
-
-        private static async Task ThrowNewExceptionInMethod()
-        {
-            throw new ArgumentException("message!");
-        }
-
-        [Test]
-        public async Task 非同期メソッドの例外捕捉を制約モデルで行なう例()
-        {
-            Assert.That(async () => await ThrowNewExceptionInMethod(),
-                Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
-            // Note: 非同期（async）メソッドに対してThrows制約が使用できない問題は、Unity Test Framework v1.3.4で修正された
-            //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
-        }
-
-        [Test]
-        public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なう例()
-        {
-            Assert.ThrowsAsync<ArgumentException>(async () => await ThrowNewExceptionInMethod());
-            // Note: クラシックモデルではMessage文字列の評価はできない
-        }
-
-        [Test]
-        public async Task 非同期メソッドの例外捕捉をTryCatchで行なう例()
-        {
-            try
-            {
-                await ThrowNewExceptionInMethod();
-                Assert.Fail("例外が出ることを期待しているのでテスト失敗とする");
-            }
-            catch (ArgumentException expectedException)
-            {
-                Assert.That(expectedException.Message, Is.EqualTo("message!"));
-            }
-        }
     }
 }

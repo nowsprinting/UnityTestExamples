@@ -7,6 +7,8 @@ using UnityEngine;
 using UnityEngine.TestTools.Constraints;
 using Is = UnityEngine.TestTools.Constraints.Is;
 
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
 // ReSharper disable NotAccessedVariable
 // ReSharper disable ConvertToLocalFunction
 // ReSharper disable InconsistentNaming
