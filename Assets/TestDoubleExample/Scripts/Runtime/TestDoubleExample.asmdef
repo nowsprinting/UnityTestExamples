@@ -1,14 +1,14 @@
 {
-  "allowUnsafeCode": false,
-  "autoReferenced": true,
-  "defineConstraints": [],
-  "excludePlatforms": [],
-  "includePlatforms": [],
-  "name": "TestDoubleExample",
-  "rootNamespace": "TestDoubleExample",
-  "noEngineReferences": false,
-  "optionalUnityReferences": [],
-  "overrideReferences": false,
-  "precompiledReferences": [],
-  "references": []
+    "name": "TestDoubleExample",
+    "rootNamespace": "",
+    "references": [],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

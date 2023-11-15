@@ -1,6 +1,6 @@
 {
     "name": "APIExamples.Editor",
-    "rootNamespace": "APIExamples.Editor",
+    "rootNamespace": "",
     "references": [
         "GUID:37180d43aa4b85c4b9076e2ef48a3b2a"
     ],
