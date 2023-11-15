@@ -21,6 +21,7 @@ namespace APIExamples.NUnit
     {
         private int _testCount;
         private int _unityTestCount;
+        private int _asyncTestCount;
 
         [Test]
         [Repeat(2)]
@@ -34,18 +35,20 @@ namespace APIExamples.NUnit
         [Repeat(2)]
         public IEnumerator Repeat属性で繰り返し実行するテスト_UnityTest属性()
         {
-            yield return null;
             Debug.Log($"{nameof(Repeat属性で繰り返し実行するテスト_UnityTest属性)} {++_unityTestCount}回目");
+            yield return null;
             Assert.That(true);
         }
 
         [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
         // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
+        // Note: Unity Test Framework v1.3.5 で追加された `-repeat` コマンドラインオプションは、asyncテストにも有効です
         [Test]
         [Repeat(2)]
         public async Task Repeat属性はasyncテストに使用できない_テストが終了しない()
         {
-            await Task.Delay(200);
+            Debug.Log($"{nameof(Repeat属性はasyncテストに使用できない_テストが終了しない)} {++_asyncTestCount}回目");
+            await Task.Yield();
             Assert.That(true);
         }
     }
