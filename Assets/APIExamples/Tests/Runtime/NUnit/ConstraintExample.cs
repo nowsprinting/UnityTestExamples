@@ -800,11 +800,11 @@ namespace APIExamples.NUnit
                 //  But was:  <System.NullReferenceException: Object reference not set to an instance of an object.
             }
 
+            [Explicit("Throws制約をasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
             [Test]
-            public async Task ThrowsConstraint_非同期メソッドの例()
+            public async Task 非同期メソッドの例外捕捉を制約モデルで行なうことはできない_テストが終了しない()
             {
-                async Task
-                    GetThrowWithMessageAsync()
+                async Task GetThrowWithMessageAsync()
                 {
                     await Task.Yield();
                     throw new ArgumentException("message!");
@@ -812,12 +812,13 @@ namespace APIExamples.NUnit
 
                 Assert.That(async () => await GetThrowWithMessageAsync(),
                     Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
-                // Note: 非同期（async）メソッドに対してThrows制約が使用できない問題は、Unity Test Framework v1.3.4で修正された
+                // Note: 非同期（async）メソッドに対してThrows制約が使用できない
                 //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
             }
 
+            [Explicit("ThrowsAsyncをasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
             [Test]
-            public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なう例()
+            public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なうことはできない_テストが終了しない()
             {
                 async Task GetThrowWithMessageAsync()
                 {
@@ -826,6 +827,7 @@ namespace APIExamples.NUnit
                 }
 
                 Assert.ThrowsAsync<ArgumentException>(async () => await GetThrowWithMessageAsync());
+                // Note: 非同期（async）メソッドに対してThrowsAsyncも使用できない
                 // Note: クラシックモデルではMessage文字列の評価はできない
             }
 
