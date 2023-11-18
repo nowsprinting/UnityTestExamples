@@ -35,7 +35,7 @@ For test method names, English comments will be added by the `Description` attri
 
 ## Structure of sample project
 
-The **Integration** category is set in the integration test sample.
+The `Integration` category is set in the integration test sample.
 
 ### APIExamples
 
@@ -139,7 +139,7 @@ LocalPackages
 
 ### UGUIExample
 
-Integration Test volume, Chapter 2 Automating uGUI operations
+Integration Test volume Chapter 2 Automating uGUI operations
 
 ```
 Assets
@@ -148,7 +148,7 @@ Assets
 
 ### InputSystemExample
 
-Integration Test volume, Chapter 3 Automating Input System operations
+Integration Test volume Chapter 3 Automating Input System operations
 
 ```
 Assets
@@ -157,7 +157,7 @@ Assets
 
 ### InputExample
 
-Integration Test volume, Chapter 4 Automating Input Manager operations
+Integration Test volume Chapter 4 Automating Input Manager operations
 
 ```
 Assets
@@ -166,7 +166,7 @@ Assets
 
 ### VisualRegressionExample
 
-Integration Test volume, Chapter 5 Visual Regression Test
+Integration Test volume Chapter 5 Visual Regression Test
 
 ```
 Assets

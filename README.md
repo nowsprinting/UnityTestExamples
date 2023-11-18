@@ -26,7 +26,7 @@ Click [English](./README_en.md) for English page if you need.
 
 ## サンプルプロジェクトの構造
 
-統合テスト編のサンプルには、 **Integration** カテゴリーを設定しています。
+統合テスト編のサンプルには `Integration` カテゴリーを設定しています。
 
 ### APIExamples
 
@@ -49,7 +49,7 @@ Assets
 ```
 
 > **Note**  
-> 『Unity Test Framework完全攻略ガイド 第3版』より、6.4「カスタムアサーション」の例を Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [GameObjectNameComparer](https://github.com/nowsprinting/test-helper#gameobjectnamecomparer) および [DestroyedConstraint](https://github.com/nowsprinting/test-helper#destroyed) を日本語訳したものに置き換えました。  
+> 『Unity Test Framework完全攻略ガイド 第3版』より、「6.4 カスタムアサーション」の例を Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [GameObjectNameComparer](https://github.com/nowsprinting/test-helper#gameobjectnamecomparer) および [DestroyedConstraint](https://github.com/nowsprinting/test-helper#destroyed) を日本語訳したものに置き換えました。  
 > 変更差分はコミット &lt;[dc1b643](https://github.com/nowsprinting/UnityTestExamples/commit/dc1b643cd7e1275388881933b5edfcabde0413ba)&gt; を参照してください。
 
 
