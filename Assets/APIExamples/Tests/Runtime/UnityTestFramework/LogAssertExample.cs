@@ -14,9 +14,10 @@ using UnityEngine.TestTools;
 namespace APIExamples.UnityTestFramework
 {
     /// <summary>
-    /// <see cref="UnityEngine.TestTools.LogAssert"/>の使用例
+    /// <see cref="UnityEngine.TestTools.LogAssert"/>の使用例.
     /// 通常、テスト実行時に<see cref="UnityEngine.Debug.Log(object)"/>および<see cref="UnityEngine.Debug.LogWarning(object)"/>
     /// 以外のメッセージが出力されるとテストは失敗しますが、その条件をコントロールできます。
+    /// <c>LogType</c>を省略できるオーバーロードは Unity Test Framework v1.4 で追加されました。
     /// </summary>
     public class LogAssertExample
     {
@@ -149,6 +150,50 @@ namespace APIExamples.UnityTestFramework
             var expectFrame = Time.frameCount;
             yield return new WaitWhile(() => expectFrame == Time.frameCount);
             LogAssert.Expect(LogType.Log, "expected message");
+        }
+
+        [Test]
+        public void ExpectWithoutLogType_期待するログメッセージが出力されること()
+        {
+            if (!Fail)
+            {
+                Debug.LogWarning("expected message");
+            }
+
+            LogAssert.Expect("expected message");
+        }
+
+        [Test]
+        public void ExpectWithoutLogType_期待する警告メッセージが出力されること()
+        {
+            if (!Fail)
+            {
+                Debug.Log("expected message");
+            }
+
+            LogAssert.Expect("expected message");
+        }
+
+        [Test]
+        public void ExpectWithoutLogType_期待するエラーログが出力されること_期待するメッセージであればLogErrorでもテストは失敗しない()
+        {
+            Debug.LogError("expected message"); // 通常、LogError出力があるとテストは失敗する
+
+            if (!Fail)
+            {
+                LogAssert.Expect("expected message");
+            }
+        }
+
+        [Test]
+        public void ExpectWithoutLogType_正規表現でマッチング可能()
+        {
+            Debug.LogError("expected message"); // 通常、LogError出力があるとテストは失敗する
+
+            if (!Fail)
+            {
+                LogAssert.Expect(new Regex("ex.+? (message|msg)"));
+            }
         }
 
         [Test]
