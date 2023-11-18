@@ -40,7 +40,7 @@ namespace APIExamples.NUnit
             Assert.That(true);
         }
 
-        [Explicit("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        [Ignore("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
         // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         // Note: Unity Test Framework v1.3.5 で追加された `-repeat` コマンドラインオプションは、asyncテストにも有効です
         [Test]

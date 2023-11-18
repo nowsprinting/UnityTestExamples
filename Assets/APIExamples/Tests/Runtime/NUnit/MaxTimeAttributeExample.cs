@@ -65,7 +65,7 @@ namespace APIExamples.NUnit
             yield return new WaitForSeconds(waitSeconds);
         }
 
-        [Explicit("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        [Ignore("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
         // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
         [MaxTime(2000)]

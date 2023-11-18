@@ -69,7 +69,7 @@ namespace APIExamples.Editor.NUnit
             return id + 1;
         }
 
-        [Explicit("Edit Modeではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
+        [Ignore("Edit Modeではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         [Test]
         [Description("Can not await coroutine in the Edit Mode tests")]
         public async Task 非同期テストの例_コルーチンをawait_EditModeではテストが終了しない()

@@ -38,7 +38,7 @@ namespace APIExamples.Editor.UnityTestFramework
 
         [UnityTest]
         [Explicit("Edit ModeテストではWaitForEndOfFrameがエラーとなるため実行対象から除外")]
-        public IEnumerator YieldInstructionの実装クラスはEditMoteテストでは使用できない()
+        public IEnumerator YieldInstructionの実装クラスはEditMoteテストでは使用できない_実行時エラー()
         {
             var before = Time.frameCount;
             yield return new WaitForEndOfFrame();
@@ -49,7 +49,7 @@ namespace APIExamples.Editor.UnityTestFramework
 
         [UnityTest]
         [Explicit("Edit ModeテストではWaitForSecondsRealtimeが動作しないため実行対象から除外")]
-        public IEnumerator CustomYieldInstructionの実装クラスはEditMoteテストでは使用できない()
+        public IEnumerator CustomYieldInstructionの実装クラスはEditMoteテストでは使用できない_動作しない()
         {
             var start = Time.time; // The time at the beginning of this frame
             const float WaitSeconds = 0.5f;
@@ -91,9 +91,9 @@ namespace APIExamples.Editor.UnityTestFramework
             Assert.That(actual, Is.EqualTo(1));
         }
 
+        [Ignore("Edit Modeテストではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         [UnityTest]
-        [Explicit("Edit Modeテストではフリーズするため実行対象から除外/ Freeze in the Edit Mode tests")]
-        public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例_EditModeテストでは動作しない() => UniTask.ToCoroutine(async () =>
+        public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例_EditModeテストではテストが終了しない() => UniTask.ToCoroutine(async () =>
         {
             var actual = 0;
             await BarCoroutine(i =>

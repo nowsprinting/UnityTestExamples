@@ -74,9 +74,9 @@ namespace APIExamples.UnityTestFramework
             Assert.That(UseColor, Is.Not.AllocatingGCMemory());
         }
 
-        [Explicit("Is.Not.AllocatingGCMemory()をasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
+        [Ignore("Is.Not.AllocatingGCMemory()をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.3.9時点）")]
         [Test]
-        public async Task プリミティブ型_ヒープアロケーションなしAsync_テストが終了しない()
+        public async Task プリミティブ型_ヒープアロケーションなしAsync_Unityエディターがフリーズ()
         {
             async Task UsePrimitives()
             {

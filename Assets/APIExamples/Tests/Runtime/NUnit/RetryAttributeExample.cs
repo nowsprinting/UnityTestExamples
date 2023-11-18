@@ -43,7 +43,7 @@ namespace APIExamples.NUnit
             Assert.That(_unityTestCount, Is.EqualTo(2));
         }
 
-        [Explicit("Retry属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
+        [Ignore("Retry属性はasyncテストに使用できない（Unity Test Framework v1.3.9時点）")]
         // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         // Note: Unity Test Framework v1.3.5 で追加された `-retry` コマンドラインオプションは、asyncテストにも有効です
         [Test]

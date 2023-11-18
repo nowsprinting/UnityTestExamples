@@ -800,9 +800,9 @@ namespace APIExamples.NUnit
                 //  But was:  <System.NullReferenceException: Object reference not set to an instance of an object.
             }
 
-            [Explicit("Throws制約をasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
+            [Ignore("Throws制約をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.3.9時点）")]
             [Test]
-            public async Task 非同期メソッドの例外捕捉を制約モデルで行なうことはできない_テストが終了しない()
+            public async Task 非同期メソッドの例外捕捉を制約モデルで行なうことはできない_Unityエディターがフリーズ()
             {
                 async Task GetThrowWithMessageAsync()
                 {
@@ -816,9 +816,9 @@ namespace APIExamples.NUnit
                 //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
             }
 
-            [Explicit("ThrowsAsyncをasyncメソッドに使用するとテストが終了しない（Unity Test Framework v1.3.9時点）")]
+            [Ignore("ThrowsAsyncをasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.3.9時点）")]
             [Test]
-            public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なうことはできない_テストが終了しない()
+            public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なうことはできない_Unityエディターがフリーズ()
             {
                 async Task GetThrowWithMessageAsync()
                 {
@@ -960,7 +960,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            [Explicit("Asyncテストでも期待通り動作しないので除外（Unity Test Framework v1.3.2時点）")]
+            [Explicit("Asyncテストでも期待通り動作しないので除外（Unity Test Framework v1.3.9時点）")]
             // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-30529
             public async Task DelayedConstraint_AsyncTestでも無効()
             {
