@@ -9,17 +9,17 @@ namespace APIExamples.NUnit
     /// <see cref="CategoryAttribute"/>の記述例
     /// </summary>
     [TestFixture]
-    [Category("LearningTests")]
+    [Category("CategoryExample")]
     public class CategoryAttributeExample
     {
         [Test]
-        [Category("IntegrationTests")]
+        [Category("LearningTests")]
         public void CategorizedMethodExample()
         {
         }
 
         [Test]
-        [Category("IntegrationTests")]
+        [Category("LearningTests")]
         [Category("IgnoreCI")]
         public void MultiCategorizedMethodExample()
         {
