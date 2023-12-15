@@ -185,12 +185,6 @@ Under the Unity versions listed above, attempting to run a play mode test with a
 
 
 
-## Unity Test Framework v2.0
-
-See: Add examples for Unity Test Framework v2.0 [#1](https://github.com/nowsprinting/UnityTestExamples/pull/1)
-
-
-
 ## License
 
 MIT License
