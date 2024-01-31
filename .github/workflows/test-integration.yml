@@ -46,7 +46,7 @@ jobs:
           submodules: false
           lfs: false
 
-      - uses: buildjet/cache@v3
+      - uses: buildjet/cache@v4
         with:
           path: Library
           key: Library-${{ matrix.unityVersion }}
