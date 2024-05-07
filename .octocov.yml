@@ -9,7 +9,7 @@ codeToTestRatio:
     - 'Assets/**/*.cs'
     - 'Packages/**/*.cs'
     - 'LocalPackages/**/*.cs'
-    - '!**/Tests/**/'
+    - '!**/Tests/**'
   test:
     - '**/Tests/**/*.cs'
     - '!Library/**'
