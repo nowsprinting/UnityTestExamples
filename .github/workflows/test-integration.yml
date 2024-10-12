@@ -50,9 +50,11 @@ jobs:
       - uses: buildjet/cache@v4
         with:
           path: Library
-          key: Library-${{ matrix.unityVersion }}
+          key: Library-linux-${{ matrix.unityVersion }}-${{ github.ref }}
           restore-keys: |
-            Library-
+            Library-linux-${{ matrix.unityVersion }}
+            Library-linux
+            Library
 
       - name: Set coverage assembly filters
         run: |
