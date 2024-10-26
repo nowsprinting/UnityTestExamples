@@ -4,6 +4,7 @@
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
@@ -34,6 +35,7 @@ namespace APIExamples.NUnit
         }
 
         [Test]
+        [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
         public void CustomConstraint_Extensionsの実装も行なうと可能な書きかた()
         {
             var actual = CreateDestroyedObject();
