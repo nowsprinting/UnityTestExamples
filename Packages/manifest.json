@@ -17,7 +17,10 @@
     "com.unity.textmeshpro": "2.1.6",
     "com.unity.timeline": "1.2.18",
     "com.unity.ugui": "1.0.0",
-    "net.tnrd.nsubstitute": "4.2.2",
+    "org.nuget.idisposableanalyzers": "4.0.7",
+    "org.nuget.nsubstitute": "5.1.0",
+    "org.nuget.nsubstitute.analyzers.csharp": "1.0.16",
+    "org.nuget.nunit.analyzers": "3.3.0",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -59,9 +62,14 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.cysharp",
-        "com.nowsprinting",
-        "com.openupm",
-        "net.tnrd.nsubstitute"
+        "com.nowsprinting"
+      ]
+    },
+    {
+      "name": "Unity NuGet",
+      "url": "https://unitynuget-registry.azurewebsites.net",
+      "scopes": [
+        "org.nuget"
       ]
     }
   ]
