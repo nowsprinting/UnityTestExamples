@@ -10,6 +10,10 @@ using NUnit.Framework;
 using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.TestTools;
+using AssertionException = UnityEngine.Assertions.AssertionException;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
@@ -536,7 +540,7 @@ namespace APIExamples.NUnit
             public void EmptyDirectoryConstraint_ディレクトリが空であること()
             {
 #if UNITY_EDITOR
-                var dir = UnityEditor.FileUtil.GetUniqueTempPathInProject();
+                var dir = FileUtil.GetUniqueTempPathInProject();
                 var actual = Directory.CreateDirectory(dir);
 
                 Assert.That(actual, Is.Empty);
@@ -553,7 +557,7 @@ namespace APIExamples.NUnit
             public void FileOrDirectoryExistsConstraint_ファイルまたはディレクトリが存在すること()
             {
 #if UNITY_EDITOR
-                var dir = Path.GetFileName(UnityEditor.FileUtil.GetUniqueTempPathInProject());
+                var dir = Path.GetFileName(FileUtil.GetUniqueTempPathInProject());
                 var directoryInfo = Directory.CreateDirectory(dir);
                 var file = Path.Combine(dir, "test");
                 var fileInfo = new FileInfo(file);
@@ -783,7 +787,7 @@ namespace APIExamples.NUnit
             {
                 void GetAssert() => UnityEngine.Assertions.Assert.IsTrue(false);
 
-                Assert.That(() => GetAssert(), Throws.TypeOf<UnityEngine.Assertions.AssertionException>());
+                Assert.That(() => GetAssert(), Throws.TypeOf<AssertionException>());
                 // 失敗時メッセージ例:
                 //  Expected: <NUnit.Framework.AssertionException>
                 //  But was:  <UnityEngine.Assertions.AssertionException>
@@ -934,6 +938,8 @@ namespace APIExamples.NUnit
         public class 破棄されたGameObject
         {
             [Test]
+            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
+            // Note: プレイヤーではnull判定されるため除外
             public void Boolキャストオペレーターで破棄されたGameObjectを検証する例()
             {
                 var cube = new GameObject("Cube");
