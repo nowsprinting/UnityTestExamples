@@ -36,6 +36,7 @@ namespace APIExamples.NUnit
 
         [Test]
         [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
+        // Note: プレイヤーではnull判定されるため除外
         public void CustomConstraint_Extensionsの実装も行なうと可能な書きかた()
         {
             var actual = CreateDestroyedObject();
