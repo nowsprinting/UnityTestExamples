@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -11,9 +11,6 @@ using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.TestTools;
 using AssertionException = UnityEngine.Assertions.AssertionException;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
 
@@ -315,7 +312,7 @@ namespace APIExamples.NUnit
             [Test]
             public void HasLength_配列の個数を検証()
             {
-                var actual = new int[] { 2, 3, 5, 6 };
+                var actual = new[] { 2, 3, 5, 6 };
                 Assert.That(actual, Has.Length.EqualTo(4));
                 // 失敗時メッセージ例:
                 //  Expected: property Length equal to 4
@@ -539,8 +536,10 @@ namespace APIExamples.NUnit
             [UnityPlatform(RuntimePlatform.LinuxEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor)]
             public void EmptyDirectoryConstraint_ディレクトリが空であること()
             {
-#if UNITY_EDITOR
-                var dir = FileUtil.GetUniqueTempPathInProject();
+                var dir = Path.Combine(
+                    Application.temporaryCachePath,
+                    TestContext.CurrentContext.Test.ClassName,
+                    TestContext.CurrentContext.Test.Name);
                 var actual = Directory.CreateDirectory(dir);
 
                 Assert.That(actual, Is.Empty);
@@ -549,15 +548,16 @@ namespace APIExamples.NUnit
                 //  But was:  <UnityTempFile-113d9721b8aa84bb0a7bf0b6e31e2638>
 
                 Directory.Delete(dir, true);
-#endif
             }
 
             [Test]
             [UnityPlatform(RuntimePlatform.LinuxEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor)]
             public void FileOrDirectoryExistsConstraint_ファイルまたはディレクトリが存在すること()
             {
-#if UNITY_EDITOR
-                var dir = Path.GetFileName(FileUtil.GetUniqueTempPathInProject());
+                var dir = Path.Combine(
+                    Application.temporaryCachePath,
+                    TestContext.CurrentContext.Test.ClassName,
+                    TestContext.CurrentContext.Test.Name);
                 var directoryInfo = Directory.CreateDirectory(dir);
                 var file = Path.Combine(dir, "test");
                 var fileInfo = new FileInfo(file);
@@ -575,7 +575,6 @@ namespace APIExamples.NUnit
                 //  But was:  "Temp/UnityTempFile-ac03ee62865a042748c6f54723c2e51b/test"
 
                 Directory.Delete(dir, true);
-#endif
             }
 
             [Test]
