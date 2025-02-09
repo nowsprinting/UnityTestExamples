@@ -533,7 +533,6 @@ namespace APIExamples.NUnit
         public class ファイルとディレクトリ
         {
             [Test]
-            [UnityPlatform(RuntimePlatform.LinuxEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor)]
             public void EmptyDirectoryConstraint_ディレクトリが空であること()
             {
                 var dir = Path.Combine(
@@ -551,7 +550,6 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            [UnityPlatform(RuntimePlatform.LinuxEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.OSXEditor)]
             public void FileOrDirectoryExistsConstraint_ファイルまたはディレクトリが存在すること()
             {
                 var dir = Path.Combine(
