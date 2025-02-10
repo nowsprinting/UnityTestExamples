@@ -935,15 +935,33 @@ namespace APIExamples.NUnit
         public class 破棄されたGameObject
         {
             [Test]
-            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
-            // Note: プレイヤーではnull判定されるため除外
             public void Boolキャストオペレーターで破棄されたGameObjectを検証する例()
             {
-                var cube = new GameObject("Cube");
-                GameObject.DestroyImmediate(cube);
+                var go = new GameObject();
+                GameObject.DestroyImmediate(go);
 
-                Assume.That(cube, Is.Not.Null); // Note: 破棄されていても参照はnullではない
-                Assert.That((bool)cube, Is.False); // Note: GameObjectが破棄されているとき、boolキャストオペレーターはfalseを返す
+                Assert.That((bool)go, Is.False); // Note: GameObjectが破棄されているとき、boolキャストオペレーターはfalseを返す
+            }
+
+            [Test]
+            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
+            public void IsNullで破棄されたGameObjectを検証する例_EditorではNotNull()
+            {
+                var go = new GameObject();
+                GameObject.DestroyImmediate(go);
+
+                Assume.That(go, Is.Not.Null); // Note: Editorでは破棄されていても参照はnullではない
+            }
+
+            [Test]
+            [UnityPlatform(exclude =
+                new[] { RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor })]
+            public void IsNullで破棄されたGameObjectを検証する例_PlayerではNull()
+            {
+                var go = new GameObject();
+                GameObject.DestroyImmediate(go);
+
+                Assume.That(go, Is.Null); // Note: Playerでは破棄されたObjectの参照はnull
             }
         }
 
