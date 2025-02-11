@@ -176,34 +176,17 @@ Assets
 
 
 
-## Branches
+## 備考
 
-### master
+### utf2 ブランチ
 
-Unity 2019 LTSプロジェクトです。
-Unity Test Frameworkのバージョンは最新に追随し、APIの使用サンプルも追加しています。
+実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^utf2]。
+それに伴ない `utf2` ブランチは削除しました。
 
-### unity2021
-
-Unity 2021 LTSプロジェクトです。`master`ブランチとの差分は次のとおりです。
-
-- NSubstituteパッケージの取得元を、net.tnrd.nsubstituteからUnityNuGetに変更
-- Roslynアナライザの導入
-    - NSubstitute.Analyzers.CSharp
-    - NUnit.Analyzers
-    - IDisposableAnalyzers
-
-### utf2
-
-> [!NOTE]  
-> 実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^utf2]。
-> それに伴ない、ブランチ`utf2`は削除しました。
-
-[^utf2]: https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214
+[^utf2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
 
 
-
-## WebGL Player
+### WebGL Player
 
 以下のUnityバージョンで問題が取り除かれたため[^UUM-1170]、WebGLプレイヤーでもUnityTest属性のテストを実行するようにしてあります。
 
@@ -211,7 +194,7 @@ Fixed in 2020.3.42f1, 2021.3.8f1, 2022.1.12f1, 2022.2.0b3, 2023.1.0a4
 
 これらのUnityバージョン未満では、WebGLプレイヤーでPlay Modeテストを実行しようとするとコンパイルエラーとなります。
 
-[^UUM-1170]: https://issuetracker.unity3d.com/issues/webgl-chrome-the-message-header-is-corrupted-and-for-security-reasons-connection-will-be-terminated-dot-errors
+[^UUM-1170]: [https://issuetracker.unity3d.com/product/unity/issues/guid/UUM-1170](https://issuetracker.unity3d.com/product/unity/issues/guid/UUM-1170)
 
 
 
