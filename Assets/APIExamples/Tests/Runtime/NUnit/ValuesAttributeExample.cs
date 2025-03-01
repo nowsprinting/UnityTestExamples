@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
@@ -11,23 +11,28 @@ using UnityEngine.TestTools;
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// BasicExamplesに含まれる<see cref="Element"/>のパラメタライズドテスト記述例
-    /// <see cref="ValuesAttribute"/>は組み合わせテストになるため、期待値が同じになる要素ごとにメソッドを定義するのが一般的です
-    /// 
-    /// 数値型にでたらめな値を与えるRandom属性のサンプルは<see cref="RandomAttribute"/>を参照してください
-    /// 数値型の値を範囲指定するRange属性のサンプルは<see cref="RangeAttribute"/>を参照してください
-    /// 組み合わせを絞り込むPairwise属性のサンプルは<see cref="PairwiseAttributeExample"/>を参照してください
-    /// 組み合わせを固定するSequential属性のサンプルは<see cref="SequentialAttributeExample"/>を参照してください
+    /// <see cref="ValuesAttribute"/> によるパラメタライズドテストの記述例.
+    /// <p/>
+    /// <see cref="ValuesAttribute"/> は組み合わせテストになるため、期待値が同じになる要素ごとにメソッドを定義するとわかりやすくなります。
+    /// <p/>
+    /// 組み合わせ生成ルールのデフォルトは全網羅です。明示的に全網羅であることを示すには <see cref="CombinatorialAttribute"/> を使用できます。
+    /// 組み合わせを絞り込む <see cref="PairwiseAttribute"/> のサンプルは <see cref="PairwiseAttributeExample"/> を参照してください。
+    /// 組み合わせを固定する <see cref="SequentialAttribute"/> のサンプルは <see cref="SequentialAttributeExample"/> を参照してください。
     /// </summary>
+    /// <remarks>
+    /// 数値型にでたらめな値を与える <see cref="RandomAttribute"/> のサンプルは <see cref="RandomAttributeExample"/> を参照してください。
+    /// 数値型の値を範囲指定で与える <see cref="RangeAttribute"/> のサンプルは <see cref="RangeAttributeExample"/> を参照してください。
+    /// <p/>
+    /// 2xダメージのテストケースは <see cref="TestCaseAttributeExample"/> を参照してください。
+    /// </remarks>
     [TestFixture]
     public class ValuesAttributeExample
     {
         [Test]
-        public void GetDamageMultiplier_相性によるダメージ倍率は正しい_等倍になる組み合わせ(
-            [Values(Element.Wood, Element.Fire, Element.Water)]
+        public void GetDamageMultiplier_無属性からの攻撃はすべて等倍ダメージ(
+            [Values(Element.None, Element.Fire, Element.Water, Element.Wood)]
             Element defence,
-            [Values(Element.None, Element.Earth, Element.Metal)]
-            Element attack)
+            [Values(Element.None)] Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
 
@@ -35,19 +40,22 @@ namespace APIExamples.NUnit
         }
 
         [Test]
-        public void GetDamageMultiplier_相性によるダメージ倍率は正しい_半減になる組み合わせ(
-            [Values(Element.Earth, Element.Metal)] Element defence,
-            [Values(Element.None, Element.Wood, Element.Fire, Element.Water)]
-            Element attack)
+        public void GetDamageMultiplier_無属性への攻撃はすべて等倍ダメージ(
+            [Values(Element.None)] Element defence,
+            [Values] Element attack) // Note: enumおよびbool型に対してValue属性の引数を省略したときはすべての値が渡されます
         {
             var actual = defence.GetDamageMultiplier(attack);
 
-            Assert.That(actual, Is.EqualTo(0.5f));
+            Assert.That(actual, Is.EqualTo(1.0f));
         }
 
         [Test]
-        public void GetDamageMultiplier_相性によるダメージ倍率は正しい_無属性(
-            [Values(Element.None)] Element defence,
+        [ParametrizedIgnore(Element.Fire, Element.Water)]
+        [ParametrizedIgnore(Element.Water, Element.Wood)]
+        [ParametrizedIgnore(Element.Wood, Element.Fire)]
+        public void GetDamageMultiplier_ParametrizedIgnore属性で等倍ダメージにならない組み合わせを除外_すべて等倍ダメージ(
+            // Note: ParametrizedIgnore 属性は NUnit でなく、Unity Test Framework v1.4 で追加された属性です
+            [Values] Element defence,
             [Values] Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
@@ -56,11 +64,13 @@ namespace APIExamples.NUnit
         }
 
         [UnityTest]
+        [ParametrizedIgnore(Element.Fire, Element.Water)]
+        [ParametrizedIgnore(Element.Water, Element.Wood)]
+        [ParametrizedIgnore(Element.Wood, Element.Fire)]
         public IEnumerator UnityTestでもValues属性は使用可能(
-            [Values(Element.Wood, Element.Fire, Element.Water)]
-            Element defence,
-            [Values(Element.None, Element.Earth, Element.Metal)]
-            Element attack)
+            // Note: UnityTest で ParametrizedIgnore 属性が使用できるのは、Unity Test Framework v1.4.6以降です
+            [Values] Element defence,
+            [Values] Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
             yield return null;
@@ -69,28 +79,16 @@ namespace APIExamples.NUnit
         }
 
         [Test]
+        [ParametrizedIgnore(Element.Fire, Element.Water)]
+        [ParametrizedIgnore(Element.Water, Element.Wood)]
+        [ParametrizedIgnore(Element.Wood, Element.Fire)]
         public async Task 非同期テストでもValues属性は使用可能(
-            [Values(Element.Earth, Element.Metal)] Element defence,
-            [Values(Element.None, Element.Wood, Element.Fire, Element.Water)]
-            Element attack)
+            // Note: Async test で ParametrizedIgnore 属性が使用できるのは、Unity Test Framework v1.4.6以降です
+            [Values] Element defence,
+            [Values] Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
-            await Task.Delay(0);
-
-            Assert.That(actual, Is.EqualTo(0.5f));
-        }
-
-        [Test]
-        [Description("Can skip specified combination with ParametrizedIgnoreAttribute (Required UTF v1.4+)")]
-        [ParametrizedIgnore(Element.Fire, Element.Metal)]
-        [ParametrizedIgnore(Element.Water, Element.Earth)]
-        public void GetDamageMultiplier_ParametrizedIgnore属性で指定した組み合わせはskipされる(
-            [Values(Element.Wood, Element.Fire, Element.Water)]
-            Element def,
-            [Values(Element.None, Element.Earth, Element.Metal)]
-            Element atk)
-        {
-            var actual = def.GetDamageMultiplier(atk);
+            await Task.Yield();
 
             Assert.That(actual, Is.EqualTo(1.0f));
         }
