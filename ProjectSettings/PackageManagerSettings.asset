@@ -35,6 +35,7 @@ MonoBehaviour:
     - org.nuget.castle.core
     - org.nuget.nsubstitute
     - org.nuget.nsubstitute.analyzers.csharp
+    - org.nuget.nunit.analyzers
     - org.nuget.system.diagnostics.eventlog
     - org.nuget.system.reflection.emit
     - org.nuget.system.reflection.emit.ilgeneration
