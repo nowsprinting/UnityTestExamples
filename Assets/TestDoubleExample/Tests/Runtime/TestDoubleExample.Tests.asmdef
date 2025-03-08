@@ -4,7 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TestDoubleExample"
+      "TestDoubleExample",
+      "NSubstitute.Analyzers.CSharp_Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
