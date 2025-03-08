@@ -17,7 +17,6 @@
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.6.5",
     "com.unity.ugui": "1.0.0",
-    "net.tnrd.nsubstitute": "4.2.2",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -59,9 +58,7 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.cysharp",
-        "com.nowsprinting",
-        "com.openupm",
-        "net.tnrd.nsubstitute"
+        "com.nowsprinting"
       ]
     }
   ]
