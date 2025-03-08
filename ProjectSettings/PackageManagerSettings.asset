@@ -32,6 +32,13 @@ MonoBehaviour:
     m_Scopes:
     - com.cysharp
     - com.nowsprinting
+    - org.nuget.castle.core
+    - org.nuget.nsubstitute
+    - org.nuget.system.diagnostics.eventlog
+    - org.nuget.system.reflection.emit
+    - org.nuget.system.reflection.emit.ilgeneration
+    - org.nuget.system.security.principal.windows
+    - org.nuget.system.threading.tasks.extensions
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4

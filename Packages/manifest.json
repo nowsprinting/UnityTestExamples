@@ -47,7 +47,8 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0"
+    "com.unity.modules.xr": "1.0.0",
+    "org.nuget.nsubstitute": "5.3.0"
   },
   "testables": [
     "com.nowsprinting.local-package-sample"
@@ -58,7 +59,14 @@
       "url": "https://package.openupm.com",
       "scopes": [
         "com.cysharp",
-        "com.nowsprinting"
+        "com.nowsprinting",
+        "org.nuget.castle.core",
+        "org.nuget.nsubstitute",
+        "org.nuget.system.diagnostics.eventlog",
+        "org.nuget.system.reflection.emit",
+        "org.nuget.system.reflection.emit.ilgeneration",
+        "org.nuget.system.security.principal.windows",
+        "org.nuget.system.threading.tasks.extensions"
       ]
     }
   ]
