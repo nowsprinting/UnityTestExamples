@@ -231,7 +231,7 @@ csharp_space_after_dot = false
 csharp_space_after_keywords_in_control_flow_statements = true
 csharp_space_after_semicolon_in_for_statement = true
 csharp_space_around_binary_operators = before_and_after
-csharp_space_around_declaration_statements = do_not_ignore
+csharp_space_around_declaration_statements = false
 csharp_space_before_colon_in_inheritance_clause = true
 csharp_space_before_comma = false
 csharp_space_before_dot = false
@@ -258,6 +258,9 @@ dotnet_diagnostic.IDE0060.severity = warning
 # ReSharper comment alignment
 resharper_csharp_int_align_comments = true
 
+# Keep existing initializer arrangements
+resharper_csharp_keep_existing_initializer_arrangement = true
+
 # Some values of the enum are not processed inside 'switch' statement and are handled via default section
 resharper_switch_statement_handles_some_known_enum_values_with_default_highlighting = warning
 
@@ -271,8 +274,8 @@ resharper_convert_to_null_coalescing_compound_assignment_highlighting = none
 resharper_merge_into_logical_pattern_highlighting = none
 resharper_use_negated_pattern_in_is_expression_highlighting = none
 
-# Unity Test Framework
-[**/Tests/**/*.cs]
+# Test codes for Unity Test Framework
+[Tests/**/*.cs]
 
 # Access to a static member of a type via a derived type (e.g., NUnit.Framework.Is)
 resharper_access_to_static_member_via_derived_type_highlighting = none
