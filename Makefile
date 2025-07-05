@@ -2,9 +2,9 @@
 # This software is released under the MIT License.
 
 PROJECT_HOME?=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
-BUILD_DIR?=$(PROJECT_HOME)/Build
+BUILD_DIR?=$(PROJECT_HOME)/Builds
 LOG_DIR?=$(PROJECT_HOME)/Logs
-UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/ProjectVersion.txt | grep -o -E '\d{4}\.[1-4]\.\d+[abfp]\d+')
+UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/ProjectVersion.txt | grep -o -E '\d{4}\.\d+\.\d+[abfp]\d+')
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
