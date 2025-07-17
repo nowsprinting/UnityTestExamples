@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using BasicExample.Entities.Enums;
@@ -26,9 +26,9 @@ namespace BasicExample.Entities
         /// <summary>
         /// 攻撃を与える
         /// </summary>
+        /// <param name="element">攻撃の属性</param>
         /// <param name="attackPower">攻撃力</param>
-        /// <param name="attackElement">攻撃の属性</param>
         /// <returns>true: 1以上のダメージが入った</returns>
-        bool GiveAttack(int attackPower, Element attackElement);
+        bool TakeDamage(Element element, int attackPower);
     }
 }

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using BasicExample.Entities.Enums;
@@ -18,6 +18,6 @@ namespace BasicExample.Entities
         public bool IsDestroyed() => status.IsDestroyed();
 
         /// <inheritdoc/>
-        public bool GiveAttack(int attackPower, Element attackElement) => status.GiveAttack(attackPower, attackElement);
+        public bool TakeDamage(Element element, int attackPower) => status.TakeDamage(element, attackPower);
     }
 }

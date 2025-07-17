@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -14,35 +14,35 @@ namespace BasicExample.Entities
     [Serializable]
     public class CharacterStatus : IDestructible
     {
-        [SerializeField, Tooltip("属性")]
-        private Element element;
+        [field: SerializeField, Tooltip("属性")]
+        private Element Element { get; set; }
 
-        [SerializeField, Tooltip("最大ヒットポイント")]
-        private int maxHitPoint;
+        [field: SerializeField, Tooltip("最大ヒットポイント")]
+        private int MaxHitPoint { get; set; }
 
-        [SerializeField, Tooltip("防御力（buff分を除く）")]
-        private int defense;
+        [field: SerializeField, Tooltip("防御力（buff分を除く）")]
+        private int Defense { get; set; }
 
-        [SerializeField, Tooltip("攻撃力（buff分を除く）")]
-        private int attack;
+        [field: SerializeField, Tooltip("攻撃力（buff分を除く）")]
+        private int Attack { get; set; }
 
         public int HitPoint { get; set; }
         private HitPointGaugeSetting _bounds;
 
-        public CharacterStatus(Element ele = Element.None, int maxHp = 0, int def = 0, int atk = 0)
+        public CharacterStatus(Element element = Element.None, int hp = 0, int defense = 0, int attack = 0)
         {
-            element = ele;
-            maxHitPoint = maxHp;
-            defense = def;
-            attack = atk;
-            HitPoint = maxHp;
+            Element = element;
+            MaxHitPoint = hp;
+            Defense = defense;
+            Attack = attack;
+            HitPoint = hp;
             _bounds = ScriptableObject.CreateInstance<HitPointGaugeSetting>();
         }
 
         /// <inheritdoc/>
         public (float, Color) GetHitPointGauge()
         {
-            var percentage = (float)HitPoint / maxHitPoint;
+            var percentage = (float)HitPoint / MaxHitPoint;
             return (percentage, _bounds.GetHitPointGaugeColor(percentage));
         }
 
@@ -53,10 +53,10 @@ namespace BasicExample.Entities
         }
 
         /// <inheritdoc/>
-        public bool GiveAttack(int attackPower, Element attackElement)
+        public bool TakeDamage(Element element, int attackPower)
         {
-            var attackPowerWithElement = (int)(attackPower * element.GetDamageMultiplier(attackElement));
-            var damage = attackPowerWithElement - defense;
+            var attackPowerWithElement = (int)(attackPower * Element.GetDamageMultiplier(element));
+            var damage = attackPowerWithElement - Defense;
             if (damage <= 0)
             {
                 return false;
