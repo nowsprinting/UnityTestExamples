@@ -1,7 +1,8 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
+using UnityEngine.TestTools;
 
 namespace BasicExample.Entities.Enums
 {
@@ -14,40 +15,50 @@ namespace BasicExample.Entities.Enums
     [TestFixture]
     public class ElementTest
     {
-        [TestCase(Element.Wood, Element.Fire, 2.0f)]
-        [TestCase(Element.Wood, Element.Water, 0.5f)]
-        [TestCase(Element.Wood, Element.None, 1.0f)]
-        [TestCase(Element.Fire, Element.Water, 2.0f)]
-        [TestCase(Element.Fire, Element.Wood, 0.5f)]
-        [TestCase(Element.Fire, Element.None, 1.0f)]
-        [TestCase(Element.Water, Element.Wood, 2.0f)]
-        [TestCase(Element.Water, Element.Fire, 0.5f)]
-        [TestCase(Element.Water, Element.None, 1.0f)]
-        public void GetDamageMultiplier_木火水の相性によるダメージ倍率は正しい(Element def, Element atk, float expected)
+        [TestCase(Element.Wood, Element.Fire)]
+        [TestCase(Element.Fire, Element.Water)]
+        [TestCase(Element.Water, Element.Wood)]
+        [TestCase(Element.Earth, Element.Metal)]
+        [TestCase(Element.Metal, Element.Earth)]
+        public void GetDamageMultiplier_弱点属性からの攻撃_ダメージ2倍(Element defence, Element attack)
         {
-            var actual = def.GetDamageMultiplier(atk);
-
-            Assert.That(actual, Is.EqualTo(expected));
+            var actual = defence.GetDamageMultiplier(attack);
+            Assert.That(actual, Is.EqualTo(2.0f));
         }
 
-        [TestCase(Element.Earth, Element.Metal, ExpectedResult = 2.0f)]
-        [TestCase(Element.Earth, Element.None, ExpectedResult = 0.5f)]
-        [TestCase(Element.Metal, Element.Earth, ExpectedResult = 2.0f)]
-        [TestCase(Element.Metal, Element.None, ExpectedResult = 0.5f)]
-        public float GetDamageMultiplier_土金の相性によるダメージ倍率は正しい(Element def, Element atk)
+        [TestCase(Element.Wood, Element.Water)]
+        [TestCase(Element.Fire, Element.Wood)]
+        [TestCase(Element.Water, Element.Fire)]
+        public void GetDamageMultiplier_得意属性からの攻撃_ダメージ半減(Element defence, Element attack)
         {
-            var actual = def.GetDamageMultiplier(atk);
-
-            return actual;
+            var actual = defence.GetDamageMultiplier(attack);
+            Assert.That(actual, Is.EqualTo(0.5f));
         }
 
         [Test]
-        public void GetDamageMultiplier_無属性の相性によるダメージ倍率は正しい(
-            [Values(Element.None)] Element def,
-            [Values] Element atk)
+        [ParametrizedIgnore(Element.Earth, Element.Metal)]
+        [ParametrizedIgnore(Element.Metal, Element.Earth)]
+        public void GetDamageMultiplier_土金の得意属性_ダメージ半減(
+            [Values(Element.Earth, Element.Metal)] Element defence,
+            [Values] Element attack)
         {
-            var actual = def.GetDamageMultiplier(atk);
+            var actual = defence.GetDamageMultiplier(attack);
+            Assert.That(actual, Is.EqualTo(0.5f));
+        }
 
+        [Test]
+        [ParametrizedIgnore(Element.Wood, Element.Fire)]
+        [ParametrizedIgnore(Element.Fire, Element.Water)]
+        [ParametrizedIgnore(Element.Water, Element.Wood)]
+        [ParametrizedIgnore(Element.Wood, Element.Water)]
+        [ParametrizedIgnore(Element.Fire, Element.Wood)]
+        [ParametrizedIgnore(Element.Water, Element.Fire)]
+        public void GetDamageMultiplier_相性なし_ダメージは等倍(
+            [Values(Element.None, Element.Wood, Element.Fire, Element.Water)]
+            Element defence,
+            [Values] Element attack)
+        {
+            var actual = defence.GetDamageMultiplier(attack);
             Assert.That(actual, Is.EqualTo(1.0f));
         }
 
