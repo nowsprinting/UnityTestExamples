@@ -1,10 +1,10 @@
-# Copyright (c) 2021-2023 Koji Hasegawa.
+# Copyright (c) 2021-2025 Koji Hasegawa.
 # This software is released under the MIT License.
 
 PROJECT_HOME?=$(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 BUILD_DIR?=$(PROJECT_HOME)/Builds
 LOG_DIR?=$(PROJECT_HOME)/Logs
-UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/ProjectVersion.txt | grep -o -E '\d{4}\.\d+\.\d+[abfp]\d+')
+UNITY_VERSION?=$(shell grep 'm_EditorVersion:' $(PROJECT_HOME)/ProjectSettings/ProjectVersion.txt | grep -o -E '\d{4}\.\d\.\d+[abfp]\d')
 
 # Code Coverage report filter (comma separated)
 # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
