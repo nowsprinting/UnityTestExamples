@@ -3,6 +3,7 @@
 [![meta-check](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/metacheck.yml)
 [![test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test.yml)
 [![Integration Test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test-integration.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test-integration.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nowsprinting/UnityTestExamples)
 
 Click [English](./README_en.md) for English page if you need.
 
@@ -22,11 +23,15 @@ Click [English](./README_en.md) for English page if you need.
 - [Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
 - [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
+本リポジトリの `master` ブランチは随時更新しています。
+過去の版に準拠したコードを確認したい場合は、次のタグを参照してください。
+
+- `v1.0.0`: Unity Test Framework完全攻略ガイド 第1版
+- `v2.0.0`: Unity Test Framework完全攻略ガイド 第2版 および 統合テスト編 第1版
+
 
 
 ## サンプルプロジェクトの構造
-
-統合テスト編のサンプルには `Integration` カテゴリーを設定しています。
 
 ### APIExamples
 
@@ -47,12 +52,6 @@ Assets
             └── UnityTestFramework
                 └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
 ```
-
-> [!NOTE]  
-> 『Unity Test Framework完全攻略ガイド 第3版』より、「6.4 カスタムアサーション」の例を Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [GameObjectNameComparer](https://github.com/nowsprinting/test-helper#gameobjectnamecomparer) および [DestroyedConstraint](https://github.com/nowsprinting/test-helper#destroyed) を日本語訳したものに置き換えました。  
-> 変更差分はコミット &lt;[dc1b643](https://github.com/nowsprinting/UnityTestExamples/commit/dc1b643cd7e1275388881933b5edfcabde0413ba)&gt; を参照してください。
-
-
 
 ### BasicExample
 
@@ -115,10 +114,6 @@ Assets
 Assets
 └── SceneExample
 ```
-
-> [!NOTE]  
-> 『Unity Test Framework完全攻略ガイド 第3版』より、10.2.2 および 10.3 で紹介している Scene のロード処理を、Test Helper パッケージ（com.nowsprinting.test-helper）に含まれる [LoadScene](https://github.com/nowsprinting/test-helper#loadscene) 属性を使用する形に置き換えました。  
-> 変更差分はコミット &lt;[86f8ab9](https://github.com/nowsprinting/UnityTestExamples/commit/86f8ab9373d9d1c7de0c7cde925adc1a94aaafe0)&gt; を参照してください。
 
 ### Packages
 
@@ -184,7 +179,6 @@ Assets
 それに伴ない `utf2` ブランチは削除しました。
 
 [^utf2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
-
 
 ### WebGL Player
 
