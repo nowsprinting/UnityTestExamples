@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/UGUIExample/Scenes/Help.unity
     guid: 53f6e2f015bfa450f9543a1f75d377a4
   - enabled: 1
+    path: Assets/SceneExample/Scenes/ContainScenesInBuild.unity
+    guid: 5edbb926be3934904b9ecb6c964e2556
+  - enabled: 1
     path: Assets/InputSystemExample/Scenes/InputSystemExample.unity
     guid: 780082c79f65c4193aeff19ec9b21382
   m_configObjects: {}

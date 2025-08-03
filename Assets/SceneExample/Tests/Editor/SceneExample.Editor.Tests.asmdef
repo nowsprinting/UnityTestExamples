@@ -2,7 +2,8 @@
     "name": "SceneExample.Editor.Tests",
     "references": [
         "UnityEngine.TestRunner",
-        "UnityEditor.TestRunner"
+      "UnityEditor.TestRunner",
+      "TestHelper"
     ],
     "includePlatforms": [
         "Editor"
