@@ -55,12 +55,20 @@
   ],
   "scopedRegistries": [
     {
-      "name": "package.openupm.com",
+      "name": "OpenUPM",
       "url": "https://package.openupm.com",
       "scopes": [
-        "com.cysharp",
-        "com.nowsprinting"
+        "com.nowsprinting",
+        "com.cysharp"
       ]
+    },
+    {
+      "name": "UnityNuGet",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "org.nuget"
+      ],
+      "overrideBuiltIns": true
     }
   ]
 }
