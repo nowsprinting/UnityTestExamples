@@ -29,7 +29,7 @@ namespace APIExamples.NUnit
         {
             new TestCaseData(Element.Fire, Element.Water), // 火 ← 水
             new TestCaseData(Element.Water, Element.Wood), // 水 ← 木
-            new TestCaseData(Element.Wood, Element.Fire), // 木 ← 火
+            new TestCaseData(Element.Wood, Element.Fire),  // 木 ← 火
         };
 
         [TestCaseSource(nameof(s_weaknessElementCombinationCases))] // フィールドを指定する例
@@ -46,7 +46,7 @@ namespace APIExamples.NUnit
         {
             yield return new TestCaseData(Element.Fire, Element.Water); // 火 ← 水
             yield return new TestCaseData(Element.Water, Element.Wood); // 水 ← 木
-            yield return new TestCaseData(Element.Wood, Element.Fire); // 木 ← 火
+            yield return new TestCaseData(Element.Wood, Element.Fire);  // 木 ← 火
         }
 
         [TestCaseSource(nameof(GetWeaknessElementCombinationCases))] // メソッドを指定する例
@@ -72,17 +72,6 @@ namespace APIExamples.NUnit
         public void GetDamageMultiplier_弱点属性からの攻撃はダメージ2x_別クラスの例(Element defence, Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
-
-            Assert.That(actual, Is.EqualTo(2.0f));
-        }
-
-        [Explicit("実行すると次のメッセージを伴って失敗します: Method has non-valid return value, but no result is expected")]
-        [UnityTest]
-        [TestCaseSource(nameof(s_weaknessElementCombinationCases))]
-        public IEnumerator UnityTestでTestCaseSource属性は使用できない(Element defence, Element attack)
-        {
-            var actual = defence.GetDamageMultiplier(attack);
-            yield return null;
 
             Assert.That(actual, Is.EqualTo(2.0f));
         }
