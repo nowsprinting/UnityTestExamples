@@ -1,7 +1,6 @@
 // Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
-using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
@@ -51,21 +50,6 @@ namespace APIExamples.NUnit
             // Note: 全網羅では 4*4*3*2=96 通りのところ、ペアワイズ法によって 16 通りになります
         {
             var actual = defence.GetDamageMultiplier(attack);
-
-            Assert.That(actual, Is.GreaterThanOrEqualTo(1.0f).And.LessThanOrEqualTo(2.0f));
-        }
-
-        [Explicit("UnityTest では Pairwise 属性は正しい組み合わせを生成しません")]
-        [UnityTest]
-        [Pairwise]
-        public IEnumerator UnityTestではPairwise属性は正しい組み合わせを生成しない(
-            [Values] Element defence,
-            [Values] Element attack,
-            [Values(1, 2, 3)] int intArgument,
-            [Values] bool boolArgument)
-        {
-            var actual = defence.GetDamageMultiplier(attack);
-            yield return null;
 
             Assert.That(actual, Is.GreaterThanOrEqualTo(1.0f).And.LessThanOrEqualTo(2.0f));
         }

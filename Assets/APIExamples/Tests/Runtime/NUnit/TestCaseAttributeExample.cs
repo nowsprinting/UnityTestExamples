@@ -1,8 +1,6 @@
 ﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
-using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
@@ -29,20 +27,6 @@ namespace APIExamples.NUnit
         public void GetDamageMultiplier_弱点属性からの攻撃はダメージ2x(Element defence, Element attack)
         {
             var actual = defence.GetDamageMultiplier(attack);
-
-            Assert.That(actual, Is.EqualTo(2.0f));
-        }
-
-        [Explicit("実行すると次のメッセージを伴って失敗します: Method has non-valid return value, but no result is expected")]
-        [UnityTest]
-        [TestCase(Element.Fire, Element.Water)]
-        [TestCase(Element.Water, Element.Wood)]
-        [TestCase(Element.Wood, Element.Fire)]
-        [SuppressMessage("ReSharper", "NUnit.TestCaseAttributeRequiresExpectedResult")]
-        public IEnumerator UnityTestでTestCase属性は使用できない(Element defence, Element attack)
-        {
-            var actual = defence.GetDamageMultiplier(attack);
-            yield return null;
 
             Assert.That(actual, Is.EqualTo(2.0f));
         }

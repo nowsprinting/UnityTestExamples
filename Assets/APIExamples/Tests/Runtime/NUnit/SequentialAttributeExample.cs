@@ -3,7 +3,6 @@
 
 // ReSharper disable AccessToStaticMemberViaDerivedType
 
-using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
@@ -48,21 +47,6 @@ namespace APIExamples.NUnit
             // Note: 組み合わせが固定され、3件のテストケースになります
         {
             var actual = defence.GetDamageMultiplier(attack);
-
-            Assert.That(actual, Is.EqualTo(2.0f));
-        }
-
-        [Explicit("UnityTest では Sequential 属性は正しい組み合わせを生成しません")]
-        [UnityTest]
-        [Sequential]
-        public IEnumerator UnityTestではSequential属性は正しい組み合わせを生成しない(
-            [Values(Element.Fire, Element.Water, Element.Wood)]
-            Element defence,
-            [Values(Element.Water, Element.Wood, Element.Fire)]
-            Element attack)
-        {
-            var actual = defence.GetDamageMultiplier(attack);
-            yield return null;
 
             Assert.That(actual, Is.EqualTo(2.0f));
         }
