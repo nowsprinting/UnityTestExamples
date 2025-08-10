@@ -5,10 +5,12 @@ using System.Collections;
 using System.Linq;
 using NUnit.Framework;
 using TestHelper.Attributes;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TestTools;
+#if UNITY_EDITOR
+using UnityEditor.SceneManagement;
+#endif
 
 namespace SceneExample
 {
