@@ -18,6 +18,6 @@ namespace BasicExample.Entities
         public bool IsDestroyed() => status.IsDestroyed();
 
         /// <inheritdoc/>
-        public bool TakeDamage(Element element, int attackPower) => status.TakeDamage(element, attackPower);
+        public bool TakeDamage(Element element, int attack) => status.TakeDamage(element, attack);
     }
 }

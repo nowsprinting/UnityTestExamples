@@ -75,8 +75,8 @@ Assets
     │           └── (snip)
     └── Tests
         ├── Editor
-        │   └── AssetValidators
-        │       ├── LevelValidator.cs
+        │   └── AssetValidators                 // 「8.4 ValueSource」「10.1 Edit ModeテストでのSceneの使用」
+        │       ├── LevelValidator.cs 
         │       └── RaceValidator.cs
         └── Runtime
             └── Entities
