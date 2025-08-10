@@ -4,6 +4,7 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
+      "NUnit.Analyzers_Unity",
         "BasicExample.Editor",
         "BasicExample"
     ],
