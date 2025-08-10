@@ -14,6 +14,7 @@ namespace SceneExample.TestDoubles
     /// - Unity 2021以降、"/" ではじまる文字列も有効
     /// - Unity 2023.2.0a17 から6000 系の途中まで、空文字では認識されない不具合
     /// </remarks>
+    /// <seealso cref="NestedComponentTest"/>
 #if UNITY_2021_1_OR_NEWER
     [AddComponentMenu("/")] // Add Componentピッカーから隠す
 #else
