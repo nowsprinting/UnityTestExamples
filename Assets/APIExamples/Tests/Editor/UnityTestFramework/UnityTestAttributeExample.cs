@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -12,10 +12,9 @@ namespace APIExamples.Editor.UnityTestFramework
 {
     /// <summary>
     /// フレームをまたがるテストを<see cref="UnityEngine.TestTools.UnityTestAttribute"/>で実装する例
-    /// <see href="https://github.com/Cysharp/UniTask">UniTask</see>の使用例を含みます
     /// </summary>
     /// <remarks>
-    /// Runtime/UnityTestFramework/UnityTestAttributeExampleをベースに、Edit Modeで動くもの
+    /// <see cref="APIExamples.UnityTestFramework.UnityTestAttributeExample"/> をベースに、Edit Modeテスト向けに修正したもの
     /// </remarks>
     [TestFixture]
     public class UnityTestAttributeExample
@@ -25,6 +24,7 @@ namespace APIExamples.Editor.UnityTestFramework
         {
             var before = Time.frameCount;
             yield return null;
+
             var actual = Time.frameCount;
 
             Assert.That(actual, Is.EqualTo(before)); // Note: Edit Modeテストではそもそもフレームカウントされない
@@ -37,23 +37,26 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
-        [Explicit("Edit ModeテストではWaitForEndOfFrameがエラーとなるため実行対象から除外")]
-        public IEnumerator YieldInstructionの実装クラスはEditMoteテストでは使用できない_実行時エラー()
+        [Explicit("Edit Modeテストでは動作しない")]
+        public IEnumerator YieldInstructionの実装クラス_EditMoteテストでは動作しない()
         {
-            var before = Time.frameCount;
-            yield return new WaitForEndOfFrame();
-            var actual = Time.frameCount;
+            var start = Time.time; // The time at the beginning of this frame
+            const float WaitSeconds = 0.5f;
+            yield return new WaitForSeconds(WaitSeconds);
 
-            Assert.That(actual, Is.EqualTo(before));
+            var actual = Time.time - start;
+
+            Assert.That(actual, Is.EqualTo(WaitSeconds).Within(0.1f));
         }
 
         [UnityTest]
-        [Explicit("Edit ModeテストではWaitForSecondsRealtimeが動作しないため実行対象から除外")]
-        public IEnumerator CustomYieldInstructionの実装クラスはEditMoteテストでは使用できない_動作しない()
+        [Explicit("Edit Modeテストでは動作しない")]
+        public IEnumerator CustomYieldInstructionの実装クラス_EditMoteテストでは動作しない()
         {
             var start = Time.time; // The time at the beginning of this frame
             const float WaitSeconds = 0.5f;
             yield return new WaitForSecondsRealtime(WaitSeconds);
+
             var actual = Time.time - start;
 
             Assert.That(actual, Is.EqualTo(WaitSeconds).Within(0.1f));
@@ -83,6 +86,7 @@ namespace APIExamples.Editor.UnityTestFramework
         public IEnumerator コルーチンを起動してコールバックを受け取る例()
         {
             var actual = 0;
+
             yield return BarCoroutine(i =>
             {
                 actual = i;
@@ -91,11 +95,12 @@ namespace APIExamples.Editor.UnityTestFramework
             Assert.That(actual, Is.EqualTo(1));
         }
 
-        [Ignore("Edit Modeテストではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         [UnityTest]
+        [Ignore("Edit Modeテストではテストが終了しないため実行対象から除外/ Freeze in the Edit Mode tests")]
         public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例_EditModeテストではテストが終了しない() => UniTask.ToCoroutine(async () =>
         {
             var actual = 0;
+
             await BarCoroutine(i =>
             {
                 actual = i;

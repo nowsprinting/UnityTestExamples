@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -13,7 +13,6 @@ namespace APIExamples.UnityTestFramework
 {
     /// <summary>
     /// フレームをまたがるテストを<see cref="UnityEngine.TestTools.UnityTestAttribute"/>で実装する例
-    /// <see href="https://github.com/Cysharp/UniTask">UniTask</see>の使用例を含みます
     /// </summary>
     [TestFixture]
     public class UnityTestAttributeExample
@@ -23,6 +22,7 @@ namespace APIExamples.UnityTestFramework
         {
             var before = Time.frameCount;
             yield return null;
+
             var actual = Time.frameCount;
 
             Assert.That(actual, Is.EqualTo(before + 1));
@@ -35,15 +35,15 @@ namespace APIExamples.UnityTestFramework
         }
 
         [UnityTest]
-        [Category("IgnoreCI")]
-        [Description("CIでは（Linux Editorでは？）フレームが進んでしまう（648 to 41767）のでとりあえず除外")]
         public IEnumerator YieldInstructionの実装クラスを使用できる()
         {
-            var before = Time.frameCount;
-            yield return new WaitForEndOfFrame();
-            var actual = Time.frameCount;
+            var start = Time.time; // The time at the beginning of this frame
+            const float WaitSeconds = 0.5f;
+            yield return new WaitForSeconds(WaitSeconds);
 
-            Assert.That(actual, Is.EqualTo(before));
+            var actual = Time.time - start;
+
+            Assert.That(actual, Is.EqualTo(WaitSeconds).Within(0.1f));
         }
 
         [UnityTest]
@@ -52,6 +52,7 @@ namespace APIExamples.UnityTestFramework
             var start = Time.time; // The time at the beginning of this frame
             const float WaitSeconds = 0.5f;
             yield return new WaitForSecondsRealtime(WaitSeconds);
+
             var actual = Time.time - start;
 
             Assert.That(actual, Is.EqualTo(WaitSeconds).Within(0.1f));
@@ -60,7 +61,7 @@ namespace APIExamples.UnityTestFramework
         [UnityTest]
         public IEnumerator AsyncOperationの終了を待つテストの例()
         {
-            yield return SceneManager.LoadSceneAsync("HelloTesting");
+            yield return SceneManager.LoadSceneAsync("ContainScenesInBuild");
             var cube = GameObject.Find("Cube");
 
             Assert.That((bool)cube, Is.True);
@@ -69,7 +70,7 @@ namespace APIExamples.UnityTestFramework
         [UnityTest]
         public IEnumerator UniTaskでAsyncメソッドを使用するテストの例() => UniTask.ToCoroutine(async () =>
         {
-            await SceneManager.LoadSceneAsync("HelloTesting");
+            await SceneManager.LoadSceneAsync("ContainScenesInBuild");
             var cube = GameObject.Find("Cube");
 
             Assert.That((bool)cube, Is.True);
@@ -79,6 +80,7 @@ namespace APIExamples.UnityTestFramework
         public IEnumerator コルーチンを起動してコールバックを受け取る例()
         {
             var actual = 0;
+
             yield return BarCoroutine(i =>
             {
                 actual = i;
@@ -91,6 +93,7 @@ namespace APIExamples.UnityTestFramework
         public IEnumerator UniTaskでコルーチンを起動してコールバックを受け取る例() => UniTask.ToCoroutine(async () =>
         {
             var actual = 0;
+
             await BarCoroutine(i =>
             {
                 actual = i;

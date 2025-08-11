@@ -6,11 +6,8 @@ using System;
 namespace APIExamples
 {
     /// <summary>
-    /// 元素的な属性.
+    /// 元素的な属性
     /// </summary>
-    /// <remarks>
-    /// このenumは <c>BasicExample.Entities.Enums.Element</c> とは異なります（仕様を簡略化しました）
-    /// </remarks>
     public enum Element
     {
         None,
@@ -22,7 +19,7 @@ namespace APIExamples
     public static class ElementExtensions
     {
         /// <summary>
-        /// 属性名を返す.
+        /// 属性名を返す
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
@@ -44,7 +41,7 @@ namespace APIExamples
         }
 
         /// <summary>
-        /// 属性攻撃を受けたときの被ダメージ倍率を返す.
+        /// 属性攻撃を受けたときの被ダメージ倍率を返す
         /// </summary>
         /// <param name="self"></param>
         /// <param name="attack">攻撃側の属性</param>
