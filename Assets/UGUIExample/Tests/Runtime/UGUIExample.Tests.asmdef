@@ -1,13 +1,14 @@
 {
     "name": "UGUIExample.Tests",
+  "rootNamespace": "",
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "UGUIExample",
         "UniTask",
         "TestHelper",
-        "TestHelper.Monkey",
-        "TestHelper.Random"
+      "TestHelper.Random",
+      "TestHelper.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
