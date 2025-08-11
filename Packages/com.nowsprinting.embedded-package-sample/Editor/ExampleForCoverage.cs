@@ -2,7 +2,8 @@
 // This software is released under the MIT License.
 
 // ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
-namespace LocalPackageSample.Editor
+
+namespace EmbeddedPackageSample.Editor
 {
     public static class ExampleForCoverage
     {

@@ -1,23 +1,22 @@
-// Copyright (c) 2021 Koji Hasegawa.
+// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
 using NUnit.Framework;
-using EmbeddedPackageSample.Utils;
+using TestHelper.Attributes;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-// ReSharper disable once CheckNamespace (rootNamespace not work in Unity 2019)
 namespace EmbeddedPackageSample
 {
     [TestFixture]
     public class SceneManagerTest
     {
         [UnityTest]
+        [LoadScene("../../Scenes/SceneInEmbeddedPackage.unity")]
         public IEnumerator LoadSceneAsync_ScenesInBuildに含まれていないSceneをロードする例()
         {
-            yield return TestSceneLoader.LoadSceneAsync("Packages/com.nowsprinting.embedded-package-sample/Scenes/SceneInPackage.unity");
-            // パスはProjectウィンドウに表示されるパスで指定。ただしパッケージ名の部分は `displayName` でなく `name` を使用。
+            yield return null;
 
             var capsule = GameObject.Find("Capsule");
             Assert.That(capsule, Is.Not.Null);

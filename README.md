@@ -110,18 +110,18 @@ Assets
 
 第11章 UPM パッケージのテスト
 
-#### 埋め込みパッケージ
-
-```
-Packages
-└── com.nowsprinting.embedded-package-sample
-```
-
 #### ローカルパッケージ
 
 ```
 LocalPackages
 └── com.nowsprinting.local-package-sample
+```
+
+#### 埋め込みパッケージ
+
+```
+Packages
+└── com.nowsprinting.embedded-package-sample
 ```
 
 ### UGUIExample
