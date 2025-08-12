@@ -1,8 +1,9 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -16,11 +17,31 @@ namespace APIExamples.Editor.UnityTestFramework
     /// <summary>
     /// <see cref="IEditModeTestYieldInstruction"/>の使用例
     /// </summary>
+    [SuppressMessage("Structure", "NUnit1028:The non-test method is public")]
     public class EditModeTestYieldInstructionExample
     {
+        private static bool s_wasInitializeOnEnterPlayModeCalled;
+        private static bool s_wasRuntimeInitializeOnLoadMethodCalled;
+        private static bool s_wasOneTimeSetUpCalled;
+        private static bool s_wasUnitySetUpCalled;
+        private static bool s_wasSetUpCalled;
+        private static bool s_wasSetUpAsyncCalled;
+
         private const string CsPath = "Assets/CreateFileExample.cs";
         private const string DLLSrcPath = "TestData/NativePluginExample.dll";
         private const string DLLDstPath = "Assets/NativePluginExample.dll";
+
+        [InitializeOnEnterPlayMode]
+        public static void InitializeOnEnterPlayMode()
+        {
+            s_wasInitializeOnEnterPlayModeCalled = true;
+        }
+
+        [RuntimeInitializeOnLoadMethod]
+        public static void RuntimeInitializeOnLoadMethod()
+        {
+            s_wasRuntimeInitializeOnLoadMethodCalled = true;
+        }
 
         [OneTimeSetUp]
         public void OneTimeSetUp()
@@ -28,27 +49,27 @@ namespace APIExamples.Editor.UnityTestFramework
             Assume.That(EditorSettings.enterPlayModeOptionsEnabled, Is.False, "Enter Play Mode Options enabled");
             // Note: Edit | Project Settings... | Editor | Enter Play Mode Settings が変更されていないことが前提
 
-            Debug.Log("OneTimeSetUpはドメインリロードで再実行されます");
+            s_wasOneTimeSetUpCalled = true;
         }
 
         [UnitySetUp]
         public IEnumerator UnitySetUp()
         {
-            Debug.Log("UnitySetUpはドメインリロードで再実行されません");
+            s_wasUnitySetUpCalled = true;
             yield break;
         }
 
         [SetUp]
         public void SetUp()
         {
-            Debug.Log("SetUpはドメインリロードで再実行されます");
+            s_wasSetUpCalled = true;
         }
 
         [SetUp]
         public async Task SetUpAsync()
         {
-            Debug.Log("SetUpAsyncはドメインリロードで再実行されます");
-            await Task.Delay(1);
+            s_wasSetUpAsyncCalled = true;
+            await Task.Yield();
         }
 
         [TearDown]
@@ -60,15 +81,34 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
-        public IEnumerator EnterPlayModeの使用例()
+        public IEnumerator EnterPlayModeで再生モードに切り替える例()
         {
             yield return new EnterPlayMode();
+
             Assert.That(EditorApplication.isPlaying, Is.True);
             // Note: 特に後処理をしなくてもテスト終了後に編集モードに戻ります
         }
 
         [UnityTest]
-        public IEnumerator ExitPlayModeの使用例()
+        public IEnumerator EnterPlayModeで再生モードに切り替える例_InitializeOnEnterPlayModeが実行される()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasInitializeOnEnterPlayModeCalled, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator EnterPlayModeで再生モードに切り替える例_RuntimeInitializeOnLoadMethodが実行される()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasRuntimeInitializeOnLoadMethodCalled, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator ExitPlayModeで編集モードに切り替える例()
         {
             yield return new EnterPlayMode();
             Assume.That(EditorApplication.isPlaying, Is.True);
@@ -78,7 +118,7 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
-        public IEnumerator RecompileScriptsでリコンパイルされたクラスのメソッドを呼び出す例()
+        public IEnumerator RecompileScriptsでリコンパイルを実行する例_リコンパイルされたクラスのメソッドを呼び出せる()
         {
             Assume.That(Path.GetFullPath(CsPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
@@ -102,7 +142,7 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
-        public IEnumerator WaitForDomainReloadで追加されたアセンブリのメソッドを呼び出す例()
+        public IEnumerator WaitForDomainReloadでドメインリロードを待機する例_追加されたアセンブリのメソッドを呼び出せる()
         {
             Assume.That(Path.GetFullPath(DLLDstPath), Does.Not.Exist,
                 "Destination file already exists. please remove and re-run this test.");
@@ -119,6 +159,42 @@ namespace APIExamples.Editor.UnityTestFramework
             bool actual = foo.Bar("Baz");
 
             Assert.That(actual, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator ドメインリロード発生時にOneTimeSetUpは再実行される()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasOneTimeSetUpCalled, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator ドメインリロード発生時にUnitySetUpは再実行さない()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasUnitySetUpCalled, Is.False);
+        }
+
+        [UnityTest]
+        public IEnumerator ドメインリロード発生時にSetUpは再実行される()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasSetUpCalled, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator ドメインリロード発生時にSetUpAsyncは再実行される()
+        {
+            yield return new EnterPlayMode();
+            // Note: staticフィールドの値はドメインリロードで初期化されます
+
+            Assert.That(s_wasSetUpAsyncCalled, Is.True);
         }
     }
 }

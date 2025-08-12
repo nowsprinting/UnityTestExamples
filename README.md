@@ -75,8 +75,8 @@ Assets
     │           └── (snip)
     └── Tests
         ├── Editor
-        │   └── AssetValidators
-        │       ├── LevelValidator.cs
+        │   └── AssetValidators                 // 「8.4 ValueSource」「10.1 Edit ModeテストでのSceneの使用」
+        │       ├── LevelValidator.cs 
         │       └── RaceValidator.cs
         └── Runtime
             └── Entities
@@ -110,18 +110,18 @@ Assets
 
 第11章 UPM パッケージのテスト
 
-#### 埋め込みパッケージ
-
-```
-Packages
-└── com.nowsprinting.embedded-package-sample
-```
-
 #### ローカルパッケージ
 
 ```
 LocalPackages
 └── com.nowsprinting.local-package-sample
+```
+
+#### 埋め込みパッケージ
+
+```
+Packages
+└── com.nowsprinting.embedded-package-sample
 ```
 
 ### UGUIExample

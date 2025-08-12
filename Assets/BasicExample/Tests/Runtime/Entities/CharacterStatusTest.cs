@@ -13,67 +13,81 @@ namespace BasicExample.Entities
         public void IsDestroyed_まだ生きている()
         {
             var sut = new CharacterStatus(hp: 1);
+            Assume.That(sut.HitPoint, Is.EqualTo(1));
 
             Assert.That(sut.IsDestroyed(), Is.False);
-            Assert.That(sut.HitPoint, Is.EqualTo(1));
         }
 
         [Test]
         public void IsDestroyed_もう死んでいる()
         {
-            var sut = new CharacterStatus(hp: 1);
-            sut.TakeDamage(Element.None, 1);
+            var sut = new CharacterStatus(hp: 0);
+            Assume.That(sut.HitPoint, Is.EqualTo(0));
 
             Assert.That(sut.IsDestroyed(), Is.True);
         }
 
         [Test]
-        public void TakeDamage_防御力5に対して攻撃力1_被ダメージなし()
+        public void TakeDamage_防御力3に対して攻撃力1_ダメージなし()
         {
-            var sut = new CharacterStatus(element: Element.None, hp: 2, defense: 5);
-            var damaged = sut.TakeDamage(Element.None, 1);
+            // Setup
+            var sut = new CharacterStatus(Element.None, defense: 3);
 
-            Assert.That(damaged, Is.False);
+            // Exercise
+            var damage = sut.TakeDamage(Element.None, attack: 1);
+
+            // Verify
+            Assert.That(damage, Is.False);
         }
 
         [Test]
-        public void TakeDamage_防御力5に対して攻撃力1_HP減少なし()
+        public void TakeDamage_防御力3に対して攻撃力1_HP減少なし()
         {
-            var sut = new CharacterStatus(element: Element.None, hp: 2, defense: 5);
-            sut.TakeDamage(Element.None, 1);
+            // Setup
+            var beforeHp = 100;
+            var sut = new CharacterStatus(Element.None, defense: 3, hp: beforeHp);
 
-            Assert.That(sut.HitPoint, Is.EqualTo(2));
+            // Exercise
+            sut.TakeDamage(Element.None, attack: 1);
+
+            // Verify
+            var deltaHp = sut.HitPoint - beforeHp;
+            Assert.That(deltaHp, Is.EqualTo(0));
         }
 
         [Test]
-        public void TakeDamage_防御力0に対して攻撃力1_被ダメージあり()
+        public void TakeDamage_防御力0に対して攻撃力1_ダメージあり()
         {
-            var sut = new CharacterStatus(element: Element.None, hp: 2, defense: 0);
-            var damaged = sut.TakeDamage(Element.None, 1);
+            var sut = new CharacterStatus(Element.None, defense: 0);
 
-            Assert.That(damaged, Is.True);
+            var damage = sut.TakeDamage(Element.None, attack: 1);
+
+            Assert.That(damage, Is.True);
         }
 
         [Test]
         public void TakeDamage_防御力2に対して攻撃力3_HPが1減少()
         {
-            var sut = new CharacterStatus(element: Element.None, hp: 5, defense: 2);
-            sut.TakeDamage(element: Element.None, attackPower: 3);
+            var beforeHp = 100;
+            var sut = new CharacterStatus(Element.None, defense: 2, hp: beforeHp);
 
-            var actual = sut.HitPoint - 5; // delta HP
-            Assert.That(actual, Is.EqualTo(-1));
+            sut.TakeDamage(Element.None, attack: 3);
+
+            var deltaHp = sut.HitPoint - beforeHp;
+            Assert.That(deltaHp, Is.EqualTo(-1));
         }
 
         [TestCase(2, 3, -1)]
         [TestCase(5, 7, -2)]
         public void TakeDamage_防御力より攻撃力が大きい_HPが差分だけ減少(int defence, int attackPower, int expected)
         {
-            var beforeHp = 5;
-            var sut = new CharacterStatus(element: Element.None, hp: beforeHp, defense: defence);
-            sut.TakeDamage(element: Element.None, attackPower: attackPower);
+            var beforeHp = 100;
+            var sut = new CharacterStatus(Element.None, defense: defence, hp: beforeHp);
 
-            var actual = sut.HitPoint - beforeHp; // delta HP
-            Assert.That(actual, Is.EqualTo(expected));
+            sut.TakeDamage(Element.None, attack: attackPower);
+
+            var deltaHp = sut.HitPoint - beforeHp;
+            Assert.That(deltaHp, Is.EqualTo(expected));
         }
     }
 }

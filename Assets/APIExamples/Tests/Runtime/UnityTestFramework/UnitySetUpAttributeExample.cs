@@ -22,7 +22,7 @@ namespace APIExamples.UnityTestFramework
         [UnitySetUp]
         public IEnumerator SetUpCoroutine()
         {
-            yield return SceneManager.LoadSceneAsync("HelloTesting");
+            yield return SceneManager.LoadSceneAsync("ContainScenesInBuild");
         }
 
         [Test]
