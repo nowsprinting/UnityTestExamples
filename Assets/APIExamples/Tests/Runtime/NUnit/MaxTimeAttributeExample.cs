@@ -1,77 +1,54 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
-using System.Diagnostics;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-#pragma warning disable CS0162
+using Debug = UnityEngine.Debug;
 
 namespace APIExamples.NUnit
 {
     /// <summary>
     /// <see cref="MaxTimeAttribute"/>の使用例
     /// </summary>
+    /// <remarks>
+    /// <see cref="UnityTestAttribute"/> および非同期テストと使用できない問題は、Unity Test Framework v1.4.5で修正されました。
+    /// <see href="https://issuetracker.unity3d.com/issues/timeout-attribute-is-not-working-when-used-with-the-async-test-in-the-test-runner"/>
+    /// </remarks>
     [TestFixture]
+    [Explicit("MaxTime属性によって失敗するテストの例")]
     public class MaxTimeAttributeExample
     {
-        private readonly Stopwatch _stopwatch = new Stopwatch();
-        private const bool Fail = false; // このフラグをtrueにするとこのクラスのテストはすべて失敗します
-
-        [SetUp]
-        public void SetUp()
-        {
-            _stopwatch.Restart();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            UnityEngine.Debug.Log($"{_stopwatch.ElapsedMilliseconds} [ms]");
-            Time.timeScale = 1f;
-        }
-
         [Test]
-        [MaxTime(10)]
-        public void MaxTimeを10ミリ秒に設定()
+        [MaxTime(100)]
+        public void MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗()
         {
-            var loopCount = 1;
-            if (Fail)
-            {
-                loopCount = 10000000;
-            }
-
+            var loopCount = 50000000;
             var sum = 0f;
             for (var i = 0; i < loopCount; i++)
             {
                 sum += Random.value;
             }
+
+            Debug.Log("テストは最後まで実行されます");
         }
 
-        [Explicit("MaxTime属性はUnityTest属性のテストに使用できない（Unity Test Framework v1.4.0時点）")]
         [UnityTest]
-        [MaxTime(2000)]
-        public IEnumerator MaxTime属性はUnityTest属性のテストに使用できない_実行時エラー()
+        [MaxTime(100)]
+        public IEnumerator MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_UnityTest属性()
         {
-            var waitSeconds = 1f;
-            if (Fail)
-            {
-                waitSeconds = 10f;
-            }
-
-            yield return new WaitForSeconds(waitSeconds);
+            yield return new WaitForSeconds(0.5f);
+            Debug.Log("テストは最後まで実行されます");
         }
 
-        [Ignore("MaxTime属性はasyncテストに使用できない（Unity Test Framework v1.4.0時点）")]
-        // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
         [Test]
-        [MaxTime(2000)]
-        public async Task MaxTime属性は非同期テストに使用できない_テストが終了しない()
+        [MaxTime(100)]
+        public async Task MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_非同期テスト()
         {
-            await Task.Delay(3000);
+            await Task.Delay(500);
+            Debug.Log("テストは最後まで実行されます");
         }
     }
 }

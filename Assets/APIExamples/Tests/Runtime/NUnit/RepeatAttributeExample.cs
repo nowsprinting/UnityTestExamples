@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
@@ -14,8 +14,11 @@ namespace APIExamples.NUnit
     /// </summary>
     /// <remarks>
     /// Unity Test Frameworkの<see href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html#known-limitations">Known limitations</see>に
-    ///     The UnityTest attribute does not support the NUnit Repeat attribute.
+    /// "The UnityTest attribute does not support the NUnit Repeat attribute."
     /// とありますが、v1.1.27で修正されました。
+    /// <br/>
+    /// <see cref="UnityTestAttribute"/> および非同期テストと使用できない問題は、Unity Test Framework v1.4.5で修正されました。
+    /// <see href="https://issuetracker.unity3d.com/issues/timeout-attribute-is-not-working-when-used-with-the-async-test-in-the-test-runner"/>
     /// </remarks>
     public class RepeatAttributeExample
     {
@@ -27,29 +30,23 @@ namespace APIExamples.NUnit
         [Repeat(2)]
         public void Repeat属性で繰り返し実行するテスト()
         {
-            Debug.Log($"{nameof(Repeat属性で繰り返し実行するテスト)} {++_testCount}回目");
-            Assert.That(true);
+            Debug.Log($"{TestContext.CurrentContext.Test.Name} {++_testCount}回目");
         }
 
         [UnityTest]
         [Repeat(2)]
         public IEnumerator Repeat属性で繰り返し実行するテスト_UnityTest属性()
         {
-            Debug.Log($"{nameof(Repeat属性で繰り返し実行するテスト_UnityTest属性)} {++_unityTestCount}回目");
+            Debug.Log($"{TestContext.CurrentContext.Test.Name} {++_unityTestCount}回目");
             yield return null;
-            Assert.That(true);
         }
 
-        [Ignore("Repeat属性はasyncテストに使用できない（Unity Test Framework v1.4.0時点）")]
-        // See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
-        // Note: Unity Test Framework v1.3.5 で追加された `-repeat` コマンドラインオプションは、asyncテストにも有効です
         [Test]
         [Repeat(2)]
-        public async Task Repeat属性はasyncテストに使用できない_テストが終了しない()
+        public async Task Repeat属性で繰り返し実行するテスト_非同期テスト()
         {
-            Debug.Log($"{nameof(Repeat属性はasyncテストに使用できない_テストが終了しない)} {++_asyncTestCount}回目");
+            Debug.Log($"{TestContext.CurrentContext.Test.Name} {++_asyncTestCount}回目");
             await Task.Yield();
-            Assert.That(true);
         }
     }
 }
