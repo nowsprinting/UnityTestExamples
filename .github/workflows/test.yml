@@ -42,13 +42,14 @@ jobs:
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 6000.0.55f1
-          - 6000.1.15f1
+          - 6000.1.16f1
+          - 6000.2.0f1
         testMode:
           - All                                 # run tests in editor
         include:
-          - unityVersion: 6000.1.15f1
+          - unityVersion: 6000.2.0f1
             octocov: true
-          - unityVersion: 6000.1.15f1
+          - unityVersion: 6000.2.0f1
             testMode: Standalone  # run tests on player
 
     steps:
