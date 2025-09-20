@@ -11,19 +11,19 @@ using NUnit.Framework;
 using UnityEditor;
 using Object = UnityEngine.Object;
 
-namespace BasicExample.Editor.AssetValidators
+namespace BasicExample.Editor.Validators
 {
     /// <summary>
-    /// ScriptableObjects/Races/下のすべてのSOに対して、フィールドの設定漏れがないことを検証する
+    /// ScriptableObjects/Races/ 下のすべての ScriptableObject に対して、フィールドの設定漏れがないことを検証する.
     /// </summary>
     /// <remarks>
-    /// <see cref="ValueSourceAttribute"/>の応用例として書いたものの、フィールドは素直にRace型を使うほうがよさそう
+    /// <see cref="ValueSourceAttribute"/> の応用例として書いたものの、フィールドは素直にRace型を使うほうがよさそう
     /// </remarks>
     public class RaceValidator
     {
         // Race型のScriptableObjectを列挙
         private static IEnumerable<string> RacePaths => AssetDatabase
-            .FindAssets("t:Race", new [] { "Assets/BasicExample/ScriptableObjects/Races" })
+            .FindAssets("t:Race", new[] { "Assets/BasicExample/ScriptableObjects/Races" })
             .Select(AssetDatabase.GUIDToAssetPath);
 
         // Race型のフィールドを列挙
