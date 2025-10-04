@@ -3,7 +3,7 @@
     "com.cysharp.unitask": "2.5.0",
     "com.nowsprinting.create-script-folders-with-tests": "1.2.3",
     "com.nowsprinting.local-package-sample": "file:../LocalPackages/com.nowsprinting.local-package-sample",
-    "com.nowsprinting.test-helper": "1.2.1",
+    "com.nowsprinting.test-helper": "1.2.3",
     "com.nowsprinting.test-helper.input": "1.0.1",
     "com.nowsprinting.test-helper.random": "1.0.0",
     "com.nowsprinting.test-helper.ui": "1.0.1",
