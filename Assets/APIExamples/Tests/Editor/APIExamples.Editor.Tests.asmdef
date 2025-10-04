@@ -6,7 +6,8 @@
         "UnityEditor.TestRunner",
       "NUnit.Analyzers_Unity",
       "APIExamples.Tests",
-        "UniTask"
+      "UniTask",
+      "TestHelper"
     ],
     "includePlatforms": [
         "Editor"
