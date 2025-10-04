@@ -164,23 +164,6 @@
       },
       "url": "https://packages.unity.com"
     },
-    "com.unity.testframework.graphics": {
-      "version": "7.17.0-exp.1",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.vr": "1.0.0",
-        "com.unity.modules.xr": "1.0.0",
-        "com.unity.addressables": "1.17.15",
-        "com.unity.xr.management": "4.0.5",
-        "com.unity.nuget.newtonsoft-json": "2.0.0",
-        "com.unity.xr.legacyinputhelpers": "2.1.8",
-        "com.unity.external.test-protocol": "1.0.0-preview",
-        "com.unity.testtools.codecoverage": "1.2.0",
-        "com.unity.modules.imageconversion": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
     "com.unity.testtools.codecoverage": {
       "version": "1.2.4",
       "depth": 0,
@@ -220,29 +203,6 @@
         "com.unity.modules.ui": "1.0.0",
         "com.unity.modules.imgui": "1.0.0"
       }
-    },
-    "com.unity.xr.legacyinputhelpers": {
-      "version": "2.1.9",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.vr": "1.0.0",
-        "com.unity.modules.xr": "1.0.0"
-      },
-      "url": "https://packages.unity.com"
-    },
-    "com.unity.xr.management": {
-      "version": "4.0.5",
-      "depth": 1,
-      "source": "registry",
-      "dependencies": {
-        "com.unity.modules.vr": "1.0.0",
-        "com.unity.modules.xr": "1.0.0",
-        "com.unity.modules.subsystems": "1.0.0",
-        "com.unity.subsystemregistration": "1.0.6",
-        "com.unity.xr.legacyinputhelpers": "2.1.7"
-      },
-      "url": "https://packages.unity.com"
     },
     "net.tnrd.nsubstitute": {
       "version": "4.2.2",

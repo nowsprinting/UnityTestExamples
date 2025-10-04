@@ -1,6 +1,7 @@
 // Copyright (c) 2021-2023 Koji Hasegawa.
 // This software is released under the MIT License.
 
+#if ENABLE_GRAPHICS_TEST_FRAMEWORK
 using System.Collections;
 using System.IO;
 using System.Threading.Tasks;
@@ -125,3 +126,4 @@ namespace VisualRegressionExample
         }
     }
 }
+#endif

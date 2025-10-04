@@ -160,6 +160,10 @@ Assets
 └── VisualRegressionExample
 ```
 
+> [!TIP]  
+> このテストを実行するには
+> [Graphics Test Framework](https://docs.unity3d.com/Packages/com.unity.testframework.graphics@latest)
+> パッケージをインストールする必要があります。
 
 
 ## 備考
