@@ -11,9 +11,9 @@ using UnityEditor.PackageManager;
 namespace APIExamples.Editor.UnityTestFramework
 {
     [TestFixture]
-    public class UnityTestFrameworkVersionTest
+    public class UnityTestFrameworkVersionCheck
     {
-        private async UniTask<string> GetTestFrameworkPackageVersionAsync()
+        private static async UniTask<string> GetTestFrameworkPackageVersionAsync()
         {
             var request = Client.List(false, false);
             while (!request.IsCompleted)
@@ -37,8 +37,24 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [Test]
-        [UnityVersion(newerThanOrEqual: "6000.0.44f1", olderThan: "6000.2.6f1")]
-        public async Task Unity6000_0_44f1以降_TestFrameworkはv1_5_1固定()
+        [UnityVersion(newerThanOrEqual: "6000.0.44f1", olderThan: "6000.0.59f2")]
+        public async Task Unity6000_0_44f1から58f2まで_TestFrameworkはv1_5_1固定()
+        {
+            var actual = await GetTestFrameworkPackageVersionAsync();
+            Assert.That(actual, Is.EqualTo("1.5.1"));
+        }
+
+        [Test]
+        [UnityVersion(newerThanOrEqual: "6000.0.59f2", olderThan: "6000.1.0f1")]
+        public async Task Unity6000_0_59f2以降_TestFrameworkはv1_6_0固定()
+        {
+            var actual = await GetTestFrameworkPackageVersionAsync();
+            Assert.That(actual, Is.EqualTo("1.6.0"));
+        }
+
+        [Test]
+        [UnityVersion(newerThanOrEqual: "6000.1.0f1", olderThan: "6000.2.6f1")]
+        public async Task Unity6000_1_0f1から6000_2_5f1まで_TestFrameworkはv1_5_1固定()
         {
             var actual = await GetTestFrameworkPackageVersionAsync();
             Assert.That(actual, Is.EqualTo("1.5.1"));
