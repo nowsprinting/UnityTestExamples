@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2023 Koji Hasegawa.
+# Copyright (c) 2021-2025 Koji Hasegawa.
 # This software is released under the MIT License.
 
 name: Test
@@ -22,7 +22,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions: {}
+permissions: { }
 
 defaults:
   run:
@@ -32,7 +32,7 @@ jobs:
   test:
     if: github.event.pull_request.head.repo.fork == false # Skip on public fork, because can not read secrets.
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     permissions:
       contents: read
       checks: write
@@ -62,14 +62,15 @@ jobs:
           submodules: false
           lfs: false
 
-      - uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+      - name: Restore cache
+        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
         with:
           path: Library
-          key: Library-linux-${{ matrix.unityVersion }}-${{ github.ref }}
+          key: Library-${{ runner.os }}-${{ matrix.unityVersion }}-${{ hashFiles('Packages/packages-lock.json') }}
           restore-keys: |
-            Library-linux-${{ matrix.unityVersion }}
-            Library-linux
-            Library
+            Library-${{ runner.os }}-${{ matrix.unityVersion }}-
+            Library-${{ runner.os }}-
+            Library-
 
       - name: Set coverage assembly filters
         run: |
@@ -77,6 +78,7 @@ jobs:
           assemblies+=("+LocalPackageSample*")
           # shellcheck disable=SC2001,SC2048,SC2086
           echo "assembly_filters=+<assets>,$(echo ${assemblies[*]} | sed -e s/\ /,/g),-*.Tests" >> "$GITHUB_ENV"
+        if: ${{ matrix.octocov }}
 
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
@@ -87,7 +89,8 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # Default is `auto`
           checkName: test result (${{ matrix.unityVersion }}, ${{ matrix.testMode }})
-          customParameters: -testCategory "!IgnoreCI;!Integration"
+          customParameters: -testCategory "!IgnoreCI;!Integration" -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
+          # Note: `/github/workspace/artifacts` is the artifacts path inside the game-ci container
           coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:${{ env.assembly_filters }}
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
           testMode: ${{ matrix.testMode }}
@@ -113,17 +116,3 @@ jobs:
             ${{ steps.test.outputs.artifactsPath }}
             ${{ steps.test.outputs.coveragePath }}
         if: always()
-
-  notify:
-    needs: test
-    if: github.event.pull_request.head.repo.fork == false # Skip on public fork, because can not read secrets.
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      actions: read
-
-    steps:
-      - uses: Gamesight/slack-workflow-status@68bf00d0dbdbcb206c278399aa1ef6c14f74347a # v1.3.0
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
