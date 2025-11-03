@@ -47,7 +47,7 @@ jobs:
           - 2023.2.20f1
           - 6000.0.41f1
         testMode:
-          - All                                 # run tests in editor
+          - PlayMode              # run tests in editor
         include:
           - unityVersion: 6000.0.41f1
             testMode: Standalone  # run tests on player
@@ -69,12 +69,10 @@ jobs:
             Library-${{ runner.os }}-
             Library-
 
-      - name: Set coverage assembly filters
+      - name: Uninstall codecoverage package
         run: |
-          assemblies=$(find ./Packages -name "*.asmdef" | sed -e s/.*\\//\+/ | sed -e s/\\.asmdef// | sed -e s/^.*\\.Tests//)
-          assemblies+=("+LocalPackageSample*")
-          # shellcheck disable=SC2001,SC2048,SC2086
-          echo "assembly_filters=+<assets>,$(echo ${assemblies[*]} | sed -e s/\ /,/g),-*.Tests" >> "$GITHUB_ENV"
+          npm install -g openupm-cli
+          openupm remove com.unity.testtools.codecoverage
 
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
@@ -85,9 +83,8 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # Default is `auto`
           checkName: test result (${{ matrix.unityVersion }}, ${{ matrix.testMode }})
-          customParameters: -testCategory "Integration"
-          coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:${{ env.assembly_filters }}
-          # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html
+          customParameters: -testCategory "Integration;!IgnoreCI" -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
+          # Note: `/github/workspace/artifacts` is the artifacts path inside the game-ci container
           testMode: ${{ matrix.testMode }}
         env:
           UNITY_LICENSE: ${{ secrets[env.secret_key] }}
@@ -101,5 +98,4 @@ jobs:
           name: TestResults-Unity${{ matrix.unityVersion }}-${{ matrix.testMode }}
           path: |
             ${{ steps.test.outputs.artifactsPath }}
-            ${{ steps.test.outputs.coveragePath }}
         if: always()
