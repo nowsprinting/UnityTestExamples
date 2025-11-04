@@ -2,7 +2,6 @@
 // This software is released under the MIT License.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -969,42 +968,14 @@ namespace APIExamples.NUnit
         public class 遅延
         {
             [Test]
-            [Explicit("Test属性のテストでは期待通り動作しないので除外")]
-            public void DelayedConstraint_Test属性のテストでは無効()
+            public void DelayedConstraint_指定時間経過後に評価される()
             {
-                var start = Time.time; // The time at the beginning of this frame
+                var start = Time.realtimeSinceStartup; // Note: 非同期ではなく同一フレームで遅延処理されるため Time.time は変化しません
 
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
+                Assert.That(() => Time.realtimeSinceStartup, Is.GreaterThan(start + 0.2f).After(500));
                 // 失敗時メッセージ例:
                 //  Expected: greater than 2.33228302f after 2500 millisecond delay
                 //  But was:  0.33228299f
-            }
-
-            [Test]
-            [Explicit("Asyncテストでも期待通り動作しないので除外（Unity Test Framework v1.4.0時点）")]
-            // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-30529
-            public async Task DelayedConstraint_AsyncTestでも無効()
-            {
-                var start = Time.time; // The time at the beginning of this frame
-                await Task.Yield();
-
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
-                // 失敗時メッセージ例:
-                //  Expected: greater than 2.33228302f after 2500 millisecond delay
-                //  But was:  0.33228299f
-            }
-
-            [UnityTest]
-            [Explicit("UnityTest属性のテストでも期待通り動作しないので除外")]
-            public IEnumerator DelayedConstraint_UnityTest属性のテストでも無効()
-            {
-                var start = Time.time; // The time at the beginning of this frame
-                yield return null;
-
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
-                // 失敗時メッセージ例:
-                //  Expected: greater than 2.39063787f after 2500 millisecond delay
-                //  But was:  0.390637904f
             }
         }
     }
