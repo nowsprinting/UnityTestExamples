@@ -1,11 +1,9 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-
-#pragma warning disable CS1998
 
 namespace APIExamples.Editor.NUnit
 {
@@ -27,7 +25,7 @@ namespace APIExamples.Editor.NUnit
         [SetUp]
         public async Task SetUp()
         {
-            await Task.Delay(200);
+            await Task.Yield();
             Debug.Log($"SetUp, {Time.time}");
         }
 

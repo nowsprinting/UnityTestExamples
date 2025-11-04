@@ -25,7 +25,7 @@ namespace APIExamples.NUnit
         [MaxTime(100)]
         public void MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗()
         {
-            var endTime = DateTime.Now.AddMilliseconds(500);
+            var endTime = DateTime.Now.AddMilliseconds(200);
             while (DateTime.Now < endTime)
             {
             }
@@ -35,14 +35,14 @@ namespace APIExamples.NUnit
         [MaxTime(100)]
         public IEnumerator MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_UnityTest属性()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
 
         [Test]
         [MaxTime(100)]
         public async Task MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_非同期テスト()
         {
-            await Task.Delay(500);
+            await Task.Delay(200);
         }
     }
 }

@@ -986,7 +986,7 @@ namespace APIExamples.NUnit
             public async Task DelayedConstraint_AsyncTestでも無効()
             {
                 var start = Time.time; // The time at the beginning of this frame
-                await Task.Delay(0);
+                await Task.Yield();
 
                 Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
                 // 失敗時メッセージ例:

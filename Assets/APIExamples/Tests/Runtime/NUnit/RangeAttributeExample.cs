@@ -34,7 +34,7 @@ namespace APIExamples.NUnit
             [Range(0.6f, 0.7f, 0.1f)] float f,
             [Range(0.08d, 0.09d, 0.005d)] double d)
         {
-            await Task.Delay(0);
+            await Task.Yield();
 
             Assert.That(d + f + l + i, Is.InRange(0, 7));
         }
