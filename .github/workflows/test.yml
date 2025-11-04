@@ -78,7 +78,6 @@ jobs:
           assemblies+=("+LocalPackageSample*")
           # shellcheck disable=SC2001,SC2048,SC2086
           echo "assembly_filters=+<assets>,$(echo ${assemblies[*]} | sed -e s/\ /,/g),-*.Tests" >> "$GITHUB_ENV"
-        if: ${{ matrix.octocov }}
 
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
