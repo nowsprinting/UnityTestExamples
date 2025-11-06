@@ -4,7 +4,10 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "UniTask"
+      "NUnit.Analyzers_Unity",
+      "APIExamples.Tests",
+      "UniTask",
+      "TestHelper"
     ],
     "includePlatforms": [
         "Editor"

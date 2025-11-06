@@ -88,7 +88,7 @@ namespace APIExamples.UnityTestFramework
 
             if (Fail)
             {
-                await Task.Delay(200);
+                await Task.Yield();
                 Debug.LogError("expected message"); // フレームが進むとLogAssert.Expectは無効
             }
         }
@@ -138,7 +138,7 @@ namespace APIExamples.UnityTestFramework
         {
             Debug.Log("expected message");
 
-            await Task.Delay(200);
+            await Task.Yield();
             LogAssert.Expect(LogType.Log, "expected message");
         }
 

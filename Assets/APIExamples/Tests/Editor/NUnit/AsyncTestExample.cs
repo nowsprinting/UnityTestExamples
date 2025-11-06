@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-
-#pragma warning disable CS1998
-// ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.Editor.NUnit
 {
@@ -35,13 +32,13 @@ namespace APIExamples.Editor.NUnit
 
         private static async Task Foo(int id)
         {
-            await Task.Delay(200);
+            await Task.Yield();
             Debug.Log($"Foo({id})");
         }
 
         private static async Task<int> Bar(int id)
         {
-            await Task.Delay(200);
+            await Task.Yield();
             Debug.Log($"Bar({id})");
             return id + 1;
         }
@@ -58,13 +55,13 @@ namespace APIExamples.Editor.NUnit
 
         private static async UniTask UniTaskFoo(int id)
         {
-            await UniTask.Delay(200);
+            await Task.Yield();
             Debug.Log($"UniTaskFoo({id})");
         }
 
         private static async UniTask<int> UniTaskBar(int id)
         {
-            await UniTask.Delay(200);
+            await Task.Yield();
             Debug.Log($"UniTaskBar({id})");
             return id + 1;
         }

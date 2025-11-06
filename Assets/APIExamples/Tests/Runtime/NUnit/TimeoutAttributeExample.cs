@@ -1,110 +1,107 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Collections;
-using System.Diagnostics;
 using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using NUnit.Framework;
+using TestHelper.Attributes;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-#pragma warning disable CS0162
 
 namespace APIExamples.NUnit
 {
     /// <summary>
     /// <see cref="TimeoutAttribute"/>およびデフォルトタイムアウト時間の確認
     /// </summary>
+    /// <remarks>
+    /// このクラスに書かれている振る舞いは、Unity Test Framework v1.4.6およびv1.6.0のものです。バージョンによって振る舞いが異なりますので注意してください。
+    /// <br/>
+    /// 非同期 (async) テストでタイムアウト及びTimeout属性が機能しない問題は、Unity Test Framework v1.3.4で修正されました。
+    /// <see href="https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108"/>
+    /// </remarks>
     [TestFixture]
+    [Explicit("Timeout属性によって失敗するテストの例")]
     public class TimeoutAttributeExample
     {
-        private readonly Stopwatch _stopwatch = new Stopwatch();
-        private const bool Fail = false; // このフラグをtrueにするとこのクラスのテストはすべて失敗します
-
-        [SetUp]
-        public void SetUp()
+        [Test]
+        [Timeout(200)]
+        public void Timeout属性_同期テストではタイムアウトで割り込みは発生しないが終了時に指定時間を超えていたらテスト失敗()
         {
-            _stopwatch.Restart();
-        }
-
-        [TearDown]
-        public void TearDown()
-        {
-            UnityEngine.Debug.Log($"{_stopwatch.ElapsedMilliseconds} [ms]");
-            Time.timeScale = 1f;
-        }
-
-        [Explicit("時間がかかるのでExplicit")]
-        [UnityTest]
-        public IEnumerator タイムアウトのデフォルトは3分()
-        {
-            var waitSeconds = 3 * 60 - 1; // タイムアウトのデフォルトは3[min]
-            if (Fail)
+            var endTime = DateTime.Now.AddSeconds(0.5d);
+            while (DateTime.Now < endTime)
             {
-                waitSeconds++;
             }
-
-            yield return new WaitForSeconds(waitSeconds);
         }
 
         [UnityTest]
-        [Timeout(2000)]
-        public IEnumerator タイムアウトを2秒に設定()
+        [Timeout(200)]
+        public IEnumerator Timeout属性_UnityTest属性でWaitForSeconds_割り込みは発生しないが終了時に指定時間を超えていたらテスト失敗()
         {
-            var waitSeconds = 1f;
-            if (Fail)
-            {
-                waitSeconds = 10f;
-            }
-
-            yield return new WaitForSeconds(waitSeconds);
+            yield return new WaitForSeconds(0.5f);
         }
 
         [UnityTest]
-        [Timeout(2000)]
-        public IEnumerator タイムアウト値はTimeScaleに影響されない()
+        public IEnumerator タイムアウトのデフォルトは3分_3分でタイムアウト()
         {
-            var waitSeconds = 1f;
-            if (Fail)
+            var endTime = DateTime.Now.AddMinutes(3d).AddSeconds(1d);
+            while (DateTime.Now < endTime)
             {
-                waitSeconds = 10f;
+                yield return null;
             }
-
-            Time.timeScale = 5f;
-            yield return new WaitForSecondsRealtime(waitSeconds);
         }
 
         [UnityTest]
-        [Timeout(2000)]
-        public IEnumerator タイムアウトはWaitForSeconds以外では有効でない_中断されない()
+        [Timeout(200)]
+        public IEnumerator Timeout属性_UnityTest属性でYieldReturnNull_指定ミリ秒でタイムアウト()
         {
-            var waitSeconds = 1f;
-            if (Fail)
+            var endTime = DateTime.Now.AddSeconds(0.5d);
+            while (DateTime.Now < endTime)
             {
-                waitSeconds = 10f;
+                yield return null;
             }
+        }
 
-            var startTime = DateTime.Now;
-            while ((DateTime.Now - startTime).Seconds < waitSeconds)
+        [UnityTest]
+        [Timeout(1000)]
+        [TimeScale(10.0f)]
+        public IEnumerator Timeout属性_タイムアウト値はTimeScaleに影響されない_指定ミリ秒でタイムアウト()
+        {
+            var endTime = Time.realtimeSinceStartup + 2.0f;
+            while (Time.realtimeSinceStartup < endTime)
             {
-                yield return null; // Timeout時間を超えてもテストは中断されない。指定時間を超過していれば失敗と判定はされる
+                yield return null;
             }
         }
 
         [Test]
-        [Timeout(2000)]
-        // Note: 非同期（async）テストでタイムアウト及びTimeout属性が機能しない問題は、Unity Test Framework v1.3.4で修正された
-        //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108
-        public async Task 非同期テストでタイムアウトを2秒に設定()
+        [Timeout(200)]
+        public async Task Timeout属性_非同期テストでDelay_指定ミリ秒でタイムアウト()
         {
-            var waitSeconds = 1f;
-            if (Fail)
-            {
-                waitSeconds = 10f;
-            }
+            await Task.Delay(TimeSpan.FromSeconds(0.5f));
+        }
 
-            await Task.Delay(TimeSpan.FromSeconds(waitSeconds));
+        [Test]
+        [Timeout(200)]
+        public async Task Timeout属性_非同期テストでYield_指定ミリ秒でタイムアウト()
+        {
+            var endTime = DateTime.Now.AddSeconds(0.5d);
+            while (DateTime.Now < endTime)
+            {
+                await Task.Yield();
+            }
+        }
+
+        [Test]
+        [Timeout(200)]
+        public async Task Timeout属性_非同期テストでNextFrame_指定ミリ秒でタイムアウト()
+        {
+            var endTime = DateTime.Now.AddSeconds(0.5d);
+            while (DateTime.Now < endTime)
+            {
+                await UniTask.NextFrame();
+            }
         }
     }
 }

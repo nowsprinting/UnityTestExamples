@@ -1,25 +1,25 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System.Collections;
+using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using NUnit.Framework;
-using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// <see cref="SetUpAttribute"/>, <see cref="OneTimeSetUpAttribute"/>の例
+    /// <see cref="SetUpAttribute"/>の使用例
     /// </summary>
+    /// <seealso cref="OneTimeSetupAttributeExample"/>
+    /// <seealso cref="AsyncSetupAttributeExample"/>
+    /// <seealso cref="APIExamples.UnityTestFramework.UnitySetUpAttributeExample"/>
     [TestFixture]
+    [SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
     public class SetupAttributeExample
     {
-        /// <summary>
-        /// クラス内の最初のテストの実行前に一度だけ実行されます
-        /// </summary>
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
-            Debug.Log($"OneTimeSetUp, {Time.time}");
-        }
+        private int _setupCount;
 
         /// <summary>
         /// 各テストメソッドの前に実行されます
@@ -27,19 +27,27 @@ namespace APIExamples.NUnit
         [SetUp]
         public void SetUp()
         {
-            Debug.Log($"SetUp, {Time.time}");
+            _setupCount++;
         }
 
-        [Test]
+        [Test, Order(0)]
         public void TestMethod()
         {
-            Debug.Log($"TestMethod, {Time.time}");
+            Assert.That(_setupCount, Is.EqualTo(1), "最初のテストなのでSetUpは1回実行されている");
         }
 
-        [Test]
-        public void TestMethod2()
+        [Test, Order(1)]
+        public async Task TestMethodAsync()
         {
-            Debug.Log($"TestMethod2, {Time.time}");
+            await Task.Yield();
+            Assert.That(_setupCount, Is.EqualTo(2), "2番目のテストなのでSetUpは2回実行されている");
+        }
+
+        [UnityTest, Order(2)]
+        public IEnumerator UnityTestMethod()
+        {
+            yield return null;
+            Assert.That(_setupCount, Is.EqualTo(3), "3番目のテストなのでSetUpは3回実行されている");
         }
     }
 }

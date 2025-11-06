@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -7,10 +7,6 @@ using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-using UnityEngine.TestTools;
-
-#pragma warning disable CS1998
-// ReSharper disable AccessToStaticMemberViaDerivedType
 
 namespace APIExamples.NUnit
 {
@@ -26,8 +22,6 @@ namespace APIExamples.NUnit
     {
         [Test]
         [Description("Can await Task")]
-        [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-        // WebGLではTask.Delayが終了しない（v1.3.9時点） https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
         public async Task 非同期テストの例_Taskをawaitできる()
         {
             await Foo(1);
@@ -38,13 +32,13 @@ namespace APIExamples.NUnit
 
         private static async Task Foo(int id)
         {
-            await Task.Delay(200);
+            await Task.Yield();
             Debug.Log($"Foo({id})");
         }
 
         private static async Task<int> Bar(int id)
         {
-            await Task.Delay(200);
+            await Task.Yield();
             Debug.Log($"Bar({id})");
             return id + 1;
         }
@@ -61,13 +55,13 @@ namespace APIExamples.NUnit
 
         private static async UniTask UniTaskFoo(int id)
         {
-            await UniTask.Delay(200);
+            await Task.Yield();
             Debug.Log($"UniTaskFoo({id})");
         }
 
         private static async UniTask<int> UniTaskBar(int id)
         {
-            await UniTask.Delay(200);
+            await Task.Yield();
             Debug.Log($"UniTaskBar({id})");
             return id + 1;
         }

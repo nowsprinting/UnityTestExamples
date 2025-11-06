@@ -33,7 +33,7 @@ namespace APIExamples.NUnit
             [Random(0, 5, 3)] int i,
             [Random(5, 10, 3)] int j)
         {
-            await Task.Delay(0);
+            await Task.Yield();
 
             Assert.That(i + j, Is.InRange((0 + 5), (4 + 9)));
         }

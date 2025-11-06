@@ -1,12 +1,12 @@
-// Copyright (c) 2021-2023 Koji Hasegawa.
+// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
 using System.Threading.Tasks;
 using Cysharp.Threading.Tasks;
 using NUnit.Framework;
-using TestHelper.Monkey;
 using TestHelper.Random;
+using TestHelper.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -22,7 +22,7 @@ namespace UGUIExample
         [Test]
         public async Task MonkeyTesting()
         {
-            var random = new RandomImpl(); // 擬似乱数生成器
+            var random = new RandomWrapper();                // 擬似乱数生成器
             Debug.Log($"Random that monkey uses: {random}"); // シード値をログ出力
 
             await SceneManager.LoadSceneAsync("MainMenu");
@@ -30,10 +30,10 @@ namespace UGUIExample
 
             var config = new MonkeyConfig
             {
-                Lifetime = TimeSpan.FromSeconds(5), // 5秒間動作（3分以上にする場合はTimeout属性でテスト自体のタイムウトを延ばすこと）
-                DelayMillis = 200, // 操作間隔は200ms
+                Lifetime = TimeSpan.FromSeconds(5),          // 5秒間動作（3分以上にする場合はTimeout属性でテスト自体のタイムウトを延ばすこと）
+                DelayMillis = 200,                           // 操作間隔は200ms
                 SecondsToErrorForNoInteractiveComponent = 5, // 5秒無操作で失敗扱い
-                Random = random, // 擬似乱数生成器を指定
+                Random = random,                             // 擬似乱数生成器を指定
             };
 
             await Monkey.Run(config);

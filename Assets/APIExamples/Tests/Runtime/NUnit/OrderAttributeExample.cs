@@ -38,7 +38,7 @@ namespace APIExamples.NUnit
         public async Task OrderedTest2()
         {
             Assert.That(++s_count, Is.EqualTo(3));
-            await Task.Delay(0);
+            await Task.Yield();
         }
 
         [UnityTest]
