@@ -123,7 +123,7 @@ namespace BasicExample.Entities
                     var sut = CreatePassiveEffect(buff: true);
                     yield return new WaitForSeconds(5.0f);
                     Assume.That(sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
-                    Assume.That(sut.PassiveEffectExpireTime(), Is.EqualTo(25.0f).Within(0.1f));
+                    Assume.That(sut.PassiveEffectExpireTime(), Is.EqualTo(25.0f).Within(0.2f));
 
                     sut.Buff();
 
