@@ -2,39 +2,29 @@
 // This software is released under the MIT License.
 
 using System.Collections;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine.TestTools;
 
-namespace APIExamples.NUnit
+namespace APIExamples.Editor.UnityTestFramework
 {
     /// <summary>
-    /// 非同期の<see cref="SetUpAttribute"/>の使用例
-    /// <see cref="OneTimeSetUpAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
-    /// <p/>
-    /// Async SetUp attribute example
-    /// Async OneTimeSetUp attribute is not yet supported in UTF v1.6.0
+    /// <see cref="UnitySetUpAttribute"/>の使用例
     /// </summary>
-    /// <remarks>
-    /// Required: Unity Test Framework v1.3 or later
-    /// </remarks>
-    /// <seealso cref="SetupAttributeExample"/>
-    /// <seealso cref="OneTimeSetupAttributeExample"/>
-    /// <seealso cref="APIExamples.UnityTestFramework.UnitySetUpAttributeExample"/>
+    /// <seealso cref="APIExamples.Editor.NUnit.AsyncSetupAttributeExample"/>
     [TestFixture]
-    [SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
-    public class AsyncSetupAttributeExample
+    public class UnitySetUpAttributeExample
     {
         private int _setupCount;
 
         /// <summary>
-        /// 各テストメソッドの前に実行されます
+        /// SetUpをコルーチン書式で記述できます
+        /// <see cref="UnityEngine.TestTools.UnityTestAttribute"/>専用ではなく、通常のTest向けのSetUpとしても使用できます
         /// </summary>
-        [SetUp]
-        public async Task SetUpAsync()
+        [UnitySetUp]
+        public IEnumerator SetUpCoroutine()
         {
-            await Task.Yield();
+            yield return null;
             _setupCount++;
         }
 

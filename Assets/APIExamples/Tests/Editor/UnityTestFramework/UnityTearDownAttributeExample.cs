@@ -7,14 +7,12 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace APIExamples.UnityTestFramework
+namespace APIExamples.Editor.UnityTestFramework
 {
     /// <summary>
     /// <see cref="UnityTearDownAttribute"/>の使用例
     /// </summary>
-    /// <seealso cref="APIExamples.NUnit.TearDownAttributeExample"/>
-    /// <seealso cref="APIExamples.NUnit.OneTimeTearDownAttributeExample"/>
-    /// <seealso cref="APIExamples.NUnit.AsyncTearDownAttributeExample"/>
+    /// <seealso cref="APIExamples.Editor.NUnit.AsyncTearDownAttributeExample"/>
     [TestFixture]
     public class UnityTearDownAttributeExample
     {

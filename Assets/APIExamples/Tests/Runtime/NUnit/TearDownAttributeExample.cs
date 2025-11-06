@@ -2,35 +2,31 @@
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace APIExamples.Editor.NUnit
+namespace APIExamples.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="TearDownAttribute"/>の使用例（Edit Modeテスト）
-    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
-    /// <p/>
-    /// Async TearDown attribute example (in Edit Mode tests)
-    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.6.0
+    /// <see cref="TearDownAttribute"/>の使用例
     /// </summary>
-    /// <remarks>
-    /// Required: Unity Test Framework v1.3 or later
-    /// </remarks>
-    /// <seealso cref="APIExamples.Editor.UnityTestFramework.UnityTearDownAttributeExample"/>
+    /// <seealso cref="OneTimeTearDownAttributeExample"/>
+    /// <seealso cref="AsyncTearDownAttributeExample"/>
+    /// <seealso cref="APIExamples.UnityTestFramework.UnityTearDownAttributeExample"/>
     [TestFixture]
-    public class AsyncTearDownAttributeExample
+    [SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
+    public class TearDownAttributeExample
     {
         /// <summary>
         /// 各テストメソッドの後に実行されます
         /// </summary>
         [TearDown]
-        public async Task TearDownAsync()
+        public void TearDown()
         {
-            await Task.Yield();
-            Debug.Log($"TearDownAsync");
+            Debug.Log($"TearDown");
         }
 
         [Test]

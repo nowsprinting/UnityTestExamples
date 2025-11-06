@@ -2,6 +2,7 @@
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
@@ -10,29 +11,39 @@ using UnityEngine.TestTools;
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="TearDownAttribute"/>の使用例
-    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
-    /// <p/>
-    /// Async TearDown attribute example
-    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.6.0
+    /// <see cref="OneTimeTearDownAttribute"/>の使用例
     /// </summary>
-    /// <remarks>
-    /// Required: Unity Test Framework v1.3 or later
-    /// </remarks>
     /// <seealso cref="TearDownAttributeExample"/>
-    /// <seealso cref="OneTimeTearDownAttributeExample"/>
+    /// <seealso cref="AsyncTearDownAttributeExample"/>
     /// <seealso cref="APIExamples.UnityTestFramework.UnityTearDownAttributeExample"/>
     [TestFixture]
-    public class AsyncTearDownAttributeExample
+    [SuppressMessage("ReSharper", "AccessToStaticMemberViaDerivedType")]
+    public class OneTimeTearDownAttributeExample
     {
+        private int _oneTimeTeardownCount;
+        private int _teardownCount;
+
+        /// <summary>
+        /// クラス内の最後のテストの実行後に一度だけ実行されます
+        /// </summary>
+        [OneTimeTearDown]
+        public void OneTimeTearDown()
+        {
+            Debug.Log($"OneTimeTearDown");
+            _oneTimeTeardownCount++;
+
+            Assert.That(_oneTimeTeardownCount, Is.EqualTo(1), "OneTimeTearDownはTestFixtureごとに一度だけ実行される");
+            Assert.That(_teardownCount, Is.EqualTo(3), "3つのテストがあるのでTearDownは3回実行されている");
+        }
+
         /// <summary>
         /// 各テストメソッドの後に実行されます
         /// </summary>
         [TearDown]
-        public async Task TearDownAsync()
+        public void TearDown()
         {
-            await Task.Yield();
-            Debug.Log($"TearDownAsync");
+            Debug.Log($"TearDown");
+            _teardownCount++;
         }
 
         [Test]
