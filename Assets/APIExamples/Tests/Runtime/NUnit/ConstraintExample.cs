@@ -800,7 +800,7 @@ namespace APIExamples.NUnit
                 //  But was:  <System.NullReferenceException: Object reference not set to an instance of an object.
             }
 
-            [Ignore("Throws制約をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.5.1時点）")]
+            [Ignore("Throws制約をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.6.0時点）")]
             [Test]
             public async Task 非同期メソッドの例外捕捉を制約モデルで行なうことはできない_Unityエディターがフリーズ()
             {
@@ -816,7 +816,7 @@ namespace APIExamples.NUnit
                 //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
             }
 
-            [Ignore("ThrowsAsyncをasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.5.1時点）")]
+            [Ignore("ThrowsAsyncをasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.6.0時点）")]
             [Test]
             public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なうことはできない_Unityエディターがフリーズ()
             {

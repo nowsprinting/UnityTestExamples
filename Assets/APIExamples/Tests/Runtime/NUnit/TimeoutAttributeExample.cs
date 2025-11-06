@@ -16,7 +16,7 @@ namespace APIExamples.NUnit
     /// <see cref="TimeoutAttribute"/>およびデフォルトタイムアウト時間の確認
     /// </summary>
     /// <remarks>
-    /// このクラスに書かれている振る舞いは、Unity Test Framework v1.4.6およびv1.5.1のものです。バージョンによって振る舞いが異なりますので注意してください。
+    /// このクラスに書かれている振る舞いは、Unity Test Framework v1.4.6およびv1.6.0のものです。バージョンによって振る舞いが異なりますので注意してください。
     /// <br/>
     /// 非同期 (async) テストでタイムアウト及びTimeout属性が機能しない問題は、Unity Test Framework v1.3.4で修正されました。
     /// <see href="https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28108"/>
