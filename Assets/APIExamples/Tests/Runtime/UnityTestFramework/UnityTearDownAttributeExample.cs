@@ -1,49 +1,52 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.TestTools.Utils;
 
 namespace APIExamples.UnityTestFramework
 {
     /// <summary>
     /// <see cref="UnityTearDownAttribute"/>の使用例
     /// </summary>
+    /// <seealso cref="APIExamples.NUnit.TearDownAttributeExample"/>
+    /// <seealso cref="APIExamples.NUnit.OneTimeTearDownAttributeExample"/>
+    /// <seealso cref="APIExamples.NUnit.AsyncTearDownAttributeExample"/>
     [TestFixture]
     public class UnityTearDownAttributeExample
     {
-        private Object _cube;
-
         /// <summary>
-        /// TearDownをコルーチンで記述できます
+        /// TearDownをコルーチン書式で記述できます
         /// <see cref="UnityEngine.TestTools.UnityTestAttribute"/>専用ではなく、通常のTest向けのTearDownとしても使用できます
         /// </summary>
         [UnityTearDown]
         public IEnumerator TearDownCoroutine()
         {
-            Object.Destroy(_cube);
             yield return null;
-            // Note: WebGLでも動作しているか確認するためにここで`Assert.Fail()`したらfailしたので動いている模様
+            Debug.Log($"TearDown");
         }
 
         [Test]
-        public void Test属性のテストメソッド()
+        public void TestMethod()
         {
-            _cube = Utils.CreatePrimitive(PrimitiveType.Cube);
+            Debug.Log($"TestMethod");
+        }
 
-            Assert.That((bool)_cube, Is.True);
+        [Test]
+        public async Task TestMethodAsync()
+        {
+            await Task.Yield();
+            Debug.Log($"TestMethodAsync");
         }
 
         [UnityTest]
-        public IEnumerator UnityTest属性のテストメソッド()
+        public IEnumerator UnityTestMethod()
         {
-            _cube = Utils.CreatePrimitive(PrimitiveType.Cube);
             yield return null;
-
-            Assert.That((bool)_cube, Is.True);
+            Debug.Log($"UnityTestMethod");
         }
     }
 }

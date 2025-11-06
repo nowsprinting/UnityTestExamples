@@ -4,7 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "UniTask"
+        "APIExamples.Tests",
+        "UniTask",
+        "TestHelper"
     ],
     "includePlatforms": [
         "Editor"
@@ -19,6 +21,17 @@
     "defineConstraints": [
         "UNITY_INCLUDE_TESTS"
     ],
-    "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.test-framework",
+            "expression": "1.5",
+            "define": "ENABLE_UTF_1_5"
+        },
+        {
+            "name": "com.unity.test-framework",
+            "expression": "1.6",
+            "define": "ENABLE_UTF_1_6"
+        }
+    ],
     "noEngineReferences": false
 }

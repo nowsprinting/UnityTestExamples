@@ -1,49 +1,58 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-#pragma warning disable CS1998
-
 namespace APIExamples.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="TearDownAttribute"/>の例
-    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.3時点）
+    /// 非同期の<see cref="TearDownAttribute"/>の使用例
+    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
+    /// <p/>
     /// Async TearDown attribute example
-    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.3
+    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.6.0
     /// </summary>
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
+    /// <seealso cref="TearDownAttributeExample"/>
+    /// <seealso cref="OneTimeTearDownAttributeExample"/>
+    /// <seealso cref="APIExamples.UnityTestFramework.UnityTearDownAttributeExample"/>
     [TestFixture]
-    [UnityPlatform(exclude = new[] { RuntimePlatform.WebGLPlayer })]
-    // WebGLではTask.Delayが終了しない（v1.3.9時点） https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28109
     public class AsyncTearDownAttributeExample
     {
         /// <summary>
         /// 各テストメソッドの後に実行されます
         /// </summary>
         [TearDown]
-        public async Task TearDown()
+        public async Task TearDownAsync()
         {
-            await Task.Delay(200);
-            Debug.Log($"TearDown, {Time.time}");
+            await Task.Yield();
+            Debug.Log($"TearDownAsync");
         }
 
         [Test]
         public void TestMethod()
         {
-            Debug.Log($"TestMethod, {Time.time}");
+            Debug.Log($"TestMethod");
         }
 
         [Test]
-        public void TestMethod2()
+        public async Task TestMethodAsync()
         {
-            Debug.Log($"TestMethod2, {Time.time}");
+            await Task.Yield();
+            Debug.Log($"TestMethodAsync");
+        }
+
+        [UnityTest]
+        public IEnumerator UnityTestMethod()
+        {
+            yield return null;
+            Debug.Log($"UnityTestMethod");
         }
     }
 }

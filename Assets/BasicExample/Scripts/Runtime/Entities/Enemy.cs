@@ -22,6 +22,6 @@ namespace BasicExample.Entities
         public bool IsDestroyed() => race.IsDestroyed();
 
         /// <inheritdoc/>
-        public bool TakeDamage(Element element, int attackPower) => race.TakeDamage(element, attackPower);
+        public bool TakeDamage(Element element, int attack) => race.TakeDamage(element, attack);
     }
 }

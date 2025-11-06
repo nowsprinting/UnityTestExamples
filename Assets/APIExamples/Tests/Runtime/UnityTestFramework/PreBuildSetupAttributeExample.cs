@@ -7,13 +7,13 @@ using UnityEngine.TestTools;
 namespace APIExamples.UnityTestFramework
 {
     /// <summary>
-    /// <see cref="UnityEngine.TestTools.PrebuildSetupAttribute"/>で指定した<see cref="UnityEngine.TestTools.IPrebuildSetup"/>実装クラスの`Setup()`メソッドが使用されます
+    /// <see cref="UnityEngine.TestTools.PrebuildSetupAttribute"/> で指定した <see cref="UnityEngine.TestTools.IPrebuildSetup"/> 実装クラスの <c>Setup</c> メソッドが使用されます
+    /// <list type="bullet">
+    ///     <item>複数のテストに <c>PrebuildSetup</c> 属性が配置されていても、<c>Setup</c> の実行は1回だけです</item>
+    ///     <item><see cref="UnityEngine.TestTools.IPrebuildSetup"/> を実装していないクラスを渡した場合、何も起きません（エラーにもなりません）</item>
+    ///     <item><c>PrebuildSetup</c> 属性は、クラスにもメソッドにも配置できます</item>
+    /// </list>
     /// </summary>
-    /// <remarks>
-    /// - 複数のテストに属性が付与されていた場合、`Setup()`の実行は1回だけです
-    /// - <see cref="UnityEngine.TestTools.IPrebuildSetup"/>を実装していないクラスを渡した場合、何も起きません（エラーにもなりません）
-    /// - 属性は、クラスにもメソッドにも付与できます
-    /// </remarks>
     [PrebuildSetup(typeof(PreBuildSetupExample))]
     [PostBuildCleanup(typeof(PreBuildSetupExample))]
     public class PreBuildSetupAttributeExample
