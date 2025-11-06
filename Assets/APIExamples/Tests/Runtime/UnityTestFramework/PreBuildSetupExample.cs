@@ -2,25 +2,34 @@
 // This software is released under the MIT License.
 
 using NUnit.Framework;
+using UnityEngine;
 using UnityEngine.TestTools;
 
 namespace APIExamples.UnityTestFramework
 {
+    /// <summary>
+    /// ビルド前後に処理を挿むための <see cref="UnityEngine.TestTools.IPrebuildSetup"/> および <see cref="UnityEngine.TestTools.IPostBuildCleanup"/> の実装例
+    /// </summary>
     public class PreBuildSetupExample : IPrebuildSetup, IPostBuildCleanup
     {
         ///<inheritdoc/>
+        /// <remarks>
+        /// Unityエディター実行（Edit ModeテストおよびPlay Modeテスト）では、すべてのテストの実行に先立って実行されます。
+        /// プレイヤー実行（Play Modeテスト）では、ビルド前に実行されます。
+        /// </remarks>
         public void Setup()
         {
-            // Edit ModeテストおよびPlay Modeテスト（Unityエディター実行）では、すべてのテストの実行に先立って実行される
-            // Play Modeテスト（プレイヤー実行）では、ビルド前に実行される
-            // テスト用のビルドにのみResourcesに含めたいアセットをコピーする使用例は `LoadAssetExample` を参照してください
+            Debug.Log("PreBuildSetupExample.Setup");
         }
 
         ///<inheritdoc/>
+        /// <remarks>
+        /// Unityエディター実行（Edit ModeテストおよびPlay Modeテスト）では、すべてのテストの実行終了後に実行されます。
+        /// プレイヤー実行（Play Modeテスト）では、ビルド後に実行されます。
+        /// </remarks>
         public void Cleanup()
         {
-            // Edit ModeテストおよびPlay Modeテスト（Unityエディター実行）では、すべてのテストの実行終了後に実行される
-            // Play Modeテスト（プレイヤー実行）では、ビルド後に実行される
+            Debug.Log("PreBuildSetupExample.Cleanup");
         }
 
         [Test]
