@@ -129,11 +129,11 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_配列が等しいこと()
+            public void EqualConstraint_コレクションが等しいこと()
             {
-                var actual = new[] { "Katsuro", "Jenny", "Lindsay" };
+                var actual = new List<string> { "Katsuro", "Jenny", "Lindsay" };
 
-                Assert.That(actual, Is.EqualTo(new[] { "Katsuro", "Jenny", "Lindsay" }));
+                Assert.That(actual, Is.EqualTo(new[] { "Katsuro", "Jenny", "Lindsay" })); // Listを配列で検証可能
                 // 失敗時メッセージ例:
                 //  Expected and actual are both <System.String[3]>
                 //  Values differ at index [1]
@@ -309,7 +309,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void HasLength_配列の個数を検証()
+            public void HasLength_コレクションの要素数を検証()
             {
                 var actual = new[] { 2, 3, 5, 6 };
                 Assert.That(actual, Has.Length.EqualTo(4));
@@ -365,7 +365,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 比較
+        public class 数値
         {
             [Test]
             public void GreaterThanConstraint_より大きい()
@@ -424,7 +424,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 合成
+        public class オペレーター
         {
             [Test]
             public void AndConstraint_AND条件()
@@ -469,7 +469,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 条件
+        public class 状態
         {
             [Test]
             public void EmptyConstraint_空であること()
