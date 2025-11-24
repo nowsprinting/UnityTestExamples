@@ -64,6 +64,16 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
+        public void Vector2ComparerWithEqualsOperator使用例_等価オペレーターで比較される()
+        {
+            var actual = new Vector2(10f, 0f);
+            var expected = new Vector2(10.0f, 0f);
+
+            Assert.That(actual, Is.EqualTo(expected).Using(Vector2ComparerWithEqualsOperator.Instance));
+            // Note: actual == expected で比較
+        }
+
+        [Test]
         public void Vector3EqualityComparer使用例_だいたい合ってるのでヨシ()
         {
             var actual = new Vector3(10f, 0f, 0f);
@@ -74,6 +84,16 @@ namespace APIExamples.UnityTestFramework
         }
 
         [Test]
+        public void Vector3ComparerWithEqualsOperator使用例_等価オペレーターで比較される()
+        {
+            var actual = new Vector3(10f, 0f, 0f);
+            var expected = new Vector3(10.0f, 0f, 0f);
+
+            Assert.That(actual, Is.EqualTo(expected).Using(Vector3ComparerWithEqualsOperator.Instance));
+            // Note: actual == expected で比較
+        }
+
+        [Test]
         public void Vector4EqualityComparer使用例_だいたい合ってるのでヨシ()
         {
             var actual = new Vector4(10f, 0f, 0f, 0f);
@@ -81,6 +101,16 @@ namespace APIExamples.UnityTestFramework
             var comparer = new Vector4EqualityComparer(0.1f);
 
             Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+        }
+
+        [Test]
+        public void Vector4ComparerWithEqualsOperator使用例_等価オペレーターで比較される()
+        {
+            var actual = new Vector4(10f, 0f, 0f, 0f);
+            var expected = new Vector4(10.0f, 0f, 0f, 0f);
+
+            Assert.That(actual, Is.EqualTo(expected).Using(Vector4ComparerWithEqualsOperator.Instance));
+            // Note: actual == expected で比較
         }
     }
 }
