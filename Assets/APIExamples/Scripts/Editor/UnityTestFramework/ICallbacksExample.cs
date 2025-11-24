@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using UnityEditor;
@@ -8,21 +8,21 @@ using UnityEngine;
 namespace APIExamples.Editor.UnityTestFramework
 {
     /// <summary>
-    /// Test RunnerコールバックAPI使用例
-    /// <see href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/reference-ierror-callbacks.html"/>
+    /// Test RunnerコールバックAPI使用例.
+    /// <see href="https://docs.unity3d.com/Packages/com.unity.test-framework@1.6/api/UnityEditor.TestTools.TestRunner.Api.IErrorCallbacks.html"/>
     /// </summary>
     /// <remarks>
     /// `OnError()`を除いて、<see cref="UnityEditor.TestTools.TestRunner.Api.ICallbacks"/>に定義されている
     /// `OnError()`は、<see cref="UnityEditor.TestTools.TestRunner.Api.IErrorCallbacks"/>にのみ定義されている
     /// </remarks>
-    /// <inheritdoc/>
-    public class CallbacksExample : IErrorCallbacks
+    /// <seealso cref="ITestRunCallbackExample"/>
+    public class ICallbacksExample : IErrorCallbacks
     {
         [InitializeOnLoadMethod]
         private static void SetupCallbacks()
         {
             var api = ScriptableObject.CreateInstance<TestRunnerApi>();
-            api.RegisterCallbacks(new CallbacksExample());
+            api.RegisterCallbacks(new ICallbacksExample());
         }
 
         /// <inheritdoc/>
