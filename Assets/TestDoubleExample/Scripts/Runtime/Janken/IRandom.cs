@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 namespace TestDoubleExample.Janken
@@ -9,11 +9,8 @@ namespace TestDoubleExample.Janken
     public interface IRandom
     {
         /// <summary>
-        /// 指定範囲内のランダムな整数を返す
+        /// 指定された範囲のランダムな浮動小数点数を返す
         /// </summary>
-        /// <param name="minValue">下限値</param>
-        /// <param name="maxValue">上限値（結果に含まない）</param>
-        /// <returns></returns>
-        int Range(int minValue, int maxValue);
+        float Range(float minInclusive, float maxInclusive);
     }
 }
