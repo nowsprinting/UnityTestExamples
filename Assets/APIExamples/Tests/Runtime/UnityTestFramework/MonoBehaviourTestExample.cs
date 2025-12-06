@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
@@ -6,80 +6,91 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
+#pragma warning disable CS0618 // Type or member is obsolete
+
 namespace APIExamples.UnityTestFramework
 {
     /// <summary>
-    /// <see cref="MonoBehaviourTest{T}"/>の使用例
+    /// <see cref="MonoBehaviourTest{T}"/> の使用例
     /// </summary>
+    [TestFixture]
     public class MonoBehaviourTestExample
     {
-        [UnityTest]
-        public IEnumerator MonoBehaviourTestの使用例()
+        /// <summary>
+        /// <see cref="IMonoBehaviourTest"/> の実装例（テストスパイ）
+        /// <p/>
+        /// <c>Start</c> が完了した時点で終了します
+        /// </summary>
+        private class SpyMyMonoBehaviour : MyMonoBehaviour, IMonoBehaviourTest
         {
-            yield return new MonoBehaviourTest<MyMonoBehaviourTest>();
+            public bool WasAwake => base._wasAwake;
+            public bool WasStart => base._wasStart;
+            public bool WasDestroy => base._wasDestroy;
+
+            /// <summary>
+            /// テスト終了条件を満たしたらtrueを返します
+            /// </summary>
+            public bool IsTestFinished => WasStart; // Startが完了したら終了
+        }
+
+        [UnityTest]
+        public IEnumerator MonoBehaviourTestをテストスパイとして使用したMonoBehaviourのテスト()
+        {
+            // Exercise
+            yield return new MonoBehaviourTest<SpyMyMonoBehaviour>();
+
+            // Verify
+            var spy = GameObject.FindObjectOfType<SpyMyMonoBehaviour>();
+            Assert.That(spy.WasAwake, Is.True);
+            Assert.That(spy.WasStart, Is.True);
+            Assert.That(spy.WasDestroy, Is.False);
+
+            // Teardown
+            GameObject.DestroyImmediate(spy.gameObject);
         }
 
         /// <summary>
-        /// <see cref="IMonoBehaviourTest"/>の実装例
+        /// <see cref="IMonoBehaviourTest"/> の実装例（モックオブジェクト）
+        /// <p/>
+        /// <c>GameObject</c> が破棄されたら内部情報を検証して終了します
         /// </summary>
-        private class MyMonoBehaviourTest : SUTMonoBehaviour, IMonoBehaviourTest
+        private class MockMyMonoBehaviour : MyMonoBehaviour, IMonoBehaviourTest
         {
             /// <summary>
-            /// テスト終了条件を満たしたらtrueを返します
-            /// アサーションもここに書きます
+            /// テスト終了条件を満たしたらtrueを返します。
+            /// モックオブジェクトとしての実装例なので、アサーションまで行ないます
             /// </summary>
             public bool IsTestFinished
             {
                 get
                 {
-                    // Exercise
-                    if (!base._doneDestroy)
+                    if (!base._wasDestroy)
                     {
-                        return false; // テスト実行を継続
+                        return false; // 条件を満たすまで（OnDestroyが呼ばれるまで）テスト実行を継続
                     }
 
-                    // Verify 
-                    Assert.That(base._doneAwake, Is.True);
-                    Assert.That(base._doneStart, Is.True);
-                    Assert.That(base._doneDestroy, Is.True);
+                    // Verify
+                    Assert.That(base._wasAwake, Is.True);
+                    Assert.That(base._wasStart, Is.True);
+                    Assert.That(base._wasDestroy, Is.True);
 
-                    return true; // テスト終了
+                    return true;
                 }
             }
         }
 
-        /// <summary>
-        /// テスト対象MonoBehaviour
-        /// 生成されて5フレームで破棄されます
-        /// </summary>
-        private class SUTMonoBehaviour : MonoBehaviour
+        [UnityTest]
+        public IEnumerator MonoBehaviourTestをモックオブジェクトとして使用したMonoBehaviourのテスト()
         {
-            protected bool _doneAwake;
-            protected bool _doneStart;
-            private int _frameCount;
-            protected bool _doneDestroy;
+            // Exercise & Verify
+            yield return new MonoBehaviourTest<MockMyMonoBehaviour>();
 
-            private void Awake()
+            // Teardown
+            // Note: MockMyMonoBehaviour の実装ではこの時点で破棄済みですが、通常は後始末が必要です
+            var mock = GameObject.FindObjectOfType<MockMyMonoBehaviour>();
+            if (mock != null)
             {
-                _doneAwake = true;
-            }
-
-            private void Start()
-            {
-                _doneStart = true;
-            }
-
-            private void Update()
-            {
-                if (++_frameCount > 4)
-                {
-                    Destroy(this);
-                }
-            }
-
-            private void OnDestroy()
-            {
-                _doneDestroy = true;
+                GameObject.DestroyImmediate(mock.gameObject);
             }
         }
     }
