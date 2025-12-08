@@ -5,6 +5,7 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
       "TestDoubleExample",
+      "NUnit.Analyzers_Unity",
       "NSubstitute.Analyzers.CSharp_Unity"
     ],
     "includePlatforms": [],
