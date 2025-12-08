@@ -26,7 +26,6 @@ namespace APIExamples.UnityTestFramework
         [Test]
         public void IPrebuildSetupを実装したテストの例()
         {
-            Assert.That(true, Is.True);
         }
     }
 }

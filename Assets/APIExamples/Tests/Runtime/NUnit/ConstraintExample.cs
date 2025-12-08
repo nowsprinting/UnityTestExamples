@@ -577,7 +577,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathConstraint_パス文字列が等しいこと()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\folder2", Is.SamePath("/folder1/folder2"));
+                var actual = "\\folder1\\.\\junk\\..\\folder2";
+                Assert.That(actual, Is.SamePath("/folder1/folder2"));
                 // 失敗時メッセージ例:
                 //  Expected: Path matching "/folder1/folder2"
                 //  But was:  "\folder1\.\junk\..\folder2\xxx"
@@ -586,7 +587,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathConstraint_パス文字列が等しいこと_IgnoreCase修飾子も有効()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\Folder2", Is.SamePath("/Folder1/folder2").IgnoreCase);
+                var actual = "\\folder1\\.\\junk\\..\\Folder2";
+                Assert.That(actual, Is.SamePath("/Folder1/folder2").IgnoreCase);
                 // 失敗時メッセージ例:
                 //   Expected: Path matching "/Folder1/folder2"
                 //   But was:  "\folder1\.\junk\..\Folder2"
@@ -595,8 +597,11 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\folder2", Is.SamePathOrUnder("/folder1/folder2"));
-                Assert.That("\\folder1\\.\\junk\\..\\folder2\\folder3", Is.SamePathOrUnder("/folder1/folder2"));
+                var expected = "/folder1/folder2";
+                var actual1 = "\\folder1\\.\\junk\\..\\folder2";
+                var actual2 = "\\folder1\\.\\junk\\..\\folder2\\folder3";
+                Assert.That(actual1, Is.SamePathOrUnder(expected));
+                Assert.That(actual2, Is.SamePathOrUnder(expected));
                 // 失敗時メッセージ例:
                 //  Expected: Path under or matching "/folder1/folder2"
                 //  But was:  "\folder1\.\junk\..\folder3\folder2"
@@ -605,8 +610,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること_IgnoreCase修飾子も有効()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\Folder2\\folder3",
-                    Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
+                var actual = "\\folder1\\.\\junk\\..\\Folder2\\folder3";
+                Assert.That(actual, Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
                 // 失敗時メッセージ例:
                 //   Expected: Path under or matching "/Folder1/folder2"
                 //   But was:  "\folder1\.\junk\..\Folder2\folder3"
@@ -615,7 +620,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SubPathConstraint_パス文字列が期待値のサブパスであること()
             {
-                Assert.That("/folder1/folder2/folder3", Is.SubPathOf("/folder1/folder2"));
+                var actual = "/folder1/folder2/folder3";
+                Assert.That(actual, Is.SubPathOf("/folder1/folder2"));
                 // Note: 最新のNUnitでは`Is.SubPath()`で、実装も異なっている。NUnitのドキュメントにある例がNUnit 3.5では通らない
             }
         }

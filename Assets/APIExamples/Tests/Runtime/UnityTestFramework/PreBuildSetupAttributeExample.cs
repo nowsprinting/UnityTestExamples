@@ -21,7 +21,6 @@ namespace APIExamples.UnityTestFramework
         [Test]
         public void PrebuildSetupAttributeを付与したテストの例()
         {
-            Assert.That(true, Is.True);
         }
     }
 }
