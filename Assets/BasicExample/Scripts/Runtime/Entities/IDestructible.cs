@@ -27,8 +27,8 @@ namespace BasicExample.Entities
         /// 攻撃を与える
         /// </summary>
         /// <param name="element">攻撃の属性</param>
-        /// <param name="attackPower">攻撃力</param>
+        /// <param name="attack">攻撃力</param>
         /// <returns>true: 1以上のダメージが入った</returns>
-        bool TakeDamage(Element element, int attackPower);
+        bool TakeDamage(Element element, int attack);
     }
 }

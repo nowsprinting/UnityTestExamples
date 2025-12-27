@@ -5,7 +5,8 @@
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
         "BasicExample.Editor",
-        "BasicExample"
+      "BasicExample",
+      "BasicExample.Tests"
     ],
     "includePlatforms": [
         "Editor"

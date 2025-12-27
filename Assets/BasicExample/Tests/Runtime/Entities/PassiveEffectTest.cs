@@ -1,150 +1,143 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
 using BasicExample.Entities.Enums;
 using NUnit.Framework;
+using TestHelper.Attributes;
 using UnityEngine;
 using UnityEngine.TestTools;
-using UnityEngine.TestTools.Utils;
 
 namespace BasicExample.Entities
 {
     [TestFixture]
     public class PassiveEffectTest
     {
+        private static PassiveEffect CreatePassiveEffect(bool buff = false, bool debuff = false)
+        {
+            var passiveEffect = new GameObject().AddComponent<PassiveEffect>();
+
+            if (buff)
+            {
+                passiveEffect.Buff();
+            }
+
+            if (debuff)
+            {
+                passiveEffect.DeBuff();
+            }
+
+            return passiveEffect;
+        }
+
         [TestFixture]
         public class 状態遷移テスト
         {
-            private static readonly FloatEqualityComparer s_expireTimeComparer = new FloatEqualityComparer(0.1f);
-
             [TestFixture]
             public class 通常状態からの遷移
             {
-                private PassiveEffect _sut;
-
-                [SetUp]
-                public void SetUp()
-                {
-                    _sut = new GameObject().AddComponent<PassiveEffect>(); // 通常状態
-                }
-
                 [Test]
                 public void デバフ_弱体状態になること()
                 {
-                    _sut.DeBuff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
+                    var sut = CreatePassiveEffect();
+                    sut.DeBuff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
                 }
 
                 [Test]
                 public void バフ_強化状態になること()
                 {
-                    _sut.Buff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
+                    var sut = CreatePassiveEffect();
+                    sut.Buff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
                 }
             }
 
             [TestFixture]
             public class 弱体状態からの遷移
             {
-                private PassiveEffect _sut;
-
-                [SetUp]
-                public void SetUp()
+                [Test]
+                public void バフ_通常状態になること()
                 {
-                    _sut = new GameObject().AddComponent<PassiveEffect>();
-                    _sut.DeBuff(); // 弱体状態
-                }
-
-                [TearDown]
-                public void TearDown()
-                {
-                    Time.timeScale = 1.0f;
+                    var sut = CreatePassiveEffect(debuff: true);
+                    sut.Buff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Normal));
                 }
 
                 [Test]
                 public void デバフ_弱体状態が維持されること()
                 {
-                    _sut.DeBuff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
+                    var sut = CreatePassiveEffect(debuff: true);
+                    sut.DeBuff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
                 }
 
                 [UnityTest]
+                [TimeScale(10.0f)]
                 public IEnumerator デバフ_持続時間が30秒にリセットされること()
                 {
-                    Time.timeScale = 100.0f;
-                    yield return new WaitForSeconds(10f);
+                    var sut = CreatePassiveEffect(debuff: true);
+                    yield return new WaitForSeconds(5.0f);
+                    Assume.That(sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
+                    Assume.That(sut.PassiveEffectExpireTime(), Is.EqualTo(25.0f).Within(0.1f));
 
-                    _sut.DeBuff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
-                    Assert.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
-                }
+                    sut.DeBuff();
 
-                [Test]
-                public void バフ_通常状態になること()
-                {
-                    _sut.Buff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Normal));
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Weakening));
+                    Assert.That(sut.PassiveEffectExpireTime(), Is.EqualTo(30.0f).Within(0.1f));
                 }
 
                 [UnityTest]
+                [TimeScale(10.0f)]
                 public IEnumerator 時間切れ_通常状態になること()
                 {
-                    Time.timeScale = 100.0f;
-                    yield return new WaitForSeconds(30f);
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Normal));
+                    var sut = CreatePassiveEffect(debuff: true);
+                    yield return new WaitForSeconds(30.2f);
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Normal));
                 }
             }
 
             [TestFixture]
             public class 強化状態からの遷移
             {
-                private PassiveEffect _sut;
-
-                [SetUp]
-                public void SetUp()
-                {
-                    _sut = new GameObject().AddComponent<PassiveEffect>();
-                    _sut.Buff(); // 強化状態
-                }
-
-                [TearDown]
-                public void TearDown()
-                {
-                    Time.timeScale = 1.0f;
-                }
-
                 [Test]
                 public void デバフ_通常状態になること()
                 {
-                    _sut.DeBuff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Normal));
+                    var sut = CreatePassiveEffect(buff: true);
+                    sut.DeBuff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Normal));
                 }
 
                 [Test]
                 public void バフ_強化状態が維持されること()
                 {
-                    _sut.Buff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
+                    var sut = CreatePassiveEffect(buff: true);
+                    sut.Buff();
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
                 }
 
                 [UnityTest]
+                [TimeScale(10.0f)]
                 public IEnumerator バフ_持続時間が30秒にリセットされること()
                 {
-                    Time.timeScale = 100.0f;
-                    yield return new WaitForSeconds(10f);
+                    var sut = CreatePassiveEffect(buff: true);
+                    yield return new WaitForSeconds(5.0f);
+                    Assume.That(sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
+                    Assume.That(sut.PassiveEffectExpireTime(), Is.EqualTo(25.0f).Within(0.2f));
 
-                    _sut.Buff();
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
-                    Assert.That(_sut.PassiveEffectExpireTime(), Is.EqualTo(30f).Using(s_expireTimeComparer));
+                    sut.Buff();
+
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Strengthening));
+                    Assert.That(sut.PassiveEffectExpireTime(), Is.EqualTo(30.0f).Within(0.1f));
                 }
 
                 [UnityTest]
+                [TimeScale(10.0f)]
                 public IEnumerator 時間切れ_通常状態になること()
                 {
-                    Time.timeScale = 100.0f;
-                    yield return new WaitForSeconds(30f);
-                    Assert.That(_sut.State(), Is.EqualTo(PassiveEffectState.Normal));
+                    var sut = CreatePassiveEffect(buff: true);
+                    yield return new WaitForSeconds(30.2f);
+                    Assert.That(sut.State(), Is.EqualTo(PassiveEffectState.Normal));
                 }
             }
         }

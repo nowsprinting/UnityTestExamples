@@ -1,46 +1,57 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
-using UnityEngine;
-
-#pragma warning disable CS1998
+using UnityEngine.TestTools;
 
 namespace APIExamples.Editor.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="SetUpAttribute"/>の例（Edit Modeテスト）
-    /// <see cref="OneTimeSetUpAttribute"/>はasyncサポートされていない（UTF v1.3時点）
+    /// 非同期の<see cref="SetUpAttribute"/>の使用例（Edit Modeテスト）
+    /// <see cref="OneTimeSetUpAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
+    /// <p/>
     /// Async SetUp attribute example (in Edit Mode tests)
-    /// Async OneTimeSetUp attribute is not yet supported in UTF v1.3
+    /// Async OneTimeSetUp attribute is not yet supported in UTF v1.6.0
     /// </summary>
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
+    /// <seealso cref="APIExamples.Editor.UnityTestFramework.UnitySetUpAttributeExample"/>
     [TestFixture]
     public class AsyncSetupAttributeExample
     {
+        private int _setupCount;
+
         /// <summary>
         /// 各テストメソッドの前に実行されます
         /// </summary>
         [SetUp]
-        public async Task SetUp()
+        public async Task SetUpAsync()
         {
-            await Task.Delay(200);
-            Debug.Log($"SetUp, {Time.time}");
+            await Task.Yield();
+            _setupCount++;
         }
 
-        [Test]
+        [Test, Order(0)]
         public void TestMethod()
         {
-            Debug.Log($"TestMethod, {Time.time}");
+            Assert.That(_setupCount, Is.EqualTo(1), "最初のテストなのでSetUpは1回実行されている");
         }
 
-        [Test]
-        public void TestMethod2()
+        [Test, Order(1)]
+        public async Task TestMethodAsync()
         {
-            Debug.Log($"TestMethod2, {Time.time}");
+            await Task.Yield();
+            Assert.That(_setupCount, Is.EqualTo(2), "2番目のテストなのでSetUpは2回実行されている");
+        }
+
+        [UnityTest, Order(2)]
+        public IEnumerator UnityTestMethod()
+        {
+            yield return null;
+            Assert.That(_setupCount, Is.EqualTo(3), "3番目のテストなのでSetUpは3回実行されている");
         }
     }
 }

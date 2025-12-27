@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
@@ -8,20 +8,23 @@ namespace APIExamples.NUnit
     /// <summary>
     /// <see cref="CategoryAttribute"/>の記述例
     /// </summary>
+    /// <remarks>
+    /// アセンブリへの配置例は、<c>UGUIExample</c> など統合テスト編サンプルの <c>AssemblyInfo.cs</c> を参照してください。
+    /// </remarks>
     [TestFixture]
-    [Category("CategoryExample")]
+    [Category("CategoryFoo")]
     public class CategoryAttributeExample
     {
         [Test]
-        [Category("LearningTests")]
-        public void CategorizedMethodExample()
+        [Category("CategoryBar")]
+        public void CategorizedMethod()
         {
         }
 
         [Test]
-        [Category("LearningTests")]
-        [Category("IgnoreCI")]
-        public void MultiCategorizedMethodExample()
+        [Category("CategoryBaz")]
+        [Category("CategoryQux")]
+        public void MultiCategorizedMethodMethod()
         {
         }
     }

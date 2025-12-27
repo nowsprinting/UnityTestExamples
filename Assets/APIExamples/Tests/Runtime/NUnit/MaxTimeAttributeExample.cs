@@ -1,12 +1,12 @@
 ﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Debug = UnityEngine.Debug;
 
 namespace APIExamples.NUnit
 {
@@ -25,30 +25,24 @@ namespace APIExamples.NUnit
         [MaxTime(100)]
         public void MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗()
         {
-            var loopCount = 50000000;
-            var sum = 0f;
-            for (var i = 0; i < loopCount; i++)
+            var endTime = DateTime.Now.AddMilliseconds(200);
+            while (DateTime.Now < endTime)
             {
-                sum += Random.value;
             }
-
-            Debug.Log("テストは最後まで実行されます");
         }
 
         [UnityTest]
         [MaxTime(100)]
         public IEnumerator MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_UnityTest属性()
         {
-            yield return new WaitForSeconds(0.5f);
-            Debug.Log("テストは最後まで実行されます");
+            yield return new WaitForSeconds(0.2f);
         }
 
         [Test]
         [MaxTime(100)]
         public async Task MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗_非同期テスト()
         {
-            await Task.Delay(500);
-            Debug.Log("テストは最後まで実行されます");
+            await Task.Delay(200);
         }
     }
 }

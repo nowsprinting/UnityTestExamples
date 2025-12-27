@@ -28,6 +28,7 @@ Click [English](./README_en.md) for English page if you need.
 
 - `v1.0.0`: Unity Test Framework完全攻略ガイド 第1版
 - `v2.0.0`: Unity Test Framework完全攻略ガイド 第2版 および 統合テスト編 第1版
+- `unity2019`: Unity Test Framework完全攻略ガイド 第3版 のUnity 2019プロジェクト
 
 
 
@@ -41,16 +42,13 @@ Unity Test FrameworkおよびNUnit3のAPIカタログ
 Assets
 └── APIExamples
     ├── Scripts
-    │   └── (snip)
     └── Tests
         ├── Editor
-        │   └── UnityTestFramework
-        │       └── 第3章 Edit Modeテスト, 第5章 非同期処理のテスト
+        │   ├── NUnit                   // 第8章 Unity Test Framework Tips
+        │   └── UnityTestFramework      // 第3章 テストモード
         └── Runtime
-            ├── NUnit
-            │   └── 第6章 アサーション, 第8章 パラメタライズドテスト, 第9章 Unity Test Framework Tips
-            └── UnityTestFramework
-                └── 第5章 非同期処理のテスト, 第9章 Unity Test Framework Tips
+            ├── NUnit                   // 第5章 アサーション, 第6章 パラメタライズドテスト, 第8章 Unity Test Framework Tips ほか
+            └── UnityTestFramework      // 第8章 Unity Test Framework Tips ほか
 ```
 
 ### BasicExample
@@ -61,31 +59,15 @@ Assets
 Assets
 └── BasicExample
     ├── Scenes
-    │   └── (snip)
     ├── ScriptableObjects
-    │   └── (snip)
     ├── Scripts
     │   ├── Editor
-    │   │   └── (snip)
     │   └── Runtime
-    │       ├── Entities
-    │       │   ├── CharacterStatus.cs          // 「2.4 テストコードの書きかた」のSUT
-    │       │   └── (snip)
+    │       ├── Entities                // 第2章 Unity Test Frameworkの基本（SUT）
     │       └── Level
-    │           └── (snip)
     └── Tests
-        ├── Editor
-        │   └── AssetValidators
-        │       ├── LevelValidator.cs
-        │       └── RaceValidator.cs
-        └── Runtime
-            └── Entities
-                ├── Enums
-                │   └── ElementTest.cs
-                ├── Settings
-                │   └── HitPointGaugeSettingTest.cs // 「14.2 仕様テストにおけるテストケースの考えかた」のテストコード
-                ├── CharacterStatueTest.cs      // 「2.4 テストコードの書きかた」のテストコード
-                └── PassiveEffectTest.cs        // 「14.2.5 状態遷移テスト」のテストコード
+        ├── Editor                      // 第6章 パラメタライズドテスト
+        └── Runtime                     // 第2章 Unity Test Frameworkの基本, 第15章 テスト設計のヒント
 ```
 
 ### TestDoubleExample
@@ -99,7 +81,7 @@ Assets
 
 ### SceneExample
 
-第10章 Sceneを使用するテスト
+第9章 Scene・アセット・ファイルの使用
 
 ```
 Assets
@@ -108,20 +90,20 @@ Assets
 
 ### Packages
 
-第11章 UPM パッケージのテスト
-
-#### 埋め込みパッケージ
-
-```
-Packages
-└── com.nowsprinting.embedded-package-sample
-```
+第10章 UPM パッケージのテスト
 
 #### ローカルパッケージ
 
 ```
 LocalPackages
 └── com.nowsprinting.local-package-sample
+```
+
+#### 埋め込みパッケージ
+
+```
+Packages
+└── com.nowsprinting.embedded-package-sample
 ```
 
 ### UGUIExample
@@ -160,16 +142,13 @@ Assets
 └── VisualRegressionExample
 ```
 
+> [!TIP]  
+> このテストを実行するには
+> [Graphics Test Framework](https://docs.unity3d.com/Packages/com.unity.testframework.graphics@latest)
+> パッケージをインストールする必要があります。
 
 
 ## 備考
-
-### utf2 ブランチ
-
-実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^utf2]。
-それに伴ない `utf2` ブランチは削除しました。
-
-[^utf2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
 
 ### WebGL Player
 
@@ -181,7 +160,12 @@ Fixed in 2020.3.42f1, 2021.3.8f1, 2022.1.12f1, 2022.2.0b3, 2023.1.0a4
 
 [^UUM-1170]: [https://issuetracker.unity3d.com/product/unity/issues/guid/UUM-1170](https://issuetracker.unity3d.com/product/unity/issues/guid/UUM-1170)
 
+### utf2 ブランチ
 
+実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^utf2]。
+それに伴ない `utf2` ブランチは削除しました。
+
+[^utf2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
 
 ## License
 

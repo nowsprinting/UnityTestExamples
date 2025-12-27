@@ -2,7 +2,6 @@
 // This software is released under the MIT License.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -130,11 +129,11 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void EqualConstraint_配列が等しいこと()
+            public void EqualConstraint_コレクションが等しいこと()
             {
-                var actual = new[] { "Katsuro", "Jenny", "Lindsay" };
+                var actual = new List<string> { "Katsuro", "Jenny", "Lindsay" };
 
-                Assert.That(actual, Is.EqualTo(new[] { "Katsuro", "Jenny", "Lindsay" }));
+                Assert.That(actual, Is.EqualTo(new[] { "Katsuro", "Jenny", "Lindsay" })); // Listを配列で検証可能
                 // 失敗時メッセージ例:
                 //  Expected and actual are both <System.String[3]>
                 //  Values differ at index [1]
@@ -310,7 +309,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
-            public void HasLength_配列の個数を検証()
+            public void HasLength_コレクションの要素数を検証()
             {
                 var actual = new[] { 2, 3, 5, 6 };
                 Assert.That(actual, Has.Length.EqualTo(4));
@@ -366,7 +365,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 比較
+        public class 数値
         {
             [Test]
             public void GreaterThanConstraint_より大きい()
@@ -425,7 +424,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 合成
+        public class オペレーター
         {
             [Test]
             public void AndConstraint_AND条件()
@@ -470,7 +469,7 @@ namespace APIExamples.NUnit
         }
 
         [TestFixture]
-        public class 条件
+        public class 状態
         {
             [Test]
             public void EmptyConstraint_空であること()
@@ -578,7 +577,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathConstraint_パス文字列が等しいこと()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\folder2", Is.SamePath("/folder1/folder2"));
+                var actual = "\\folder1\\.\\junk\\..\\folder2";
+                Assert.That(actual, Is.SamePath("/folder1/folder2"));
                 // 失敗時メッセージ例:
                 //  Expected: Path matching "/folder1/folder2"
                 //  But was:  "\folder1\.\junk\..\folder2\xxx"
@@ -587,7 +587,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathConstraint_パス文字列が等しいこと_IgnoreCase修飾子も有効()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\Folder2", Is.SamePath("/Folder1/folder2").IgnoreCase);
+                var actual = "\\folder1\\.\\junk\\..\\Folder2";
+                Assert.That(actual, Is.SamePath("/Folder1/folder2").IgnoreCase);
                 // 失敗時メッセージ例:
                 //   Expected: Path matching "/Folder1/folder2"
                 //   But was:  "\folder1\.\junk\..\Folder2"
@@ -596,8 +597,11 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\folder2", Is.SamePathOrUnder("/folder1/folder2"));
-                Assert.That("\\folder1\\.\\junk\\..\\folder2\\folder3", Is.SamePathOrUnder("/folder1/folder2"));
+                var expected = "/folder1/folder2";
+                var actual1 = "\\folder1\\.\\junk\\..\\folder2";
+                var actual2 = "\\folder1\\.\\junk\\..\\folder2\\folder3";
+                Assert.That(actual1, Is.SamePathOrUnder(expected));
+                Assert.That(actual2, Is.SamePathOrUnder(expected));
                 // 失敗時メッセージ例:
                 //  Expected: Path under or matching "/folder1/folder2"
                 //  But was:  "\folder1\.\junk\..\folder3\folder2"
@@ -606,8 +610,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SamePathOrUnderConstraint_パス文字列が期待値と同じかその配下であること_IgnoreCase修飾子も有効()
             {
-                Assert.That("\\folder1\\.\\junk\\..\\Folder2\\folder3",
-                    Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
+                var actual = "\\folder1\\.\\junk\\..\\Folder2\\folder3";
+                Assert.That(actual, Is.SamePathOrUnder("/Folder1/folder2").IgnoreCase);
                 // 失敗時メッセージ例:
                 //   Expected: Path under or matching "/Folder1/folder2"
                 //   But was:  "\folder1\.\junk\..\Folder2\folder3"
@@ -616,7 +620,8 @@ namespace APIExamples.NUnit
             [Test]
             public void SubPathConstraint_パス文字列が期待値のサブパスであること()
             {
-                Assert.That("/folder1/folder2/folder3", Is.SubPathOf("/folder1/folder2"));
+                var actual = "/folder1/folder2/folder3";
+                Assert.That(actual, Is.SubPathOf("/folder1/folder2"));
                 // Note: 最新のNUnitでは`Is.SubPath()`で、実装も異なっている。NUnitのドキュメントにある例がNUnit 3.5では通らない
             }
         }
@@ -801,7 +806,7 @@ namespace APIExamples.NUnit
                 //  But was:  <System.NullReferenceException: Object reference not set to an instance of an object.
             }
 
-            [Ignore("Throws制約をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.5.1時点）")]
+            [Ignore("Throws制約をasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.6.0時点）")]
             [Test]
             public async Task 非同期メソッドの例外捕捉を制約モデルで行なうことはできない_Unityエディターがフリーズ()
             {
@@ -817,7 +822,7 @@ namespace APIExamples.NUnit
                 //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
             }
 
-            [Ignore("ThrowsAsyncをasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.5.1時点）")]
+            [Ignore("ThrowsAsyncをasyncメソッドに使用するとUnityエディターがフリーズ（Unity Test Framework v1.6.0時点）")]
             [Test]
             public async Task 非同期メソッドの例外捕捉をクラシックモデルで行なうことはできない_Unityエディターがフリーズ()
             {
@@ -969,42 +974,14 @@ namespace APIExamples.NUnit
         public class 遅延
         {
             [Test]
-            [Explicit("Test属性のテストでは期待通り動作しないので除外")]
-            public void DelayedConstraint_Test属性のテストでは無効()
+            public void DelayedConstraint_指定時間経過後に評価される()
             {
-                var start = Time.time; // The time at the beginning of this frame
+                var start = Time.realtimeSinceStartup; // Note: 非同期ではなく同一フレームで遅延処理されるため Time.time は変化しません
 
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
+                Assert.That(() => Time.realtimeSinceStartup, Is.GreaterThan(start + 0.2f).After(500));
                 // 失敗時メッセージ例:
                 //  Expected: greater than 2.33228302f after 2500 millisecond delay
                 //  But was:  0.33228299f
-            }
-
-            [Test]
-            [Explicit("Asyncテストでも期待通り動作しないので除外（Unity Test Framework v1.4.0時点）")]
-            // https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-30529
-            public async Task DelayedConstraint_AsyncTestでも無効()
-            {
-                var start = Time.time; // The time at the beginning of this frame
-                await Task.Delay(0);
-
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
-                // 失敗時メッセージ例:
-                //  Expected: greater than 2.33228302f after 2500 millisecond delay
-                //  But was:  0.33228299f
-            }
-
-            [UnityTest]
-            [Explicit("UnityTest属性のテストでも期待通り動作しないので除外")]
-            public IEnumerator DelayedConstraint_UnityTest属性のテストでも無効()
-            {
-                var start = Time.time; // The time at the beginning of this frame
-                yield return null;
-
-                Assert.That(() => Time.time, Is.GreaterThan(start + 2.0f).After(2500)); // ミリ秒しか指定できない模様
-                // 失敗時メッセージ例:
-                //  Expected: greater than 2.39063787f after 2500 millisecond delay
-                //  But was:  0.390637904f
             }
         }
     }

@@ -41,15 +41,17 @@ jobs:
       matrix:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 2019.4.40f1
-          - 2020.3.48f1
+          - 2020.3.49f1
           - 2021.3.45f1
-          - 2022.3.59f1
-          - 2023.2.20f1
-          - 6000.0.41f1
+          - 2022.3.62f1
+          - 6000.0.43f1
+          - 6000.0.44f1 # pin test-framework v1.5.1
+          - 6000.0.59f2 # pin test-framework v1.6.0
+          - 6000.3.1f1
         testMode:
           - PlayMode              # run tests in editor
         include:
-          - unityVersion: 6000.0.41f1
+          - unityVersion: 6000.3.1f1
             testMode: Standalone  # run tests on player
 
     steps:

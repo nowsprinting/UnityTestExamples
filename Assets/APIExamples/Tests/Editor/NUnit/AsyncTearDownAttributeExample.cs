@@ -1,23 +1,25 @@
-﻿// Copyright (c) 2021-2023 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
+using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using UnityEngine;
-
-#pragma warning disable CS1998
+using UnityEngine.TestTools;
 
 namespace APIExamples.Editor.NUnit
 {
     /// <summary>
-    /// 非同期の<see cref="TearDownAttribute"/>の例（Edit Modeテスト）
-    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.3時点）
+    /// 非同期の<see cref="TearDownAttribute"/>の使用例（Edit Modeテスト）
+    /// <see cref="OneTimeTearDownAttribute"/>はasyncサポートされていない（UTF v1.6.0時点）
+    /// <p/>
     /// Async TearDown attribute example (in Edit Mode tests)
-    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.3
+    /// Async OneTimeTearDown attribute is not yet supported in UTF v1.6.0
     /// </summary>
     /// <remarks>
     /// Required: Unity Test Framework v1.3 or later
     /// </remarks>
+    /// <seealso cref="APIExamples.Editor.UnityTestFramework.UnityTearDownAttributeExample"/>
     [TestFixture]
     public class AsyncTearDownAttributeExample
     {
@@ -25,22 +27,30 @@ namespace APIExamples.Editor.NUnit
         /// 各テストメソッドの後に実行されます
         /// </summary>
         [TearDown]
-        public async Task TearDown()
+        public async Task TearDownAsync()
         {
-            await Task.Delay(200);
-            Debug.Log($"TearDown, {Time.time}");
+            await Task.Yield();
+            Debug.Log($"TearDownAsync");
         }
 
         [Test]
         public void TestMethod()
         {
-            Debug.Log($"TestMethod, {Time.time}");
+            Debug.Log($"TestMethod");
         }
 
         [Test]
-        public void TestMethod2()
+        public async Task TestMethodAsync()
         {
-            Debug.Log($"TestMethod2, {Time.time}");
+            await Task.Yield();
+            Debug.Log($"TestMethodAsync");
+        }
+
+        [UnityTest]
+        public IEnumerator UnityTestMethod()
+        {
+            yield return null;
+            Debug.Log($"UnityTestMethod");
         }
     }
 }

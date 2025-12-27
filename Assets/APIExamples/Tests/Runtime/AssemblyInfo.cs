@@ -1,6 +1,6 @@
-﻿// Copyright (c) 2021-2022 Koji Hasegawa.
+﻿// Copyright (c) 2021-2025 Koji Hasegawa.
 // This software is released under the MIT License.
 
-using NUnit.Framework;
+using System.Runtime.CompilerServices;
 
-[assembly: Category("APIExamples")]
+[assembly: InternalsVisibleTo("APIExample.Editor.Tests")]

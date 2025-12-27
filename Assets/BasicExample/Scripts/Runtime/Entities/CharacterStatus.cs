@@ -17,24 +17,24 @@ namespace BasicExample.Entities
         [field: SerializeField, Tooltip("属性")]
         private Element Element { get; set; }
 
-        [field: SerializeField, Tooltip("最大ヒットポイント")]
-        private int MaxHitPoint { get; set; }
-
         [field: SerializeField, Tooltip("防御力（buff分を除く）")]
         private int Defense { get; set; }
 
         [field: SerializeField, Tooltip("攻撃力（buff分を除く）")]
         private int Attack { get; set; }
 
-        public int HitPoint { get; set; }
+        [field: SerializeField, Tooltip("最大ヒットポイント")]
+        private int MaxHitPoint { get; set; }
+
+        internal int HitPoint { get; private set; }
         private HitPointGaugeSetting _bounds;
 
-        public CharacterStatus(Element element = Element.None, int hp = 0, int defense = 0, int attack = 0)
+        public CharacterStatus(Element element = Element.None, int defense = 0, int attack = 0, int hp = 0)
         {
             Element = element;
-            MaxHitPoint = hp;
             Defense = defense;
             Attack = attack;
+            MaxHitPoint = hp;
             HitPoint = hp;
             _bounds = ScriptableObject.CreateInstance<HitPointGaugeSetting>();
         }
@@ -53,9 +53,9 @@ namespace BasicExample.Entities
         }
 
         /// <inheritdoc/>
-        public bool TakeDamage(Element element, int attackPower)
+        public bool TakeDamage(Element element, int attack)
         {
-            var attackPowerWithElement = (int)(attackPower * Element.GetDamageMultiplier(element));
+            var attackPowerWithElement = (int)(attack * Element.GetDamageMultiplier(element));
             var damage = attackPowerWithElement - Defense;
             if (damage <= 0)
             {
