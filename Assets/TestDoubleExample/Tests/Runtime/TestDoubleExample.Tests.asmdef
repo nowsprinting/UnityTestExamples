@@ -4,7 +4,9 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "TestDoubleExample"
+      "TestDoubleExample",
+      "NUnit.Analyzers_Unity",
+      "NSubstitute.Analyzers.CSharp_Unity"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
@@ -12,9 +14,7 @@
     "overrideReferences": true,
     "precompiledReferences": [
       "nunit.framework.dll",
-      "NSubstitute.dll",
-      "Castle.Core.dll",
-      "System.Threading.Tasks.Extensions.dll"
+      "NSubstitute.dll"
     ],
     "autoReferenced": false,
     "defineConstraints": [
