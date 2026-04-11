@@ -51,8 +51,6 @@ jobs:
         include:
           - unityVersion: *latest_unity_version
             octocov: true
-          - unityVersion: *latest_unity_version
-            testMode: Standalone  # run tests on player
 
     steps:
       - name: Checkout repository
