@@ -44,15 +44,14 @@ jobs:
           - 6000.0.43f1
           - 6000.0.44f1 # pin test-framework v1.5.1
           - 6000.0.59f2 # pin test-framework v1.6.0
-          - 6000.2.5f1  # pin test-framework v1.5.1
-          - 6000.2.6f1  # pin test-framework v1.6.0
-          - 6000.3.1f1
+          - 6000.3.12f1
+          - &latest_unity_version 6000.4.1f1
         testMode:
           - All                                 # run tests in editor
         include:
-          - unityVersion: 6000.3.1f1
+          - unityVersion: *latest_unity_version
             octocov: true
-          - unityVersion: 6000.3.1f1
+          - unityVersion: *latest_unity_version
             testMode: Standalone  # run tests on player
 
     steps:
