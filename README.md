@@ -5,8 +5,6 @@
 [![Integration Test](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test-integration.yml/badge.svg)](https://github.com/nowsprinting/UnityTestExamples/actions/workflows/test-integration.yml)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/nowsprinting/UnityTestExamples)
 
-Click [English](./README_en.md) for English page if you need.
-
 
 
 ## このリポジトリについて
@@ -16,11 +14,11 @@ Click [English](./README_en.md) for English page if you need.
 電子版 (PDF) は次のWebサイトから購入できます。
 
 #### BOOTH
-- [Unity Test Framework完全攻略ガイド 第2版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
+- [Unity Test Framework完全攻略ガイド 第3版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
 - [Unity Test Framework完全攻略ガイド 統合テスト編 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/4807367)
 
 #### 技術書典マーケット
-- [Unity Test Framework完全攻略ガイド 第2版：いか小屋](https://techbookfest.org/product/5936401533108224)
+- [Unity Test Framework完全攻略ガイド 第3版：いか小屋](https://techbookfest.org/product/5936401533108224)
 - [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
 本リポジトリの `master` ブランチは随時更新しています。
@@ -28,7 +26,7 @@ Click [English](./README_en.md) for English page if you need.
 
 - `v1.0.0`: Unity Test Framework完全攻略ガイド 第1版
 - `v2.0.0`: Unity Test Framework完全攻略ガイド 第2版 および 統合テスト編 第1版
-- `unity2019`: Unity Test Framework完全攻略ガイド 第3版 のUnity 2019プロジェクト
+- `unity2019`: Unity Test Framework完全攻略ガイド 第3版 相当のUnity 2019プロジェクト
 
 
 
