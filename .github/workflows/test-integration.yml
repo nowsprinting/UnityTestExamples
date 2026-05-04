@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2025 Koji Hasegawa.
+# Copyright (c) 2021-2026 Koji Hasegawa.
 # This software is released under the MIT License.
 
 name: Integration Test
@@ -10,13 +10,10 @@ on:
       runner:
         type: choice
         description: Runner
-        options: # see: https://buildjet.com/for-github-actions/docs/runners/hardware
+        options:  # see: https://www.ubicloud.com/docs/about/pricing
           - ubuntu-latest
-          - buildjet-2vcpu-ubuntu-2204
-          - buildjet-4vcpu-ubuntu-2204
-          - buildjet-8vcpu-ubuntu-2204
-          - buildjet-16vcpu-ubuntu-2204
-          - buildjet-32vcpu-ubuntu-2204
+          - ubicloud-standard-2-ubuntu-2204
+          - ubicloud-standard-4-ubuntu-2204
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event.inputs.runner }}
@@ -58,7 +55,7 @@ jobs:
           lfs: false
 
       - name: Restore cache
-        uses: buildjet/cache@3e70d19e31d6a8030aeddf6ed8dbe601f94d09f4 # v4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5
         with:
           path: Library
           key: Library-${{ runner.os }}-${{ matrix.unityVersion }}-${{ hashFiles('Packages/packages-lock.json') }}
