@@ -59,11 +59,6 @@ jobs:
             Library-${{ runner.os }}-
             Library-
 
-      - name: Uninstall codecoverage package
-        run: |
-          npm install -g openupm-cli
-          openupm remove com.unity.testtools.codecoverage
-
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
 
