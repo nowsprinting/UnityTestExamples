@@ -1,4 +1,4 @@
-# Copyright (c) 2021-2025 Koji Hasegawa.
+# Copyright (c) 2021-2026 Koji Hasegawa.
 # This software is released under the MIT License.
 
 name: Test
@@ -60,7 +60,7 @@ jobs:
           lfs: false
 
       - name: Restore cache
-        uses: actions/cache@5a3ec84eff668545956fd18022155c47e93e2684 # v4
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae  # v5
         with:
           path: Library
           key: Library-${{ runner.os }}-${{ matrix.unityVersion }}-${{ hashFiles('Packages/packages-lock.json') }}
