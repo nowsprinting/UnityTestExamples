@@ -11,6 +11,7 @@ using TestHelper.Random;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 namespace InputSystemExample
 {

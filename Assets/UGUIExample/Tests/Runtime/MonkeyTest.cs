@@ -9,6 +9,7 @@ using TestHelper.Random;
 using TestHelper.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.TestTools;
 
 namespace UGUIExample
 {
