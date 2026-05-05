@@ -17,6 +17,7 @@ namespace UGUIExample
     /// </summary>
     /// <see href="https://github.com/nowsprinting/test-helper.monkey"/>
     [TestFixture]
+    [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
     public class MonkeyTest
     {
         [Test]

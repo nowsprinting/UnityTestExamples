@@ -23,6 +23,7 @@ namespace InputSystemExample
     /// </summary>
     [TestFixture]
     [FocusGameView] // Note: 安定化のため、Gameビューにフォーカスを当てる（バッチモード実行ではGameビューを開く）
+    [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
     public class MonkeyTest
     {
         private readonly InputTestFixture _input = new InputTestFixture();

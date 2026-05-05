@@ -16,6 +16,7 @@ using UnityEngine.TestTools.Utils;
 namespace InputExample
 {
     [TestFixture]
+    [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
     public class FirstPersonControllerLegacyTest
     {
         private const string SandboxScenePath = "Assets/InputExample/Tests/Scenes/InputExampleSandbox.unity";
