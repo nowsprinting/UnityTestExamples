@@ -11,22 +11,25 @@
 
 このリポジトリは、同人誌『Unity Test Framework完全攻略ガイド』および同『統合テスト編』のサンプルコードです。
 
-電子版 (PDF) は次のWebサイトから購入できます。
+書籍の電子版 (PDF) は次のWebサイトから購入できます。
 
-#### BOOTH
+**BOOTH**
 - [Unity Test Framework完全攻略ガイド 第3版 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/3139036)
 - [Unity Test Framework完全攻略ガイド 統合テスト編 - いか小屋 - BOOTH](https://ikagoya.booth.pm/items/4807367)
 
-#### 技術書典マーケット
+**技術書典マーケット**
 - [Unity Test Framework完全攻略ガイド 第3版：いか小屋](https://techbookfest.org/product/5936401533108224)
 - [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
-本リポジトリの `master` ブランチは随時更新しています。
+本リポジトリの `master` ブランチは第3版準拠で、Unityバージョンは6000.0.43f1[^PinPackage]。
+
 過去の版に準拠したコードを確認したい場合は、次のタグを参照してください。
 
 - `v1.0.0`: Unity Test Framework完全攻略ガイド 第1版
 - `v2.0.0`: Unity Test Framework完全攻略ガイド 第2版 および 統合テスト編 第1版
-- `unity2019`: Unity Test Framework完全攻略ガイド 第3版 相当のUnity 2019プロジェクト
+- `unity2019`: Unity Test Framework完全攻略ガイド 第3版 相当（アナライザなどを除く）のUnity 2019プロジェクト
+
+[^PinUTF]: Unity 6000.0.44f1以降、Unity Test FrameworkパッケージはUnityエディターのコアパッケージになりました。6000.0.43f1は任意のパッケージバージョンをインストールできる最後のUnityバージョンです。
 
 
 
@@ -160,10 +163,10 @@ Fixed in 2020.3.42f1, 2021.3.8f1, 2022.1.12f1, 2022.2.0b3, 2023.1.0a4
 
 ### utf2 ブランチ
 
-実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^utf2]。
+実験的バージョンであったUnity Test Framework v2.0の開発は中断されました[^UTF2]。
 それに伴ない `utf2` ブランチは削除しました。
 
-[^utf2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
+[^UTF2]: [https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214](https://forum.unity.com/threads/unity-test-framework-2-0-ready-for-feedback.1230126/page-3#post-9531214)
 
 ## License
 
