@@ -21,7 +21,7 @@
 - [Unity Test Framework完全攻略ガイド 第3版：いか小屋](https://techbookfest.org/product/5936401533108224)
 - [Unity Test Framework完全攻略ガイド 統合テスト編：いか小屋](https://techbookfest.org/product/p5zcUfG5sLmgmd7ZtDhXNm)
 
-本リポジトリの `master` ブランチは第3版準拠で、Unityバージョンは6000.0.43f1[^PinPackage]。
+本リポジトリの `master` ブランチは第3版準拠で、Unityバージョンは6000.0.43f1[^PinUTF]。
 
 過去の版に準拠したコードを確認したい場合は、次のタグを参照してください。
 
