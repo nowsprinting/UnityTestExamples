@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2025 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Linq;
@@ -20,11 +20,19 @@ namespace SceneExample.Editor
             var scene = EditorSceneManager.NewScene(NewSceneSetup.DefaultGameObjects);
             Assert.That(scene.rootCount, Is.EqualTo(2));
 
+#if UNITY_2022_3_OR_NEWER
+            var light = Object.FindFirstObjectByType<Light>();
+#else
             var light = Object.FindObjectOfType<Light>();
+#endif
             Assert.That(light.name, Is.EqualTo("Directional Light"));
             Assert.That(light.type, Is.EqualTo(LightType.Directional));
 
+#if UNITY_2022_3_OR_NEWER
+            var camera = Object.FindFirstObjectByType<Camera>();
+#else
             var camera = Object.FindObjectOfType<Camera>();
+#endif
             Assert.That(camera.name, Is.EqualTo("Main Camera"));
         }
 

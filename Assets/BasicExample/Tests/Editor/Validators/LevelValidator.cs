@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2025 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections.Generic;
@@ -34,7 +34,13 @@ namespace BasicExample.Editor.Validators
         public void Levels下のSceneにSpawnPointが1つ設置されていること(string path)
         {
             EditorSceneManager.OpenScene(path);
+#if UNITY_6000_4_OR_NEWER
+            var spawnPoints = Object.FindObjectsByType<SpawnPoint>();
+#elif UNITY_2022_3_OR_NEWER
+            var spawnPoints = Object.FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+#else
             var spawnPoints = Object.FindObjectsOfType<SpawnPoint>();
+#endif
 
             Assert.That(spawnPoints, Has.Length.EqualTo(1));
         }
@@ -43,7 +49,13 @@ namespace BasicExample.Editor.Validators
         public void Levels下のSceneにExitPointが設置されていること(string path)
         {
             EditorSceneManager.OpenScene(path);
+#if UNITY_6000_4_OR_NEWER
+            var exitPoints = Object.FindObjectsByType<ExitPoint>();
+#elif UNITY_2022_3_OR_NEWER
+            var exitPoints = Object.FindObjectsByType<ExitPoint>(FindObjectsSortMode.None);
+#else
             var exitPoints = Object.FindObjectsOfType<ExitPoint>();
+#endif
 
             Assert.That(exitPoints, Is.Not.Empty, "ExitPointは1つ以上設定されている");
 

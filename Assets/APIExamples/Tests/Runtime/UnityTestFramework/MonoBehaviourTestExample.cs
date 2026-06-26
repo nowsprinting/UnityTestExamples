@@ -1,12 +1,10 @@
-﻿// Copyright (c) 2021-2025 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-
-#pragma warning disable CS0618 // Type or member is obsolete
 
 namespace APIExamples.UnityTestFramework
 {
@@ -40,7 +38,11 @@ namespace APIExamples.UnityTestFramework
             yield return new MonoBehaviourTest<SpyMyMonoBehaviour>();
 
             // Verify
+#if UNITY_2022_3_OR_NEWER
+            var spy = Object.FindFirstObjectByType<SpyMyMonoBehaviour>();
+#else
             var spy = GameObject.FindObjectOfType<SpyMyMonoBehaviour>();
+#endif
             Assert.That(spy.WasAwake, Is.True);
             Assert.That(spy.WasStart, Is.True);
             Assert.That(spy.WasDestroy, Is.False);
@@ -87,7 +89,11 @@ namespace APIExamples.UnityTestFramework
 
             // Teardown
             // Note: MockMyMonoBehaviour の実装ではこの時点で破棄済みですが、通常は後始末が必要です
+#if UNITY_2022_3_OR_NEWER
+            var mock = Object.FindFirstObjectByType<MockMyMonoBehaviour>();
+#else
             var mock = GameObject.FindObjectOfType<MockMyMonoBehaviour>();
+#endif
             if (mock != null)
             {
                 GameObject.DestroyImmediate(mock.gameObject);

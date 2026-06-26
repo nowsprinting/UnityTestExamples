@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2025 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Diagnostics.CodeAnalysis;
@@ -53,7 +53,11 @@ namespace InputSystemExample
             await SceneManager.LoadSceneAsync("InputSystemExample");
             // Note: ランダム要素のあるSceneの場合、擬似乱数シードにrandom.Next()を使用すると再現に必要なシード値が1つで済んで便利です
 
+#if UNITY_2022_3_OR_NEWER
+            var controller = Object.FindFirstObjectByType<FirstPersonController>();
+#else
             var controller = Object.FindObjectOfType<FirstPersonController>();
+#endif
             var lastLocation = controller.transform.position;
             var dontMoveCount = 0;
 

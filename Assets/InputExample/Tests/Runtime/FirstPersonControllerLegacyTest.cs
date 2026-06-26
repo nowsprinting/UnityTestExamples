@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2023 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System;
@@ -27,7 +27,11 @@ namespace InputExample
         public void SetUp()
         {
             // Note: LoadScene 属性は SetUp より先に処理されるため、ここで Scene はロード済み
+#if UNITY_2022_3_OR_NEWER
+            _controller = UnityEngine.Object.FindFirstObjectByType<FirstPersonControllerLegacy>();
+#else
             _controller = GameObject.FindObjectOfType<FirstPersonControllerLegacy>();
+#endif
         }
 
         [Test]
@@ -41,8 +45,8 @@ namespace InputExample
             var stub = new StubInputKey();
             _controller.Input = stub; // テストスタブを注入
 
-            stub.PushedKeys = new[] { KeyCode.W }; // Wキーを押す
-            await Task.Delay(500); // 0.5秒間保持
+            stub.PushedKeys = new[] { KeyCode.W };    // Wキーを押す
+            await Task.Delay(500);                    // 0.5秒間保持
             stub.PushedKeys = Array.Empty<KeyCode>(); // 離す
 
             var afterPosition = _controller.transform.position;
@@ -61,8 +65,8 @@ namespace InputExample
             _controller.Input = stub; // テストスタブを注入
 
             stub.Axes = new[] { new SimulateAxis("Mouse X", 2.0f) }; // 右方向に移動
-            await Task.Delay(500); // 0.5秒間保持
-            stub.Axes = Array.Empty<SimulateAxis>(); // 止める
+            await Task.Delay(500);                                   // 0.5秒間保持
+            stub.Axes = Array.Empty<SimulateAxis>();                 // 止める
 
             var afterRotation = _controller.transform.rotation;
             Assert.That(afterRotation, Is.EqualTo(Quaternion.Euler(0f, 45f, 0f))
