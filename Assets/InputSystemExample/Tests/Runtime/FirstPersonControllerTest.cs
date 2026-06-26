@@ -45,7 +45,7 @@ namespace InputSystemExample
             // Note: Scenes in Buildに入れていないSceneなので、EditorSceneManagerでロード
 #endif
 #if UNITY_2022_3_OR_NEWER
-            _controller = Object.FindFirstObjectByType<FirstPersonController>();
+            _controller = Object.FindAnyObjectByType<FirstPersonController>();
 #else
             _controller = Object.FindObjectOfType<FirstPersonController>();
 #endif

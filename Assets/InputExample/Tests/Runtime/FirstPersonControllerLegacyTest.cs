@@ -28,7 +28,7 @@ namespace InputExample
         {
             // Note: LoadScene 属性は SetUp より先に処理されるため、ここで Scene はロード済み
 #if UNITY_2022_3_OR_NEWER
-            _controller = UnityEngine.Object.FindFirstObjectByType<FirstPersonControllerLegacy>();
+            _controller = UnityEngine.Object.FindAnyObjectByType<FirstPersonControllerLegacy>();
 #else
             _controller = GameObject.FindObjectOfType<FirstPersonControllerLegacy>();
 #endif

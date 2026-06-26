@@ -54,7 +54,7 @@ namespace InputSystemExample
             // Note: ランダム要素のあるSceneの場合、擬似乱数シードにrandom.Next()を使用すると再現に必要なシード値が1つで済んで便利です
 
 #if UNITY_2022_3_OR_NEWER
-            var controller = Object.FindFirstObjectByType<FirstPersonController>();
+            var controller = Object.FindAnyObjectByType<FirstPersonController>();
 #else
             var controller = Object.FindObjectOfType<FirstPersonController>();
 #endif

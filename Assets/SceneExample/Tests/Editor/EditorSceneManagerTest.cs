@@ -21,7 +21,7 @@ namespace SceneExample.Editor
             Assert.That(scene.rootCount, Is.EqualTo(2));
 
 #if UNITY_2022_3_OR_NEWER
-            var light = Object.FindFirstObjectByType<Light>();
+            var light = Object.FindAnyObjectByType<Light>();
 #else
             var light = Object.FindObjectOfType<Light>();
 #endif
@@ -29,7 +29,7 @@ namespace SceneExample.Editor
             Assert.That(light.type, Is.EqualTo(LightType.Directional));
 
 #if UNITY_2022_3_OR_NEWER
-            var camera = Object.FindFirstObjectByType<Camera>();
+            var camera = Object.FindAnyObjectByType<Camera>();
 #else
             var camera = Object.FindObjectOfType<Camera>();
 #endif

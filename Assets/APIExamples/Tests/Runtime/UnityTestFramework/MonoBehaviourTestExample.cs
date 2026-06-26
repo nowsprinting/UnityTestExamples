@@ -39,7 +39,7 @@ namespace APIExamples.UnityTestFramework
 
             // Verify
 #if UNITY_2022_3_OR_NEWER
-            var spy = Object.FindFirstObjectByType<SpyMyMonoBehaviour>();
+            var spy = Object.FindAnyObjectByType<SpyMyMonoBehaviour>();
 #else
             var spy = GameObject.FindObjectOfType<SpyMyMonoBehaviour>();
 #endif
@@ -90,7 +90,7 @@ namespace APIExamples.UnityTestFramework
             // Teardown
             // Note: MockMyMonoBehaviour の実装ではこの時点で破棄済みですが、通常は後始末が必要です
 #if UNITY_2022_3_OR_NEWER
-            var mock = Object.FindFirstObjectByType<MockMyMonoBehaviour>();
+            var mock = Object.FindAnyObjectByType<MockMyMonoBehaviour>();
 #else
             var mock = GameObject.FindObjectOfType<MockMyMonoBehaviour>();
 #endif

@@ -24,7 +24,7 @@ namespace SceneExample
         {
             var nestedComponent = new GameObject().AddComponent<NestedComponent>();
 #if UNITY_2022_3_OR_NEWER
-            var actual = Object.FindFirstObjectByType<NestedComponent>();
+            var actual = Object.FindAnyObjectByType<NestedComponent>();
 #else
             var actual = Object.FindObjectOfType<NestedComponent>();
 #endif

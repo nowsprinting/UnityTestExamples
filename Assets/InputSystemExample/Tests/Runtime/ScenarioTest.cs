@@ -62,7 +62,7 @@ namespace InputSystemExample
             }
 
 #if UNITY_2022_3_OR_NEWER
-            var goalPlate = Object.FindFirstObjectByType<GoalPlate>();
+            var goalPlate = Object.FindAnyObjectByType<GoalPlate>();
 #else
             var goalPlate = Object.FindObjectOfType<GoalPlate>();
 #endif
