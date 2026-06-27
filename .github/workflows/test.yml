@@ -46,7 +46,7 @@ jobs:
           - 6000.0.59f2 # pin test-framework v1.6.0
           - 6000.0.78f1
           - 6000.3.18f1
-          - &latest_unity_version 6000.5.1f1
+          - &latest_unity_version 6000.5.1f1    # pin test-framework v1.7.0
         testMode:
           - All                                 # run tests in editor
         include:
