@@ -900,6 +900,9 @@ namespace APIExamples.NUnit
         [TestFixture]
         public class シリアル化
         {
+#if !ENABLE_UTF_1_7
+            // com.unity.ext.nunit 2.1.0（Unity 6.5, test-framework v1.7.0）から BinarySerializableConstraint が削除されたため除外。
+            // これは BinaryFormatter が .NET で非推奨になったための措置で、ext.nunit が NUnit 4ベースになったわけではない。
             [Serializable]
             private class BinarySerializableSample
             {
@@ -917,6 +920,7 @@ namespace APIExamples.NUnit
                 //  Expected: binary serializable
                 //  But was:  <APIExamples.NUnit.ConstraintExample+シリアル化+BinarySerializableSample>
             }
+#endif
 
             // ReSharper disable once MemberCanBePrivate.Global
             public class XmlSerializableSample

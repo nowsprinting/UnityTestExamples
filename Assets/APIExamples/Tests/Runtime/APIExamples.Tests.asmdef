@@ -30,6 +30,11 @@
             "name": "com.unity.test-framework",
             "expression": "1.6",
             "define": "ENABLE_UTF_1_6"
+        },
+        {
+            "name": "com.unity.test-framework",
+            "expression": "1.7",
+            "define": "ENABLE_UTF_1_7"
         }
     ],
     "noEngineReferences": false

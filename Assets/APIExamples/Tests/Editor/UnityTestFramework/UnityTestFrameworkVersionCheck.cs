@@ -61,11 +61,19 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [Test]
-        [UnityVersion(newerThanOrEqual: "6000.2.6f1")]
-        public async Task Unity6000_2_6f1以降_TestFrameworkはv1_6_0固定()
+        [UnityVersion(newerThanOrEqual: "6000.2.6f1", olderThan: "6000.5.0f1")]
+        public async Task Unity6000_2_6f1から6000_5_0f1まで_TestFrameworkはv1_6_0固定()
         {
             var actual = await GetTestFrameworkPackageVersionAsync();
             Assert.That(actual, Is.EqualTo("1.6.0"));
+        }
+
+        [Test]
+        [UnityVersion(newerThanOrEqual: "6000.5.0f1")]
+        public async Task Unity6000_5_0f1以降_TestFrameworkはv1_7_0固定()
+        {
+            var actual = await GetTestFrameworkPackageVersionAsync();
+            Assert.That(actual, Is.EqualTo("1.7.0"));
         }
     }
 }
