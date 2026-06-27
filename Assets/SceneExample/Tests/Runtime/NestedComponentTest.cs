@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2025 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using NUnit.Framework;
@@ -23,7 +23,11 @@ namespace SceneExample
         public void 入れ子のコンポーネントはAddComponentピッカーに表示されないがテストで使用できる()
         {
             var nestedComponent = new GameObject().AddComponent<NestedComponent>();
+#if UNITY_2022_3_OR_NEWER
+            var actual = Object.FindAnyObjectByType<NestedComponent>();
+#else
             var actual = Object.FindObjectOfType<NestedComponent>();
+#endif
 
             Assert.That(actual, Is.EqualTo(nestedComponent));
         }

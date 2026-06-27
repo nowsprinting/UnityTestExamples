@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2023 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Threading.Tasks;
@@ -44,7 +44,11 @@ namespace InputSystemExample
                 new LoadSceneParameters(LoadSceneMode.Single));
             // Note: Scenes in Buildに入れていないSceneなので、EditorSceneManagerでロード
 #endif
+#if UNITY_2022_3_OR_NEWER
+            _controller = Object.FindAnyObjectByType<FirstPersonController>();
+#else
             _controller = Object.FindObjectOfType<FirstPersonController>();
+#endif
         }
 
         [TearDown]
@@ -61,9 +65,9 @@ namespace InputSystemExample
                 .Using(new Vector3EqualityComparer(0.1f))); // 初期位置は原点
 
             var keyboard = InputSystem.AddDevice<Keyboard>(); // デバイス生成・追加
-            _input.Press(keyboard.wKey); // Wキーを押す
-            await Task.Delay(500); // 0.5秒間保持
-            _input.Release(keyboard.wKey); // 離す
+            _input.Press(keyboard.wKey);                      // Wキーを押す
+            await Task.Delay(500);                            // 0.5秒間保持
+            _input.Release(keyboard.wKey);                    // 離す
 
             var afterPosition = _controller.transform.position;
             Assert.That(afterPosition, Is.EqualTo(new Vector3(0f, 0f, 4f))
@@ -78,8 +82,8 @@ namespace InputSystemExample
                 .Using(new Vector3EqualityComparer(0.1f))); // 初期位置は原点
 
             var gamepad = InputSystem.AddDevice<Gamepad>();
-            _input.Set(gamepad.leftStick, Vector2.up); // 上方向に倒す
-            await Task.Delay(500); // 0.5秒間保持
+            _input.Set(gamepad.leftStick, Vector2.up);   // 上方向に倒す
+            await Task.Delay(500);                       // 0.5秒間保持
             _input.Set(gamepad.leftStick, Vector2.zero); // 離す
 
             var afterPosition = _controller.transform.position;
@@ -95,8 +99,8 @@ namespace InputSystemExample
 
             var gamepad = InputSystem.AddDevice<Gamepad>();
             _input.Set(gamepad.rightStick, Vector2.right); // 右方向に倒す
-            await Task.Delay(500); // 0.5秒間保持
-            _input.Set(gamepad.rightStick, Vector2.zero); // 離す
+            await Task.Delay(500);                         // 0.5秒間保持
+            _input.Set(gamepad.rightStick, Vector2.zero);  // 離す
 
             var afterRotation = _controller.transform.rotation;
             Assert.That(afterRotation, Is.EqualTo(Quaternion.Euler(0f, 45f, 0f))

@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2023 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.IO;
@@ -61,7 +61,11 @@ namespace InputSystemExample
                 }
             }
 
+#if UNITY_2022_3_OR_NEWER
+            var goalPlate = Object.FindAnyObjectByType<GoalPlate>();
+#else
             var goalPlate = Object.FindObjectOfType<GoalPlate>();
+#endif
             Assert.That(goalPlate.IsGoal, Is.True);
         }
     }
