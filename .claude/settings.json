@@ -1,6 +1,5 @@
 {
   "env": {
-    "ENABLE_TOOL_SEARCH": "true",
     "MCP_TIMEOUT": "5000",
     "MCP_TOOL_TIMEOUT": "180000"
   },
@@ -127,7 +126,6 @@
     "additionalDirectories": []
   },
   "enabledPlugins": {
-    "csharp-lsp@claude-plugins-official": true,
     "unity-coding-skills@nowsprinting-unity-coding-skills": true
   }
 }
