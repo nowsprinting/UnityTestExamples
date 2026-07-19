@@ -575,6 +575,39 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            public void HasLength_ファイルのサイズを検証()
+            {
+                var dir = Path.Combine(
+                    Application.temporaryCachePath,
+                    TestContext.CurrentContext.Test.ClassName,
+                    TestContext.CurrentContext.Test.Name);
+                Directory.CreateDirectory(dir);
+                var file = Path.Combine(dir, "test");
+                File.WriteAllBytes(file, new byte[4]);
+                var fileInfo = new FileInfo(file);
+
+                Assert.That(fileInfo, Has.Length.EqualTo(4));
+                // 失敗時メッセージ例:
+                //  Expected: property Length equal to 4
+                //  But was:  5
+
+                // Note: ファイルに対するHas.Lengthは、プレイヤービルドかつManaged Stripping LevelがDisabled以外のとき、次の例外をスローすることがある:
+                //   System.ArgumentException : Property Length was not found
+                //   Parameter name: name
+                //  内部でSystem.IO.FileInfo.get_Lengthをリフレクションで呼ぶが、ほかで未使用ならUnityLinkerによって削除されるため。
+                //  回避策として、次のようにAssets/link.xmlに保持指定を追加する:
+                //   <linker>
+                //     <assembly fullname="mscorlib">
+                //       <type fullname="System.IO.FileInfo">
+                //         <method name="get_Length" />
+                //       </type>
+                //     </assembly>
+                //   </linker>
+
+                Directory.Delete(dir, true);
+            }
+
+            [Test]
             public void SamePathConstraint_パス文字列が等しいこと()
             {
                 var actual = "\\folder1\\.\\junk\\..\\folder2";

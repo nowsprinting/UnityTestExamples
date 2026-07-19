@@ -1,0 +1,7 @@
+<linker>
+  <assembly fullname="mscorlib">
+    <type fullname="System.IO.FileInfo">
+      <method name="get_Length" />
+    </type>
+  </assembly>
+</linker>
