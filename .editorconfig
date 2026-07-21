@@ -276,6 +276,11 @@ resharper_access_to_static_member_via_derived_type_highlighting = none
 # NUnit2045: Use Assert.Multiple
 dotnet_diagnostic.NUnit2045.severity = none
 
+# VSTHRD200: Use "Async" suffix for async methods
+# Test methods follow the Subject_Scenario naming convention and are invoked by the test runner via
+# reflection, not awaited by caller code, so the "Async" suffix convention does not apply to them.
+dotnet_diagnostic.VSTHRD200.severity = none
+
 [src/{Compilers,ExpressionEvaluator,Scripting}/**Test**/*.{cs,vb}]
 
 # IDE0060: Remove unused parameter
