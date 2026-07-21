@@ -43,10 +43,10 @@
       "WebFetch(domain:unity.com)",
       "WebFetch(domain:game.ci)",
       "WebFetch(domain:api.github.com)",
-      "mcp__deepwiki__*",
+      "mcp__deepwiki",
       "mcp__ide__getDiagnostics",
-      "mcp__jetbrains__*",
-      "mcp__rider__*"
+      "mcp__jetbrains",
+      "mcp__rider"
     ],
     "deny": [
       "Bash(sudo *)",
