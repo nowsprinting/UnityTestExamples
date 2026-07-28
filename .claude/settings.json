@@ -45,8 +45,6 @@
       "WebFetch(domain:game.ci)",
       "WebFetch(domain:api.github.com)",
       "mcp__deepwiki",
-      "mcp__ide__getDiagnostics",
-      "mcp__jetbrains",
       "mcp__rider"
     ],
     "deny": [
@@ -111,8 +109,8 @@
       "Read(*token*)",
       "Edit(packages-lock.json)",
       "Edit(*.meta)",
-      "mcp__jetbrains__build_solution",
-      "mcp__jetbrains__execute_terminal_command"
+      "mcp__rider__build_solution",
+      "mcp__rider__execute_terminal_command"
     ],
     "additionalDirectories": []
   },
