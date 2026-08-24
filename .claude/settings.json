@@ -112,6 +112,14 @@
       "mcp__rider__build_solution",
       "mcp__rider__execute_terminal_command"
     ],
+    "ask": [
+      "Edit(Assets/packages.config)",
+      "Edit(Packages/manifest.json)",
+      "Edit(.editorconfig)",
+      "Edit(*.asmdef)",
+      "Edit(*.globalconfig)",
+      "Edit(*.BannedApiAnalyzers.Unity.additionalfile)"
+    ],
     "additionalDirectories": []
   },
   "enabledPlugins": {
