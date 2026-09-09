@@ -89,7 +89,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # Default is `auto`
           checkName: test result (${{ matrix.unityVersion }}, ${{ matrix.testMode }})
-          customParameters: -testCategory "!IgnoreCI;!Integration" -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
+          customParameters: -testCategory !IgnoreCI;!Integration -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
           # Note: `/github/workspace/artifacts` is the artifacts path inside the game-ci container
           coverageOptions: generateAdditionalMetrics;generateTestReferences;generateHtmlReport;generateAdditionalReports;dontClear;assemblyFilters:${{ env.assembly_filters }}
           # see: https://docs.unity3d.com/Packages/com.unity.testtools.codecoverage@1.2/manual/CoverageBatchmode.html

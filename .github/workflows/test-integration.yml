@@ -68,7 +68,7 @@ jobs:
           githubToken: ${{ secrets.GITHUB_TOKEN }}
           unityVersion: ${{ matrix.unityVersion }}  # Default is `auto`
           checkName: test result (${{ matrix.unityVersion }}, ${{ matrix.testMode }})
-          customParameters: -testCategory "Integration;!IgnoreCI" -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
+          customParameters: -testCategory Integration;!IgnoreCI -testHelperScreenshotDirectory /github/workspace/artifacts/Screenshots
           # Note: `/github/workspace/artifacts` is the artifacts path inside the game-ci container
           testMode: ${{ matrix.testMode }}
         env:
