@@ -105,7 +105,7 @@ jobs:
         if: ${{ matrix.octocov }}
 
       - name: Run octocov
-        uses: k1LoW/octocov-action@73d561f65d59e66899ed5c87e4621a913b5d5c20 # v1
+        uses: k1LoW/octocov-action@a167dc0dee441b7ffc45e1b862ab55ec0d87f278 # v1.5.2
         if: ${{ matrix.octocov }}
 
       - name: Upload test results
