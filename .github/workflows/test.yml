@@ -45,10 +45,11 @@ jobs:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 6000.0.43f1 # Latest version that does not pin the test framework package.
           - 6000.0.44f1 # pin test-framework v1.5.1
-          - 6000.0.59f2 # pin test-framework v1.6.0
-          - 6000.0.78f1
-          - 6000.3.18f1
-          - &latest_unity_version 6000.5.1f1    # pin test-framework v1.7.0
+#         - 6000.0.59f2 # pin test-framework v1.6.0
+          - 6000.0.83f1
+          - 6000.3.23f1
+          - 6000.5.0f1  # pin test-framework v1.7.0
+          - &latest_unity_version 6000.6.0f1  # pin test-framework v1.8.0
         testMode:
           - All                                 # run tests in editor
         include:
