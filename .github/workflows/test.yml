@@ -45,7 +45,7 @@ jobs:
         unityVersion: # Available versions see: https://game.ci/docs/docker/versions
           - 6000.0.43f1 # Latest version that does not pin the test framework package.
           - 6000.0.44f1 # pin test-framework v1.5.1
-#         - 6000.0.59f2 # pin test-framework v1.6.0
+          - 6000.0.59f2 # pin test-framework v1.6.0
           - 6000.0.83f1
           - 6000.3.23f1
           - 6000.5.0f1  # pin test-framework v1.7.0
@@ -53,6 +53,8 @@ jobs:
         testMode:
           - All                                 # run tests in editor
         include:
+          - unityVersion: 6000.0.59f2
+            licensingMethod: personal  # licensing client 1.17.2 rejects the .ulf (file) with a missing headless entitlement
           - unityVersion: *latest_unity_version
             octocov: true
 
@@ -82,6 +84,11 @@ jobs:
 
       - name: Set license secret key
         run: echo "secret_key=UNITY_LICENSE_$(echo ${{ matrix.unityVersion }} | cut -c 1-4)" >> "$GITHUB_ENV"
+
+      - name: Force licensing method
+        run: echo "GAME_CI_UNITY_LICENSING_METHOD=${{ matrix.licensingMethod }}" >> "$GITHUB_ENV"
+        if: ${{ matrix.licensingMethod }}
+        # Not passed via `env:` on the test step: an empty GAME_CI_* value is still parsed and fails the CLI's choices check
 
       - name: Run tests
         uses: game-ci/unity-test-runner@32e57712352b500e17974b245a6dce9e11a73213  # v4.4.0
