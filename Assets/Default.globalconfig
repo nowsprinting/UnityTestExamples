@@ -1,3 +1,7 @@
 is_global = true
+
+# CS0618: Type or member is obsolete
 dotnet_diagnostic.CS0618.severity = error
-dotnet_diagnostic.VSTHRD200.severity = suggestion
+
+# UTF2006: Property constraints, Ordered.By, and List.Map(...).Property lookup properties that managed code stripping can remove
+dotnet_diagnostic.UTF2006.severity = warning
