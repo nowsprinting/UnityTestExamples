@@ -44,7 +44,7 @@ namespace APIExamples.UnityTestFramework
             void UseString()
             {
                 var s = "string";
-                s += s;
+                _ = s + s;
             }
 
             Assert.That(UseString, Is.AllocatingGCMemory());
@@ -68,7 +68,7 @@ namespace APIExamples.UnityTestFramework
         {
             void UseColor()
             {
-                var c = new Color(1f, 0f, 0f, 1f);
+                _ = new Color(1f, 0f, 0f, 1f);
             }
 
             Assert.That(UseColor, Is.Not.AllocatingGCMemory());
@@ -88,7 +88,9 @@ namespace APIExamples.UnityTestFramework
                 }
             }
 
+#pragma warning disable UTF2003 // Ignore属性で除外した、asyncメソッドでは期待どおり動作しないことを示す例のため
             Assert.That(async () => await UsePrimitives(), Is.Not.AllocatingGCMemory());
+#pragma warning restore UTF2003
         }
 
         [Explicit("Is.AllocatingGCMemory()をasyncメソッドに使用しても常に成功してしまう（Unity Test Framework v1.6.0時点）")]
@@ -99,10 +101,12 @@ namespace APIExamples.UnityTestFramework
             {
                 await Task.Yield();
                 var s = "string";
-                s += s;
+                _ = s + s;
             }
 
+#pragma warning disable UTF2003 // Explicit属性で除外した、asyncメソッドでは期待どおり動作しないことを示す例のため
             Assert.That(async () => await UseString(), Is.AllocatingGCMemory());
+#pragma warning restore UTF2003
         }
     }
 }

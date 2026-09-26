@@ -31,7 +31,7 @@ namespace BasicExample.Entities
         public void TakeDamage_防御力3に対して攻撃力1_ダメージなし()
         {
             // Setup
-            var sut = new CharacterStatus(Element.None, defense: 3);
+            var sut = new CharacterStatus(defense: 3);
 
             // Exercise
             var damage = sut.TakeDamage(Element.None, attack: 1);
@@ -45,7 +45,7 @@ namespace BasicExample.Entities
         {
             // Setup
             var beforeHp = 100;
-            var sut = new CharacterStatus(Element.None, defense: 3, hp: beforeHp);
+            var sut = new CharacterStatus(defense: 3, hp: beforeHp);
 
             // Exercise
             sut.TakeDamage(Element.None, attack: 1);
@@ -58,7 +58,7 @@ namespace BasicExample.Entities
         [Test]
         public void TakeDamage_防御力0に対して攻撃力1_ダメージあり()
         {
-            var sut = new CharacterStatus(Element.None, defense: 0);
+            var sut = new CharacterStatus(defense: 0);
 
             var damage = sut.TakeDamage(Element.None, attack: 1);
 
@@ -69,7 +69,7 @@ namespace BasicExample.Entities
         public void TakeDamage_防御力2に対して攻撃力3_HPが1減少()
         {
             var beforeHp = 100;
-            var sut = new CharacterStatus(Element.None, defense: 2, hp: beforeHp);
+            var sut = new CharacterStatus(defense: 2, hp: beforeHp);
 
             sut.TakeDamage(Element.None, attack: 3);
 
@@ -82,7 +82,7 @@ namespace BasicExample.Entities
         public void TakeDamage_防御力より攻撃力が大きい_HPが差分だけ減少(int defence, int attackPower, int expected)
         {
             var beforeHp = 100;
-            var sut = new CharacterStatus(Element.None, defense: defence, hp: beforeHp);
+            var sut = new CharacterStatus(defense: defence, hp: beforeHp);
 
             sut.TakeDamage(Element.None, attack: attackPower);
 

@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Cysharp.Threading.Tasks;
 using NUnit.Framework;
 using TestHelper.Random;
 using TestHelper.UI;

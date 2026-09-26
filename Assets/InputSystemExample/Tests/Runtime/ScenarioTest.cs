@@ -32,6 +32,7 @@ namespace InputSystemExample
         private const string InputTracesPath = "Assets/InputSystemExample/Tests/InputTraces";
 
         [TestCase("Keyboard.inputtrace")]
+        [Timeout(30000)]
         public async Task PlaybackTesting_ゴールに到達すること(string path)
         {
             // フレームレートをキャプチャ環境に合わせる（Updateで入力を処理しているとき必要）
@@ -47,7 +48,7 @@ namespace InputSystemExample
 
                 var isFinished = false;
 
-                using (var replayController = eventTrace.Replay()
+                using (eventTrace.Replay()
                            .OnFinished(() => { isFinished = true; }) // 再生終了したらフラグを立てる
                            .PlayAllEventsAccordingToTimestamps())
                 {

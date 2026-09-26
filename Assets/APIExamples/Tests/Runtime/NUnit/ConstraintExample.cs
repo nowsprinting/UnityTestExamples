@@ -575,6 +575,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)]
             public void HasLength_ファイルのサイズを検証()
             {
                 var dir = Path.Combine(
@@ -849,8 +850,10 @@ namespace APIExamples.NUnit
                     throw new ArgumentException("message!");
                 }
 
+#pragma warning disable UTF2002 // Ignore属性で除外した、使用できないことを示す例のため
                 Assert.That(async () => await GetThrowWithMessageAsync(),
                     Throws.TypeOf<ArgumentException>().And.Message.EqualTo("message!"));
+#pragma warning restore UTF2002
                 // Note: 非同期（async）メソッドに対してThrows制約が使用できない
                 //  See: https://unity3d.atlassian.net/servicedesk/customer/portal/2/IN-28107
             }
@@ -865,7 +868,9 @@ namespace APIExamples.NUnit
                     throw new ArgumentException("message!");
                 }
 
+#pragma warning disable UTF2001 // Ignore属性で除外した、使用できないことを示す例のため
                 Assert.ThrowsAsync<ArgumentException>(async () => await GetThrowWithMessageAsync());
+#pragma warning restore UTF2001
                 // Note: 非同期（async）メソッドに対してThrowsAsyncも使用できない
                 // Note: クラシックモデルではMessage文字列の評価はできない
             }
@@ -908,6 +913,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)] // Has.Propertyはリフレクションでプロパティを参照し、プレイヤーではマネージドコードストリッピングで削除され得るため
             public void PropertyExistsConstraint_プロパティを持っていること()
             {
                 var actual = new 属性とプロパティ();
@@ -919,6 +925,7 @@ namespace APIExamples.NUnit
             }
 
             [Test]
+            [UnityPlatform(RuntimePlatform.OSXEditor, RuntimePlatform.WindowsEditor, RuntimePlatform.LinuxEditor)] // Has.Propertyはリフレクションでプロパティを参照し、プレイヤーではマネージドコードストリッピングで削除され得るため
             public void PropertyConstraint_プロパティの値が正しい()
             {
                 var actual = new 属性とプロパティ();
@@ -1015,7 +1022,9 @@ namespace APIExamples.NUnit
             {
                 var start = Time.realtimeSinceStartup; // Note: 非同期ではなく同一フレームで遅延処理されるため Time.time は変化しません
 
+#pragma warning disable UTF2005 // realtimeSinceStartupは同一フレーム内でも進むため、DelayedConstraintでも条件が変化する
                 Assert.That(() => Time.realtimeSinceStartup, Is.GreaterThan(start + 0.2f).After(500));
+#pragma warning restore UTF2005
                 // 失敗時メッセージ例:
                 //  Expected: greater than 2.33228302f after 2500 millisecond delay
                 //  But was:  0.33228299f

@@ -83,6 +83,8 @@ namespace TestDoubleExample.Janken
 
             spy.Received().Range(0.0f, 1.0f);                                           // 引数 (0f, 1f) で呼ばれたことを検証
             spy.DidNotReceive().Range(Arg.Is<float>(x => x != 0.0f), Arg.Any<float>()); // 第一引数は 0f 以外では呼ばれていないことを検証
+            // 引数に渡されたリテラル値そのものかを検証するため、誤差を許容しない
+            // ReSharper disable once CompareOfFloatsByEqualityOperator
             spy.DidNotReceive().Range(Arg.Any<float>(), Arg.Is<float>(x => x != 1.0f)); // 第二引数は 1f 以外では呼ばれていないことを検証
         }
     }

@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.TestTools;
 
 // ReSharper disable ConditionIsAlwaysTrueOrFalse
+// ReSharper disable HeuristicUnreachableCode
 #pragma warning disable 162
 
 namespace APIExamples.UnityTestFramework
@@ -94,6 +95,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [UnityTest]
+        [Timeout(1000)]
         public IEnumerator Expect_非同期テストで先に記述_Yieldを挟んでも同一フレームなら有効_UnityTest()
         {
             LogAssert.Expect(LogType.Error, "expected message");
@@ -143,6 +145,7 @@ namespace APIExamples.UnityTestFramework
         }
 
         [UnityTest]
+        [Timeout(1000)]
         public IEnumerator Expect_非同期テストでもログメッセージは複数フレーム有効_UnityTest()
         {
             Debug.Log("expected message");

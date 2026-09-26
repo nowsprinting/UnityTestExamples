@@ -40,16 +40,5 @@ namespace UGUIExample
             var eventData = new PointerEventData(EventSystem.current);
             eventTrigger.OnBeginDrag(eventData); // リスナを登録していないイベント
         }
-
-        /// <summary>
-        /// GameObjectのワールド座標をスクリーン座標に変換して返す
-        /// 2D/3D要素専用で、UI要素は考慮していない
-        /// </summary>
-        /// <param name="gameObject">操作対象のGameObject</param>
-        /// <returns>スクリーン座標</returns>
-        private static Vector2 GetScreenPoint(GameObject gameObject) // TODO: Buttonでは使わないが一時的に残しておく
-        {
-            return RectTransformUtility.WorldToScreenPoint(Camera.main, gameObject.transform.position);
-        }
     }
 }

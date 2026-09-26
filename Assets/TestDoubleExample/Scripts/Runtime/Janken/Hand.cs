@@ -7,6 +7,6 @@ namespace TestDoubleExample.Janken
     {
         Rock = 0, // ぐー
         Scissors, // ちょき
-        Paper // ぱー
+        Paper     // ぱー
     }
 }

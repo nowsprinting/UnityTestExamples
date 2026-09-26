@@ -11,6 +11,7 @@ using UnityEditor.PackageManager;
 namespace APIExamples.Editor.UnityTestFramework
 {
     [TestFixture]
+    [Timeout(10000)]
     public class UnityTestFrameworkVersionCheck
     {
         private static async UniTask<string> GetTestFrameworkPackageVersionAsync()

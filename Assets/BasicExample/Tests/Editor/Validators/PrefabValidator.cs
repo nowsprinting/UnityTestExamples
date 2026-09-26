@@ -20,7 +20,7 @@ namespace BasicExample.Editor.Validators
     public class PrefabValidator
     {
         private static IEnumerable<TestCaseData> Prefabs => AssetDatabase
-            .FindAssets("t:Prefab", new string[] { "Assets/" })
+            .FindAssets("t:Prefab", new[] { "Assets/" })
             .Select(AssetDatabase.GUIDToAssetPath)
             .Select(path => new TestCaseData(path).SetName(Path.GetFileName(path)));
 

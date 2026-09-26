@@ -17,7 +17,7 @@ namespace APIExamples.NUnit
     [TestFixture]
     public class OrderAttributeExample
     {
-        private static int s_count = 0;
+        private static int s_count;
 
         [Test]
         [Order(2)]
