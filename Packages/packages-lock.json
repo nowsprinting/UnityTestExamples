@@ -26,6 +26,15 @@
       "source": "local",
       "dependencies": {}
     },
+    "com.nowsprinting.test-framework.analyzers": {
+      "version": "1.4.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.test-framework": "1.4.6"
+      },
+      "url": "https://package.openupm.com"
+    },
     "com.nowsprinting.test-helper": {
       "version": "1.5.1",
       "depth": 0,
@@ -190,13 +199,6 @@
     },
     "org.nuget.nsubstitute.analyzers.csharp": {
       "version": "1.0.17",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://package.openupm.com"
-    },
-    "org.nuget.nunit.analyzers": {
-      "version": "3.9.0",
       "depth": 0,
       "source": "registry",
       "dependencies": {},

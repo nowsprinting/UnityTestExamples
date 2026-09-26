@@ -5,8 +5,8 @@ namespace BasicExample.Entities.Enums
 {
     public enum PassiveEffectState
     {
-        Normal, // 通常
+        Normal,        // 通常
         Strengthening, // 強化
-        Weakening, // 弱体
+        Weakening,     // 弱体
     }
 }

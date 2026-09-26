@@ -8,7 +8,7 @@ namespace InputSystemExample
     [RequireComponent(typeof(Collider))]
     public class GoalPlate : MonoBehaviour
     {
-        public bool IsGoal { get; private set; } = false;
+        public bool IsGoal { get; private set; }
 
         private void OnTriggerEnter(Collider other)
         {

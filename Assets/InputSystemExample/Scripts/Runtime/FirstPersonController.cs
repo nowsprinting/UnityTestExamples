@@ -23,7 +23,7 @@ namespace InputSystemExample
         private float rotateSpeed = 30.0f;
 
         private const float Gravity = -9.81f;
-        private float _yVelocity = 0f;
+        private float _yVelocity;
 
         private void Awake()
         {

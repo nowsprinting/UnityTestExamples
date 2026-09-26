@@ -4,9 +4,8 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-      "BasicExample",
-      "TestHelper",
-      "NUnit.Analyzers_Unity"
+        "BasicExample",
+        "TestHelper"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

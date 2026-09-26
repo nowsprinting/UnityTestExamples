@@ -30,9 +30,11 @@ namespace APIExamples.NUnit
         public void Timeout属性_同期テストではタイムアウトで割り込みは発生しないが終了時に指定時間を超えていたらテスト失敗()
         {
             var endTime = DateTime.Now.AddSeconds(0.5d);
+#pragma warning disable UTF4003 // 同期テストでTimeout属性の制限時間を超えさせる例のため、yieldもawaitもせずに待つ
             while (DateTime.Now < endTime)
             {
             }
+#pragma warning restore UTF4003
         }
 
         [UnityTest]

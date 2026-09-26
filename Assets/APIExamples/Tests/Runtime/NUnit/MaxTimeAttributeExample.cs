@@ -26,9 +26,11 @@ namespace APIExamples.NUnit
         public void MaxTime属性_指定ミリ秒よりも時間のかかるテストは実行後に失敗()
         {
             var endTime = DateTime.Now.AddMilliseconds(200);
+#pragma warning disable UTF4003 // 同期テストでMaxTime属性の制限時間を超えさせる例のため、yieldもawaitもせずに待つ
             while (DateTime.Now < endTime)
             {
             }
+#pragma warning restore UTF4003
         }
 
         [UnityTest]

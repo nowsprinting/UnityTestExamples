@@ -21,7 +21,7 @@ namespace BasicExample.Editor.Validators
     public class SceneValidator
     {
         private static IEnumerable<TestCaseData> Scenes => AssetDatabase
-            .FindAssets("t:SceneAsset", new string[] { "Assets/" })
+            .FindAssets("t:SceneAsset", new[] { "Assets/" })
             .Select(AssetDatabase.GUIDToAssetPath)
             .Select(path => new TestCaseData(path).SetName(Path.GetFileName(path)));
 

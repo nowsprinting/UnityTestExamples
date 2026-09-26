@@ -47,6 +47,8 @@ namespace SceneExample
         [Test]
         public void Load_プレイヤー実行でPrefabをロードして使用する例()
         {
+            // IPrebuildSetupでビルド時に生成するResourcesのため、プロジェクト上には存在しない
+            // ReSharper disable once Unity.UnknownResource
             var prefab = Resources.Load<GameObject>("Prefabs/PrefabExample");
             // ビルド時に生成するResourcesからのパス、拡張子なし
 
@@ -59,6 +61,8 @@ namespace SceneExample
         [Test]
         public void Load_プレイヤー実行でテキストファイルをロードして使用する例()
         {
+            // IPrebuildSetupでビルド時に生成するResourcesのため、プロジェクト上には存在しない
+            // ReSharper disable once Unity.UnknownResource
             var text = Resources.Load<TextAsset>("TextAssets/TextExample");
             // ビルド時に生成するResourcesからのパス、拡張子なし
 

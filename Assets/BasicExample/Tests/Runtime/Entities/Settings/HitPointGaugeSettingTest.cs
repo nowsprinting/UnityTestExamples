@@ -25,7 +25,7 @@ namespace BasicExample.Entities.Settings
             public void GetHitPointGaugeColor_HP残量に対する表示色は正しい(float percentage, Color expected)
             {
                 var sut = ScriptableObject.CreateInstance<HitPointGaugeSetting>();
-                var actual = sut.GetHitPointGaugeColor(percentage, false);
+                var actual = sut.GetHitPointGaugeColor(percentage);
 
                 Assert.That(actual, Is.EqualTo(expected).Using(ColorEqualityComparer.Instance));
             }
@@ -49,7 +49,7 @@ namespace BasicExample.Entities.Settings
             public void GetHitPointGaugeColor_HP残量に対する表示色は正しい(float percentage, Color expected)
             {
                 var sut = ScriptableObject.CreateInstance<HitPointGaugeSetting>();
-                var actual = sut.GetHitPointGaugeColor(percentage, false);
+                var actual = sut.GetHitPointGaugeColor(percentage);
 
                 Assert.That(actual, Is.EqualTo(expected).Using(ColorEqualityComparer.Instance));
             }
