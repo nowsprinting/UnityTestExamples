@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2025 Koji Hasegawa.
+// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace BasicExample.Editor.Validators
         private static IEnumerable<TestCaseData> Scenes => AssetDatabase
             .FindAssets("t:SceneAsset", new[] { "Assets/" })
             .Select(AssetDatabase.GUIDToAssetPath)
-            .Select(path => new TestCaseData(path).SetName(Path.GetFileName(path)));
+            .Select(path => new TestCaseData(path).SetName($"{{m}}({Path.GetFileName(path)})"));
 
         private static void AssertMissingScriptRecursive(GameObject gameObject)
         {

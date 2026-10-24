@@ -28,7 +28,7 @@ namespace BasicExample.Editor.Validators
         private static IEnumerable<TestCaseData> Levels => AssetDatabase
             .FindAssets("t:SceneAsset", new[] { "Assets/BasicExample/Scenes/Levels" })
             .Select(AssetDatabase.GUIDToAssetPath)
-            .Select(path => new TestCaseData(path).SetName(Path.GetFileName(path)));
+            .Select(path => new TestCaseData(path).SetName($"{{m}}({Path.GetFileName(path)})"));
 
         [TestCaseSource(nameof(Levels))]
         public void Levels下のSceneにSpawnPointが1つ設置されていること(string path)

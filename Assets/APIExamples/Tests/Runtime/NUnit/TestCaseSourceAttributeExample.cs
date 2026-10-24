@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2021-2025 Koji Hasegawa.
+﻿// Copyright (c) 2021-2026 Koji Hasegawa.
 // This software is released under the MIT License.
 
 using System.Collections.Generic;
@@ -73,9 +73,9 @@ namespace APIExamples.NUnit
         // 名前付きTestCaseData
         private static TestCaseData[] s_weaknessElementCombinationCasesWithName =
         {
-            new TestCaseData(Element.Fire, Element.Water).SetName("火 ← 水"),
-            new TestCaseData(Element.Water, Element.Wood).SetName("水 ← 木"),
-            new TestCaseData(Element.Wood, Element.Fire).SetName("木 ← 火"),
+            new TestCaseData(Element.Fire, Element.Water).SetName("{m}(火 ← 水)"),
+            new TestCaseData(Element.Water, Element.Wood).SetName("{m}(水 ← 木)"),
+            new TestCaseData(Element.Wood, Element.Fire).SetName("{m}(木 ← 火)"),
         };
 
         [TestCaseSource(nameof(s_weaknessElementCombinationCasesWithName))]
