@@ -122,12 +122,6 @@ namespace APIExamples.Editor.UnityTestFramework
 
         private static IEnumerator WaitForPendingDomainReload()
         {
-            // Note: InternalEditorUtility.IsScriptReloadRequested()はinternalのため、リフレクションで呼び出す
-            var isScriptReloadRequested = typeof(UnityEditorInternal.InternalEditorUtility)
-                .GetMethod("IsScriptReloadRequested", BindingFlags.Static | BindingFlags.NonPublic)
-                ?.Invoke(null, null);
-            Debug.Log($"After RecompileScripts: isDomainReloadPending={s_isDomainReloadPending}, isScriptReloadRequested={isScriptReloadRequested}, isCompiling={EditorApplication.isCompiling}");
-
             // Note: RecompileScriptsはコンパイル完了までしか待たず、ドメインリロードが遅れて実行されることがあるため待機する。
             // WaitForDomainReloadを使わないのは、ドメインリロードがRecompileScripts中に完了していると例外をスローするため
             while (s_isDomainReloadPending)
