@@ -28,6 +28,7 @@ namespace APIExamples.Editor.UnityTestFramework
         private static bool s_wasSetUpAsyncCalled;
 
         private const string CsPath = "Assets/CreateFileExample.cs";
+        private const string RspPath = "Assets/csc.rsp";
         private const string DLLSrcPath = "TestData/NativePluginExample.dll";
         private const string DLLDstPath = "Assets/NativePluginExample.dll";
 
@@ -77,6 +78,7 @@ namespace APIExamples.Editor.UnityTestFramework
         {
             AssetDatabase.DeleteAsset(CsPath);
             AssetDatabase.DeleteAsset(DLLDstPath);
+            AssetDatabase.DeleteAsset(RspPath);
             // Note: ドメインリロードを伴うテストなので、SetUpで初期化は行わない。ドメインリロード後に再度SetUpが呼ばれるため
         }
 
@@ -137,6 +139,33 @@ namespace APIExamples.Editor.UnityTestFramework
             var fooType = assembly.GetType("Foo");
             dynamic foo = Activator.CreateInstance(fooType);
             bool actual = foo.Bar("Baz");
+
+            Assert.That(actual, Is.True);
+        }
+
+        [UnityTest]
+        public IEnumerator RecompileScriptsでリコンパイルを実行する例_csc_rspで追加したスクリプティングシンボルが有効になる()
+        {
+            Assume.That(Path.GetFullPath(RspPath), Does.Not.Exist,
+                "Destination file already exists. please remove and re-run this test.");
+            Assume.That(Path.GetFullPath(CsPath), Does.Not.Exist,
+                "Destination file already exists. please remove and re-run this test.");
+
+            File.WriteAllText(Path.GetFullPath(RspPath), "-define:CSC_RSP_EXAMPLE");
+            File.WriteAllText(Path.GetFullPath(CsPath),
+                "public static class Foo { public static bool IsDefined() {\n" +
+                "#if CSC_RSP_EXAMPLE\n" +
+                "return true;\n" +
+                "#else\n" +
+                "return false;\n" +
+                "#endif\n" +
+                "} }");
+
+            yield return new RecompileScripts();
+
+            var assembly = Assembly.Load(new AssemblyName("Assembly-CSharp"));
+            var fooType = assembly.GetType("Foo");
+            var actual = (bool)fooType.GetMethod("IsDefined")!.Invoke(null, null);
 
             Assert.That(actual, Is.True);
         }
