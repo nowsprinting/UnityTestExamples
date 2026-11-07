@@ -26,9 +26,10 @@ namespace APIExamples.Editor.UnityTestFramework
         private static bool s_wasUnitySetUpCalled;
         private static bool s_wasSetUpCalled;
         private static bool s_wasSetUpAsyncCalled;
+        private static bool s_isDomainReloadPending;
 
-        private const string CsPath = "Assets/CreateFileExample.cs";
-        private const string RspPath = "Assets/csc.rsp";
+        private const string CsPath = "Assets/APIExamples/Scripts/Runtime/CreateFileExample.cs";
+        private const string RspPath = "Assets/APIExamples/Scripts/Runtime/csc.rsp";
         private const string DLLSrcPath = "TestData/NativePluginExample.dll";
         private const string DLLDstPath = "Assets/NativePluginExample.dll";
 
@@ -119,7 +120,24 @@ namespace APIExamples.Editor.UnityTestFramework
             Assert.That(EditorApplication.isPlaying, Is.False);
         }
 
+        private static IEnumerator WaitForPendingDomainReload()
+        {
+            // Note: InternalEditorUtility.IsScriptReloadRequested()はinternalのため、リフレクションで呼び出す
+            var isScriptReloadRequested = typeof(UnityEditorInternal.InternalEditorUtility)
+                .GetMethod("IsScriptReloadRequested", BindingFlags.Static | BindingFlags.NonPublic)
+                ?.Invoke(null, null);
+            Debug.Log($"After RecompileScripts: isDomainReloadPending={s_isDomainReloadPending}, isScriptReloadRequested={isScriptReloadRequested}, isCompiling={EditorApplication.isCompiling}");
+
+            // Note: RecompileScriptsはコンパイル完了までしか待たず、ドメインリロードが遅れて実行されることがあるため待機する。
+            // WaitForDomainReloadを使わないのは、ドメインリロードがRecompileScripts中に完了していると例外をスローするため
+            while (s_isDomainReloadPending)
+            {
+                yield return null;
+            }
+        }
+
         [UnityTest]
+        [Timeout(60000)]
         public IEnumerator RecompileScriptsでリコンパイルを実行する例_リコンパイルされたクラスのメソッドを呼び出せる()
         {
             Assume.That(Path.GetFullPath(CsPath), Does.Not.Exist,
@@ -130,11 +148,14 @@ namespace APIExamples.Editor.UnityTestFramework
                 file.Write("public class Foo { public bool Bar(string msg) { return true; } }");
             }
 
+            s_isDomainReloadPending = true;
+
             // ここでAssetDatabase.Refresh()は不要
             yield return new RecompileScripts();
+            yield return WaitForPendingDomainReload();
 
             // リフレクションでメソッド呼び出し
-            var assemblyName = new AssemblyName("Assembly-CSharp");
+            var assemblyName = new AssemblyName("APIExamples");
             var assembly = Assembly.Load(assemblyName);
             var fooType = assembly.GetType("Foo");
             dynamic foo = Activator.CreateInstance(fooType);
@@ -144,6 +165,7 @@ namespace APIExamples.Editor.UnityTestFramework
         }
 
         [UnityTest]
+        [Timeout(60000)]
         public IEnumerator RecompileScriptsでリコンパイルを実行する例_csc_rspで追加したスクリプティングシンボルが有効になる()
         {
             Assume.That(Path.GetFullPath(RspPath), Does.Not.Exist,
@@ -161,9 +183,14 @@ namespace APIExamples.Editor.UnityTestFramework
                 "#endif\n" +
                 "} }");
 
-            yield return new RecompileScripts();
+            s_isDomainReloadPending = true;
 
-            var assembly = Assembly.Load(new AssemblyName("Assembly-CSharp"));
+            // ここでAssetDatabase.Refresh()は不要
+            yield return new RecompileScripts();
+            yield return WaitForPendingDomainReload();
+
+            // リフレクションでメソッド呼び出し
+            var assembly = Assembly.Load(new AssemblyName("APIExamples"));
             var fooType = assembly.GetType("Foo");
             var actual = (bool)fooType.GetMethod("IsDefined")!.Invoke(null, null);
 
