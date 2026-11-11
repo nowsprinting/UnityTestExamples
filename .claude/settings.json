@@ -74,7 +74,6 @@
       "Bash(psql *)",
       "Bash(mysql *)",
       "Bash(mongod *)",
-      "Bash(osascript *)",
       "Bash(ssh *)",
       "Bash(scp *)",
       "Bash(ncat *)",
